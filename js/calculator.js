@@ -57,15 +57,16 @@ function calcularPrioridad() {
     var sumaNotasCreditosSemestre = sumaNotasCreditos;
     SELECTED.forEach(ramo => {
         let nota = Number(document.getElementById('nota-' + ramo.sigla).value);
-        sumaNotasCreditosSemestre += nota * ramo.creditos;
-        creditosTotalesSemestre += ramo.creditos;
+        sumaNotasCreditosSemestre += nota * ramo.creditos * 5/3;
+        creditosTotalesSemestre += ramo.creditos * 5/3;
         if (nota > 54) {
-            creditosAprovadosSemestre += ramo.creditos;
+            creditosAprovadosSemestre += ramo.creditos * 5/3;
         }
     });
     saveSemester();
-    let prioridad = 100 * (sumaNotasCreditosSemestre/(23 * Math.pow(semestre,1.06))) * (creditosAprovadosSemestre/creditosTotalesSemestre) * factorActividadExt;
+    let prioridad = 100 * (sumaNotasCreditosSemestre/(14 * 5/3 * Math.pow(semestre,1.06))) * (creditosAprovadosSemestre/creditosTotalesSemestre) * factorActividadExt;
     // Mostrar resultado
+    console.log(prioridad)
     prioridad = Math.round(prioridad * 100) / 100.0;
     if (d3.select('#resPrioridad').select('div')._groups[0][0]) {
         d3.select('#resPrioridad').select('h4').text('Tu prioridad en S' + semestre + ' es: ' + prioridad)
