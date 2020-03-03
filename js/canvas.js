@@ -52,14 +52,14 @@ if (d3.select(".canvas")._groups[0][0]) {
 	Si quieres un ramo que no esta en la malla, crealo en la tabla de abajo.`;
 }
 if (!(prioridad|personal)) {
-	d3.select('#goToCalculator').attr('href', '/malla-interactiva/prioridad/?m=' + current_malla)
-	d3.select('#goToGenerator').attr('href', '/malla-interactiva/personalizar/?m=' + current_malla)
+	d3.select('#goToCalculator').attr('href', '/prioridad/?m=' + current_malla)
+	d3.select('#goToGenerator').attr('href', '/personalizar/?m=' + current_malla)
 } else if (prioridad) {
 	d3.select('#goToHome').attr('href', '/?m=' + current_malla)
-	d3.select('#goToGenerator').attr('href', '/malla-interactiva/personalizar/?m=' + current_malla)
+	d3.select('#goToGenerator').attr('href', '/personalizar/?m=' + current_malla)
 } else {
-	d3.select('#goToHome').attr('href', '/malla-interactiva?m=' + current_malla)
-	d3.select('#goToCalculator').attr('href', '/malla-interactiva/prioridad/?m=' + current_malla)
+	d3.select('#goToHome').attr('href', '/?m=' + current_malla)
+	d3.select('#goToCalculator').attr('href', '/prioridad/?m=' + current_malla)
 
 }
 
