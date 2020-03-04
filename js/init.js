@@ -27,7 +27,7 @@ function render(props) {
     };
 }
 
-$.getJSON('/data/carreras.json', function(data) {
+$.getJSON('/malla-interactiva/data/carreras.json', function(data) {
     $.each(data, function(index, value) {
         let tabTpl1 = $('script[data-template="tab-template1"]').text().split(/\${(.+?)}/g);
         let tabTpl2 = $('script[data-template="tab-template2"]').text().split(/\${(.+?)}/g);
