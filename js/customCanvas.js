@@ -17,8 +17,8 @@ if (window.location.search) {
 	
 }
 
-d3.select('#goToHome').attr('href', '/?m=' + current_malla)
-d3.select('#goToGenerator').attr('href', '/personalizar/?m=' + current_malla)
+d3.select('#goToHome').attr('href', '/malla-interactiva/?m=' + current_malla)
+d3.select('#goToGenerator').attr('href', 'malla-interactiva/personalizar/?m=' + current_malla)
 let creditSystem = 'USM'
 if (sct) {
 	creditSystem = 'SCT'
