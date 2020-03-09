@@ -52,14 +52,14 @@ if (d3.select(".canvas")._groups[0][0]) {
 	Si quieres un ramo que no esta en la malla, crealo en la tabla de abajo.`;
 }
 if (!(prioridad|personal)) {
-	d3.select('#goToCalculator').attr('href', '/malla-interactiva/prioridad/?m=' + current_malla)
-	d3.select('#goToGenerator').attr('href', '/malla-interactiva/personalizar/?m=' + current_malla)
+	d3.select('#goToCalculator').attr('href', './prioridad/?m=' + current_malla)
+	d3.select('#goToGenerator').attr('href', './personalizar/?m=' + current_malla)
 } else if (prioridad) {
-	d3.select('#goToHome').attr('href', '/malla-interactiva/?m=' + current_malla)
-	d3.select('#goToGenerator').attr('href', '/malla-interactiva/personalizar/?m=' + current_malla)
+	d3.select('#goToHome').attr('href', '../?m=' + current_malla)
+	d3.select('#goToGenerator').attr('href', '../personalizar/?m=' + current_malla)
 } else {
-	d3.select('#goToHome').attr('href', '/malla-interactiva?m=' + current_malla)
-	d3.select('#goToCalculator').attr('href', '/malla-interactiva/prioridad/?m=' + current_malla)
+	d3.select('#goToHome').attr('href', '../?m=' + current_malla)
+	d3.select('#goToCalculator').attr('href', '../prioridad/?m=' + current_malla)
 
 }
 
@@ -122,9 +122,13 @@ $("#carrera, .carrera").text(carreras[current_malla]);
  * IND: Industrias
  * AN: Análisis Numérico
  */
+let relativePath = './'
+if (personal | prioridad) {
+	relativePath = '../'
+}
 d3.queue()
-	.defer(d3.json, "/malla-interactiva/data/data_" + current_malla + ".json")
-	.defer(d3.json, "/malla-interactiva/data/colors_" + current_malla + ".json")
+	.defer(d3.json, relativePath + "data/data_" + current_malla + ".json")
+	.defer(d3.json, relativePath + "data/colors_" + current_malla + ".json")
   .await(main_function);
 
 function getLightPercentage(colorHex) {

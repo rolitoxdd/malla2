@@ -26,8 +26,12 @@ function render(props) {
         return (i % 2) ? props[tok] : tok;
     };
 }
+var relaPath = './'
+if (document.URL.includes('prioridad') || document.URL.includes('personalizar')) {
+    relaPath = '../'
+}
 
-$.getJSON('/malla-interactiva/data/carreras.json', function(data) {
+$.getJSON( relaPath + '/data/carreras.json', function(data) {
     $.each(data, function(index, value) {
         let tabTpl1 = $('script[data-template="tab-template1"]').text().split(/\${(.+?)}/g);
         let tabTpl2 = $('script[data-template="tab-template2"]').text().split(/\${(.+?)}/g);
