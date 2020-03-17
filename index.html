@@ -21,11 +21,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Malla interactiva</title>
+
   <!-- Primary Meta Tags -->
   <title>Malla interactiva</title>
   <meta name="title" content="Malla interactiva">
-  <meta name="description" content="Visualiza y planifica tu carrera">
+  <meta name="description" content="Visualiza y planifica tu carrera en la USM">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -38,29 +38,26 @@
   <meta property="twitter:card" content="summary_large_image">
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/malla-interactiva/css/darkMode.css">
-  <link rel="stylesheet" href="/malla-interactiva/css/styles.css">
+  <link rel="stylesheet" href="./css/darkMode.css">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
 
   <!-- Icons -->
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/malla-interactiva/apple-touch-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/malla-interactiva/apple-touch-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/malla-interactiva/apple-touch-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/malla-interactiva/apple-touch-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/malla-interactiva/apple-touch-icon-180x180.png">
-  <link rel="shortcut icon" type="image/png" sizes="32x32" href="/malla-interactiva/favicon-32x32.png">
-  <link rel="shortcut icon" type="image/png" sizes="16x16" href="/malla-interactiva/favicon-16x16.png">
-  <link rel="manifest" href="/malla-interactiva/site.webmanifest">
-  <link rel="mask-icon" href="/malla-interactiva/safari-pinned-tab.svg" color="#2f58a7">
-  <meta name="apple-mobile-web-app-title" content="Mallla Interactiva">
-  <meta name="application-name" content="Mallla Interactiva">
+  <link rel="apple-touch-icon" sizes="76x76" href="./apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="./apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="./apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="./apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon-180x180.png">
+  <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#2f58a7">
+  <meta name="apple-mobile-web-app-title" content="Malla Interactiva">
+  <meta name="application-name" content="Malla Interactiva">
   <meta name="msapplication-TileColor" content="#2f58a7">
   <meta name="theme-color" content="#f8f9fa">
-
-
 
 </head>
 <body class="d-flex flex-column">
@@ -112,35 +109,7 @@
 
 
   <!-- Header -->
-  <nav class="navbar navbar-light navbar-expand-md bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mallaNavbar" aria-controls="mallaNavbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <a id='goToHome' class="navbar-brand mb-0 " href="#">Malla Interactiva <span class="carrera"></span></a>
-        
-    <div class="collapse navbar-nav mr-auto navbar-collapse navbar-expand-md " id="mallaNavbar">
-      <a id='goToCalculator' class="nav-link" href="./prioridad/">Calculadora Prioridad</a>
-      <a id='goToGenerator' class="nav-link" href="./personalizar/">Generadora Malla</a>
-      <a class="d-none d-md-block nav-link dropdown-toggle" data-toggle="collapse" href="#" data-target="#carreras" aria-controls="carreras" aria-expanded="false" aria-label="Toggle navigation">
-        Carreras
-      </a>
-      <div class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle d-md-none" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Carreras
-        </a>
-        <div class="dropdown-menu" id="carreras2-nav" aria-labelledby="navbarDropdown">
-        </div>
-      </div>
-      <div class="nav-link" data-toggle="modal" data-target="#contacto"><i class="far fa-envelope"></i> Contacto</div>
-    </div>
-  </nav>
-  <nav class="navbar py-0 navbar-light navbar-expand-md bg-light d-none d-md-block">
-    <div class="collapse" id="carreras">
-      <ul id="carreras1-nav" class="navbar navbar-nav">
-      </ul>
-    </div>
-  </nav>
-  <!-- Header END -->
+  <header data-include="header"></header>
       
 
 
@@ -165,19 +134,18 @@
   
   
   <!-- Footer -->
-  <footer  class="container-fluid text-center mt-3">        
-    <div class="row bg-light align-items-end">
-      <p class="col my-1 text-muted">Creado con el <i class="fas fa-heart"></i>️ por estudiantes para estudiantes <br/> <i class="fas fa-code-branch"></i> <a href="http://github.com/CsarMan/Mallas">Código fuente</a></p>
-    </div>
+  <footer data-include="footer"  class="container-fluid text-center mt-3">         
   </footer>
   <!-- Footer END -->
 
 
     <!-- scripts -->
-  <script src='/malla-interactiva/js/d3.js'></script>
-  <script src='/malla-interactiva/js/ramos.js'></script>
-  <script src='/malla-interactiva/js/canvas.js'></script>
-  <script src="/malla-interactiva/js/init.js"></script>
+
+  </script>
+  <script src='./js/d3.js'></script>
+  <script src='./js/ramos.js'></script>
+  <script src='./js/canvas.js'></script>
+  <script src="./js/init.js"></script>
   <script src="https://kit.fontawesome.com/bf671ef02a.js"></script>
   <script type="text/template" data-template="tab-template1">
     <li><a class="nav-item nav-link" href="?m=${Link}"><span class="d-md-none">Malla </span>${Nombre}</a></li>

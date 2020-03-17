@@ -51,17 +51,7 @@ if (d3.select(".canvas")._groups[0][0]) {
 	welcomeDesc = `¡Selecciona los ramos por semestre y genera una malla a tu gusto!
 	Si quieres un ramo que no esta en la malla, crealo en la tabla de abajo.`;
 }
-if (!(prioridad|personal)) {
-	d3.select('#goToCalculator').attr('href', '/malla-interactiva/prioridad/?m=' + current_malla)
-	d3.select('#goToGenerator').attr('href', '/malla-interactiva/personalizar/?m=' + current_malla)
-} else if (prioridad) {
-	d3.select('#goToHome').attr('href', '/malla-interactiva/?m=' + current_malla)
-	d3.select('#goToGenerator').attr('href', '/malla-interactiva/personalizar/?m=' + current_malla)
-} else {
-	d3.select('#goToHome').attr('href', '/malla-interactiva?m=' + current_malla)
-	d3.select('#goToCalculator').attr('href', '/malla-interactiva/prioridad/?m=' + current_malla)
 
-}
 
 let creditSystem = 'USM'
 if (sct) {
@@ -112,7 +102,7 @@ let total_creditos = 0;
 let total_ramos = 0;
 let id = 1;
 
-$("#carrera, .carrera").text(carreras[current_malla]);
+
 
 /* PC: Plan común
  * FI: Fundamentos de Informática
@@ -122,9 +112,13 @@ $("#carrera, .carrera").text(carreras[current_malla]);
  * IND: Industrias
  * AN: Análisis Numérico
  */
+let relativePath = './'
+if (personal | prioridad) {
+	relativePath = '../'
+}
 d3.queue()
-	.defer(d3.json, "/malla-interactiva/data/data_" + current_malla + ".json")
-	.defer(d3.json, "/malla-interactiva/data/colors_" + current_malla + ".json")
+	.defer(d3.json, relativePath + "data/data_" + current_malla + ".json")
+	.defer(d3.json, relativePath + "data/colors_" + current_malla + ".json")
   .await(main_function);
 
 function getLightPercentage(colorHex) {

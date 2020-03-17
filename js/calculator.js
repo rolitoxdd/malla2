@@ -206,8 +206,8 @@ function loadSemester() {
                 if (ramo.isApproved()) 
                     ramo.approveRamo();
                 ramo.selectRamo();
-                d3.select('#nota-' + sigla).attr('value', toLoad[sigla]);
             }
+            d3.select('#nota-' + sigla).attr('value', toLoad[sigla]);
         }
         document.getElementById('fae').value = faeToLoad;
     }
