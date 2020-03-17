@@ -32,15 +32,13 @@ visualizar los ramos aprobados.
 * [x] Almacenar los ramos aprobados en caché
 * [x] Generalizar el `JSON`, en lo posible agregar compatibilidad con `CSV`
 * [ ] **Comentar código, limpiarlo.**
-* [x] Disfrutar un buen café.
- 
 * [ ] Fix bugs
 * [X] Hacer pagina más usable en moviles
     * [X] Prioridad
 	* [X] Malla personal
 	* [X] Malla interactiva
 * [ ] Facilitar creacion y modificación de mallas oficiales
-* [ ] **Refactorisar codigo** @CsarMan
+* [ ] **Refactorisar codigo**
 
 ## Agregar o cambiar una malla
 
@@ -111,7 +109,7 @@ para abrir `data_INF.json` debería quedar algo como `index.html?m=INF`.
 Se aceptan Pull Requests para agregar carreras.
 
 ### Usando Browser-sync
-Con *NPM* instalado en el equipo, ejecute desde una terminal `npm install -g browser-sync` si no lo tiene instalado. Completado el paso anterior, ejecute `browser-sync -w` desde la carpeta raíz del repositorio y tendrá en su explorador favorito una versión local de la página.
+Con *NPM* instalado en el equipo, ejecute desde una terminal `npm install -g browser-sync` si no lo tiene instalado. Completado el paso anterior, ejecute `browser-sync -w` desde la carpeta raíz del repositorio y tendrá en su explorador favorito una versión local de la página. La direccion por defecto es `http://localhost:3000`
 
 Con esto la pagina se actualizará cada vez que guarde un archivo. Si su explorador tiene problemas, abra *Firefox* y copie y pegue la dirección de la página.
 
@@ -120,6 +118,7 @@ Con esto la pagina se actualizará cada vez que guarde un archivo. Si su explora
 
 Se agradece especialmente a:
 
+* [Sebastián Aedo](https://github.com/etra0) como creador original de la malla interactiva. [Malla Original](https://github.com/etra0/ramos)
 * CEE de ELO por agregar su respectiva malla
 * [Manizuca](https://github.com/Manizuca) por agregar la malla de TEL
 * Fernando Cardenas por agregar la malla de ICOM
