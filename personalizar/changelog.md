@@ -2,6 +2,11 @@
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
 
+# [1.3.1]
+
+- Arreglado error de tipeo
+- Contacto ahora es clickleable en mobiles
+- El botón para cambiar sistema de creditos vuelve a funcionar en la página de inicio
 # [1.3.0]
 
 - Se agrega una opcion a la malla generada para hacer más facil 
