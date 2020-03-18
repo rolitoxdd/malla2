@@ -42,6 +42,22 @@ visualizar los ramos aprobados.
 
 ## Agregar o cambiar una malla
 
+Hay varias formas de agregar o cambiar una malla, por eso mostrare dos formas simples que no requieren mucho conocimiento de codigo para realizarlas. La primera, que es por medio del propio sitio. Y la segunda, que consta de realizar el proceso *a mano*.
+
+*Nota*: Es recomendable (por no decir necesario) hacer el proceso en un computador.
+
+### Usando la malla interactiva
+
+Primero que todo creamos una malla usando la [generadora de mallas](https://csarman.github.io/malla-interactiva/prioridad). Luego, en el fondo de la página hacer click en "Agregar/Actualizar malla". La página les mostrará dos estructuras en `.json`. ([Explicación de estas aqui](#A-mano))  
+Una vez llegado aquí necesitas tener una cuenta en github para seguir. Si ya la tienes, te logeas y en la página del codigo haces click en "fork", esperas unos segundos y ya tienes una versión propia de la malla. Ahora te diriges a la carpeta data y ahí puedes hacer dos cosas:  
+- Subir archivos listos
+- copiar y pegar codigo sobrescribiendo archivos antiguos.
+
+Mostrare el primero...  
+Has click en *Upload Files* y en la ventana que te aparece carga los archivos descargados de la malla interactiva. Por último, checkea la opcion que mencione el pull request abajo y sube los archivos. Ahora solo espera a que revise la malla cambiada o agregada y estará pronto en la malla interactiva lista para calcular la prioridad! ~~(Esto puede no ser instantaneo y tome su tiempo)~~
+
+### *A mano*
+
 Para aportar, en la carpeta `data` se tienen dos ficheros por cada
 carrera, estos son  `data_CARR.json` y `colors_CARR.json`. Se deben
 crear ambos jsons (se pueden usar los existentes como base) para agregar

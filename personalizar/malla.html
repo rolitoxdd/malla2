@@ -48,6 +48,8 @@
   integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" 
   crossorigin="anonymous">
 </script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>
+<link rel="stylesheet" type="text/css" href="../css/prettify.css">
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">   
 
@@ -101,8 +103,83 @@
   </div>
   <!-- Contact Modal END -->
 
+<!-- Code Modal -->
+<div class="modal fade" id="code" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar o actualizar Mallas a la página</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container">
+        <div class="row">
+          <div class="col">
+            <p>En orden para realizar una actualizacion a la malla, se necesitan dos archivos:
+              data_CARR (Izquierda) y colors_CARR (Derecha). "CARR" corresponde a la abreviación formal o casual de la carrera (Ej: INF )
+            </p>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Abreviatura Carrera</span>
+              </div>
+              <input id="abrev" type="text" class="form-control" placeholder="CARR" aria-label="Abreviatura Carrera" aria-describedby="basic-addon1">
+            </div>
+          </div>
+        </div>
+        <hr class="row">
+        <div class="row">
+          <div class="col col-lg-6">
+            <div class="row justify-content-between">
+              <div class="col col-auto">
+                <button
+                id="cbMalla"
+                data-clipboard-target="#mallaCode"
+                class="btn btn-primary clipy"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Copiado!">
+                  Copiar data_<span id="carrMalla1"></span> a portapapeles
+                </button>
+              </div>
+              <div class="col col-auto ">
+                <a id="dMalla" class="btn btn-primary">Descargar data_<span id="carrMalla2"></span></a>
+              </div>
+            </div>
 
+            <pre id="mallaCode" class="border border-light rounded mb-3 prettyprint lang-js" aria-label="Malla"></pre>
+            </div>
+            <div class="col col-lg-6">
+              <div class="row justify-content-between">
+                <div class="col col-auto">
+                  <button 
+                  id="cbColor" 
+                  data-clipboard-target="#colorCode" 
+                  class="btn btn-primary clipy"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Copiado!">
+                    Copiar color_<span id="carrColor1"></span> a portapapeles
+                  </button>
+                </div>
+                <div class="col col-auto">
+                  <a id="dColor" class="btn btn-primary">Descargar color_<span id="carrColor2"></span></a>
+                </div>
+              </div>
+              <pre id="colorCode" class="border border-light rounded prettyprint lang-js" aria-label="Colores"></pre>
+    
+            </div>
+        </div>
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <a href="https://github.com/CsarMan/malla-interactiva#Agregar-o-cambiar-una-malla" target="_blank" class="btn btn-primary">Instrucciones</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Code Modal END -->
 
 
 
@@ -112,7 +189,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mallaNavbar" aria-controls="mallaNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a id='goToHome' class="navbar-brand mb-0 " href="#">Malla Interactiva Personal<span class="carrera"></span></a>
+    <a id='goToHome' class="navbar-brand mb-0 " href="#">Malla Interactiva Personal</a>
         
     <div class="collapse navbar-nav mr-auto navbar-collapse navbar-expand-md " id="mallaNavbar">
       <a id='goToGenerator' class="nav-link" href="#">Continuar edición</a>
@@ -137,16 +214,13 @@
       <div class="info class text-center">
         <h5> Mostrando créditos <span id="credits-system"></span><br>Créditos aprobados: <span id='creditos'></span>   </h5>
         <button type="button" onclick="limpiarRamos()" class="btn mb-1 btn-info">Limpiar ramos aprobados</button>
+        <button type="button" data-toggle="modal" data-target="#code" class="btn mb-1 btn-primary">Agregar/Actualizar Malla</button>
         <button id="credit-system" type="button" onclick="changeCreditsSystem()" class="btn mb-1 btn-secondary"> Cambiar sistema de créditos </button>
       </div>
     </div>
   </div>
   <!-- Footer -->
-  <footer  class="container-fluid text-center mt-3">        
-    <div class="row bg-light align-items-end">
-      <p class="col my-1 text-muted">Creado con el <i class="fas fa-heart"></i>️ por estudiantes para estudiantes <br/> <i class="fas fa-code-branch"></i> <a href="http://github.com/etra0/ramos">Código fuente</a></p>
-    </div>
-  </footer>
+<footer data-include="footer" class="container-fluid text-center mt-3"></footer>
   <!-- Footer END -->
   
 
@@ -156,5 +230,8 @@
   <script src='../js/d3.js'></script>
   <script src='../js/ramos.js'></script>
   <script src='../js/customCanvas.js'></script>
+  <script src="../js/init.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+</body>
 </html>
 
