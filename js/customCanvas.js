@@ -6,7 +6,7 @@ let scaleX, scaleY, canvas, tipoRamo;
 let welcomeTitle, welcomeDesc;
 
 // verificamos que malla busca
-let current_malla = 'INF';
+var current_malla = 'INF';
 let sct = false
 if (window.location.search) {
 	const params = new URLSearchParams(window.location.search);
@@ -97,8 +97,8 @@ let total_creditos = 0;
 let total_ramos = 0;
 let id = 1;
 
-
-
+var customMalla = {};
+var colors = {};
 
 
 
@@ -200,7 +200,7 @@ function main_function(error, data, colorBySector) {
 		all_ramos[sigla] = ramo
 	}
 	
-	let customMalla = JSON.parse(localStorage['Custom-' + current_malla + '_SEMESTRES']);
+	customMalla = JSON.parse(localStorage['Custom-' + current_malla + '_SEMESTRES']);
 	const ramosInMalla = new Set();
 	let newId = 1
 	let sectorsUsed = new Set();
@@ -236,6 +236,12 @@ function main_function(error, data, colorBySector) {
 			})
 		}
 	}
+	for (color in colorBySector) {
+		if (!sectorsUsed.has(color)) {
+			delete colorBySector[color]
+		}
+	}
+	colors = colorBySector
 	
 	// se crea la malla de acorde al usuario
 	// let newId = 1;
@@ -260,9 +266,6 @@ function main_function(error, data, colorBySector) {
 
 	// colores de la malla
 	Object.keys(colorBySector).forEach(key => {
-		if (!sectorsUsed.has(key)) {
-			return
-		}
 		let color_description = d3.select(".color-description").append("div")
 			.attr("style", "display:flex;vertical-align:middle;margin-right:15px;");
 		let circle_color = color_description.append("svg")
@@ -359,7 +362,17 @@ function main_function(error, data, colorBySector) {
 
 	d3.select('#goBack').attr('href','./?m=' + current_malla)
 
+	createCode() 
+	let clipboard = new ClipboardJS('.clipy');
+	clipboard.on('success', function(e) {
+		$('#' + e.trigger.id).tooltip('enable')
+		$('#' + e.trigger.id).tooltip('show')
 
+		e.clearSelection();
+	});
+
+	clipboard.on('error', function(e) {
+});
 }
 
 
@@ -448,3 +461,94 @@ function changeCreditsSystem()
     //this will reload the page, it's likely better to store this until finished
     document.location.search = kvp.join('&'); 
 }
+
+function createCode() {
+	let data = {}
+	let expresion1 = /("s[0-9]+":)+|(\[(?:,?[^\[\]])+(?:,\[[^\]]+\])?\])+/g
+	
+	for (semester in customMalla) {
+		data["s"+ semester] = []
+		customMalla[semester].forEach(siglaRamo => {
+			let ramo = all_ramos[siglaRamo]
+			let dataRamo = []
+			console.log(siglaRamo)
+			console.log(ramo)
+			dataRamo.push(ramo.nombre)
+			dataRamo.push(ramo.sigla)
+			dataRamo.push(ramo.creditos)
+			dataRamo.push(ramo.sector)
+			if (ramo.prer.size != 0) {
+				dataRamo.push([...ramo.prer])
+			}
+			data["s" + semester].push(dataRamo)
+
+		})
+		// for (siglaRamoindex in customMalla[semester]) {
+		// }
+	}
+	var mallaResult = JSON.stringify(data).match(expresion1);
+
+	let s = "{\n"
+	let first = true
+	let firstSem = true
+	mallaResult.forEach(item => {
+	if (/("s[0-9]+":)/.test(item)) {
+		if (firstSem) {
+		s += "    " + item + " [\n"
+		firstSem = false
+		} else {
+		s += "\n    ],\n" + "    " + item + " [\n"
+		}
+		first = true
+	} else if (first) {
+		s += "        " + item
+		first = false
+	} else
+		s += ",\n" + "        " + item
+	})
+	s += "\n" + "    " + "]\n" + "}"
+	document.getElementById('mallaCode').textContent = s;
+	let expresion2 = /("[^\]]+\],?)/g
+	let colorResult =	JSON.stringify(colors).match(expresion2)
+	let c = "{"
+
+	colorResult.forEach(color => {
+			c += "\n" + "    " + color
+	})
+	c += "\n}"
+	document.getElementById('colorCode').textContent = c
+	PR.prettyPrint()
+
+	document.getElementById('abrev').value = current_malla.toUpperCase()
+	document.getElementById("carrMalla1").textContent = current_malla.toUpperCase()
+	document.getElementById("carrMalla2").textContent = current_malla.toUpperCase()
+	document.getElementById("carrColor1").textContent = current_malla.toUpperCase()
+	document.getElementById("carrColor2").textContent = current_malla.toUpperCase()
+
+	var file1 = new Blob([s], {"aplication/json": "aplication/json"});
+	var file2 = new Blob([c], {"aplication/json": "aplication/json"});
+	let downloadLink1 = document.getElementById('dMalla')
+	let downloadLink2 = document.getElementById('dColor')
+	downloadLink1.setAttribute('href', URL.createObjectURL(file1))
+	downloadLink1.setAttribute('download', "data_" + current_malla.toUpperCase() + '.json')
+	downloadLink2.setAttribute("href", URL.createObjectURL(file2))
+	downloadLink2.setAttribute("download", "colors_" + current_malla.toUpperCase() + '.json')
+
+}
+
+document.getElementById("abrev").addEventListener('input', function(input) {
+	document.getElementById("carrMalla1").textContent = input.target.value.toUpperCase()
+	document.getElementById("carrMalla2").textContent = input.target.value.toUpperCase()
+	document.getElementById("carrColor1").textContent = input.target.value.toUpperCase()
+	document.getElementById("carrColor2").textContent = input.target.value.toUpperCase()
+	document.getElementById('dMalla').setAttribute('download', "data_" + input.target.value.toUpperCase() + '.json')
+	document.getElementById('dColor').setAttribute("download", "colors_" + input.target.value.toUpperCase() + '.json')
+
+	$('[data-toggle="tooltip"]').tooltip()
+	$('[data-toggle="tooltip"]').tooltip('disable')
+})
+
+
+$('[data-toggle="tooltip"]').on('hidden.bs.tooltip', function () {
+	$('[data-toggle="tooltip"]').tooltip('disable')
+  })

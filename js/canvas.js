@@ -51,17 +51,7 @@ if (d3.select(".canvas")._groups[0][0]) {
 	welcomeDesc = `¡Selecciona los ramos por semestre y genera una malla a tu gusto!
 	Si quieres un ramo que no esta en la malla, crealo en la tabla de abajo.`;
 }
-if (!(prioridad|personal)) {
-	d3.select('#goToCalculator').attr('href', './prioridad/?m=' + current_malla)
-	d3.select('#goToGenerator').attr('href', './personalizar/?m=' + current_malla)
-} else if (prioridad) {
-	d3.select('#goToHome').attr('href', '../?m=' + current_malla)
-	d3.select('#goToGenerator').attr('href', '../personalizar/?m=' + current_malla)
-} else {
-	d3.select('#goToHome').attr('href', '../?m=' + current_malla)
-	d3.select('#goToCalculator').attr('href', '../prioridad/?m=' + current_malla)
 
-}
 
 let creditSystem = 'USM'
 if (sct) {
@@ -112,7 +102,7 @@ let total_creditos = 0;
 let total_ramos = 0;
 let id = 1;
 
-$("#carrera, .carrera").text(carreras[current_malla]);
+
 
 /* PC: Plan común
  * FI: Fundamentos de Informática

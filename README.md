@@ -32,17 +32,31 @@ visualizar los ramos aprobados.
 * [x] Almacenar los ramos aprobados en caché
 * [x] Generalizar el `JSON`, en lo posible agregar compatibilidad con `CSV`
 * [ ] **Comentar código, limpiarlo.**
-* [x] Disfrutar un buen café.
- 
 * [ ] Fix bugs
 * [X] Hacer pagina más usable en moviles
     * [X] Prioridad
 	* [X] Malla personal
 	* [X] Malla interactiva
 * [ ] Facilitar creacion y modificación de mallas oficiales
-* [ ] **Refactorisar codigo** @CsarMan
+* [ ] **Refactorisar codigo**
 
 ## Agregar o cambiar una malla
+
+Hay varias formas de agregar o cambiar una malla, por eso mostrare dos formas simples que no requieren mucho conocimiento de codigo para realizarlas. La primera, que es por medio del propio sitio. Y la segunda, que consta de realizar el proceso *a mano*.
+
+*Nota*: Es recomendable (por no decir necesario) hacer el proceso en un computador.
+
+### Usando la malla interactiva
+
+Primero que todo creamos una malla usando la [generadora de mallas](https://csarman.github.io/malla-interactiva/prioridad). Luego, en el fondo de la página hacer click en "Agregar/Actualizar malla". La página les mostrará dos estructuras en `.json`. ([Explicación de estas aqui](#A-mano))  
+Una vez llegado aquí necesitas tener una cuenta en github para seguir. Si ya la tienes, te logeas y en la página del codigo haces click en "fork", esperas unos segundos y ya tienes una versión propia de la malla. Ahora te diriges a la carpeta data y ahí puedes hacer dos cosas:  
+- Subir archivos listos
+- copiar y pegar codigo sobrescribiendo archivos antiguos.
+
+Mostrare el primero...  
+Has click en *Upload Files* y en la ventana que te aparece carga los archivos descargados de la malla interactiva. Por último, checkea la opcion que mencione el pull request abajo y sube los archivos. Ahora solo espera a que revise la malla cambiada o agregada y estará pronto en la malla interactiva lista para calcular la prioridad! ~~(Esto puede no ser instantaneo y tome su tiempo)~~
+
+### *A mano*
 
 Para aportar, en la carpeta `data` se tienen dos ficheros por cada
 carrera, estos son  `data_CARR.json` y `colors_CARR.json`. Se deben
@@ -111,7 +125,7 @@ para abrir `data_INF.json` debería quedar algo como `index.html?m=INF`.
 Se aceptan Pull Requests para agregar carreras.
 
 ### Usando Browser-sync
-Con *NPM* instalado en el equipo, ejecute desde una terminal `npm install -g browser-sync` si no lo tiene instalado. Completado el paso anterior, ejecute `browser-sync -w` desde la carpeta raíz del repositorio y tendrá en su explorador favorito una versión local de la página.
+Con *NPM* instalado en el equipo, ejecute desde una terminal `npm install -g browser-sync` si no lo tiene instalado. Completado el paso anterior, ejecute `browser-sync -w` desde la carpeta raíz del repositorio y tendrá en su explorador favorito una versión local de la página. La direccion por defecto es `http://localhost:3000`
 
 Con esto la pagina se actualizará cada vez que guarde un archivo. Si su explorador tiene problemas, abra *Firefox* y copie y pegue la dirección de la página.
 
@@ -120,6 +134,7 @@ Con esto la pagina se actualizará cada vez que guarde un archivo. Si su explora
 
 Se agradece especialmente a:
 
+* [Sebastián Aedo](https://github.com/etra0) como creador original de la malla interactiva. [Malla Original](https://github.com/etra0/ramos)
 * CEE de ELO por agregar su respectiva malla
 * [Manizuca](https://github.com/Manizuca) por agregar la malla de TEL
 * Fernando Cardenas por agregar la malla de ICOM
