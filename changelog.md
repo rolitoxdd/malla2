@@ -2,6 +2,10 @@
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
 
+# [1.3.2]
+
+- Malla quimica actualizada con Malla 2017
+
 # [1.3.1]
 
 - Arreglado error de tipeo
