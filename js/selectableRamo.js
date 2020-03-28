@@ -20,7 +20,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 		const graybar = sizeY / 5;
 		let creditos = self.creditos
 		if (sct) {
-			creditos = Math.ceil(creditos * 1.6)
+			creditos = Math.round(creditos * 5 / 3)
 		}
 		self.ramo.append("rect")
 			.attr("x", posX)
@@ -59,7 +59,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 			.attr("x", posX + sizeX*1.2 - 17 * scaleX)
 			.attr("y", posY + sizeY - 6 * scaleY)
 			.text(creditos)
-			.attr("font-family", "sans-serif")
+			// .attr("font-family", "sans-serif")
 			.attr("font-weight", "regular")
 			.attr("fill", "black")
 			.attr("font-size", 12 * scaleY);
@@ -70,7 +70,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 			.attr("y", posY + sizeY/2)
 			.text(self.nombre)
 			.attr("class", "ramo-label")
-			.attr("font-family", 'sans-serif')
+			// .attr("font-family", 'sans-serif')
 			.attr("fill", function() {
 				if (getLightPercentage(colorBySector[sector][0]))
 					return "white";
@@ -85,7 +85,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 			.attr("x", posX + 2)
 			.attr("y", posY + sizeY/7)
 			.text(self.sigla)
-			.attr("font-family", "sans-serif")
+			// .attr("font-family", "sans-serif")
 			.attr("font-weight", "bold")
 			.attr("fill", "white")
 			.attr("font-size", function() {
@@ -137,7 +137,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 			})
 			.attr("y", posY + graybar/2 + 3)
 			.attr("text-anchor", "middle")
-			.attr('font-family', 'sans-serif')
+			// .attr('font-family', 'sans-serif')
 			.attr("fill", "black")
 			.attr('font-size', 10)
 			.text(self.id);
@@ -166,7 +166,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 				.attr('y', posY + sizeY - graybar/2 + variantY)
 				.text(all_ramos[p].id)
 				.attr("text-anchor", "middle")
-				.attr("font-family", "sans-serif")
+				// .attr("font-family", "sans-serif")
 				.attr("font-size", fontsize)
 				.attr('fill', 'white');
 			c_x += r*2;
@@ -198,7 +198,7 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 
 			let creditos = self.creditos
 			if (sct) {
-				creditos = Math.ceil(creditos * 1.6)
+				creditos = Math.round(creditos * 5 / 3)
 			}
 
 				if (!custom_ramos.has(this.sigla))

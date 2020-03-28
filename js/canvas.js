@@ -20,7 +20,7 @@ if (window.location.search) {
 }
 if (d3.select(".canvas")._groups[0][0]) {
 	
-	scaleX = 1;
+	scaleX = 1.1;
 	scaleY = 1;
 	canvas = d3.select(".canvas");
 	tipoRamo = Ramo;
@@ -102,16 +102,6 @@ let total_creditos = 0;
 let total_ramos = 0;
 let id = 1;
 
-
-
-/* PC: Plan común
- * FI: Fundamentos de Informática
- * HUM: Humanistas, libres y deportes
- * TIN: Transversal e Integración
- * SD: Sistemas de decisión informática
- * IND: Industrias
- * AN: Análisis Numérico
- */
 let relativePath = './'
 if (personal | prioridad) {
 	relativePath = '../'
@@ -194,7 +184,7 @@ function main_function(error, data, colorBySector) {
 			}
 			let creditos = ramo[2]
 			if (sct) {
-				creditos = Math.ceil(creditos * 1.6)
+				creditos = Math.round(creditos * 5 / 3)
 			}
 			total_creditos += creditos;
             total_ramos++;
@@ -207,7 +197,7 @@ function main_function(error, data, colorBySector) {
 
 	// update width y height debido a que varian segun la malla
 		// + 10 para evitar ocultamiento de parte de la malla
-	width = (130*Object.keys(malla).length) * scaleX + 10;
+	width = (110*Object.keys(malla).length) * scaleX + 10;
 	height = (110*longest_semester + 30 + 25) * scaleY + 10;
 
 	canvas.attr("width", width)
@@ -238,20 +228,21 @@ function main_function(error, data, colorBySector) {
 		drawer.append("rect")
 			.attr("x", globalX)
 			.attr("y", globalY)
-			.attr("width", 120 * scaleX)
+			.attr("width", 100 * scaleX)
 			.attr("height", 30 * scaleY)
 			.attr("fill", 'gray')
 			.classed('bars', true);
 
 
 		drawer.append("text")
-			.attr('x', globalX + 110/2 * scaleX)
-			.attr('y', globalY + 2*30/3 * scaleY)
-			.text(_s[_semester-1])
-			.attr('text-anchor', 'middle')
-			.attr("font-family", "sans-serif")
-			.attr("font-weight", "bold")
-			.attr("fill", "white");
+			.attr('x', globalX + 100/2 * scaleX)
+			.attr('y', globalY + 30/2 * scaleY)
+			.text("Semestre " + _s[_semester-1])
+			// .attr("font-family", "sans-serif")
+			// .attr("font-weight", "bold")
+			.attr("fill", "white")
+			.attr("dominant-baseline", "central")
+			.attr('text-anchor', 'middle');
 		_semester++;
 		globalY += 40 * scaleY;
 
@@ -259,10 +250,10 @@ function main_function(error, data, colorBySector) {
 			malla[semester][ramo].draw(drawer, globalX, globalY, scaleX, scaleY);
 			globalY += 110 * scaleY;
 		}
-		globalX += 130 * scaleX;
+		globalX += 110 * scaleX;
 	}
 	drawer.selectAll(".ramo-label")
-		.call(wrap, 115 * scaleX, (100 - 100/5*2) * scaleY);
+		.call(wrap, (100 - 5) * scaleX, (100 - 100/5*2) * scaleY);
 
 	// verificar cache
 	if (!(prioridad || personal)) {
@@ -288,7 +279,7 @@ function main_function(error, data, colorBySector) {
 		APPROVED.forEach(function(ramo) {
 			let creditos = ramo.creditos
 			if (sct) {
-				creditos = Math.ceil(creditos * 1.6)
+				creditos = Math.round(creditos * 5 / 3)
 			}
 			current_credits += creditos;
 		});
@@ -392,7 +383,7 @@ function wrap(text, width, height) {
         y = text.attr("y"),
 				dy = parseFloat(text.attr("dy")),
 				fontsize = parseInt(text.attr("font-size"),10),
-				tspan = text.text(null).append("tspan").attr("x", text.attr("x")).attr("y", y).attr("dy", dy + "em"),
+				tspan = text.text(null).append("tspan").attr("x", text.attr("x")).attr("y", y).attr("dy", 0 + "em").attr("dominant-baseline", "central"),
 				textLines,
 				textHeight;
     while (word = words.pop()) {
@@ -406,29 +397,45 @@ function wrap(text, width, height) {
 						line.pop();
 						tspan.text(line.join(" "));
 						line = [word];
-						tspan = text.append("tspan").attr("x", text.attr("x")).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+						tspan = text.append("tspan").attr("x", text.attr("x")).attr("y", y).attr("dy",  ++lineNumber * lineHeight + dy + "em").attr("dominant-baseline", "central").text(word);
 					}
 				}
 		}
-		textLines =  text.selectAll('tspan')._groups[0].length;
-	  if (textLines === 1) {
-		  text.selectAll('tspan').attr('y', (+d3.select(this).attr('y')) + (+5));
-	  } else if (textLines > 2) {
-		  text.selectAll('tspan').attr('y', d3.select(this).attr('y') - (110/2) * scaleY/4 );
-		}
+		texts = text.selectAll('tspan')
+		textLines =  texts._groups[0].length;
 		textHeight = text.node().getBoundingClientRect().height;
-
-		while (textHeight > height - 5) {
-			text.attr("font-size", String(--fontsize));
-			textHeight = text.node().getBoundingClientRect().height;
-			lineNumber = 0;
-			let tspans = text.selectAll('tspan');
-			for (let index = 0; index < textLines; index++) {
-				let tspan = tspans._groups[0][index];
-				tspan.setAttribute('dy', lineNumber++ + dy + 'em');
-				
+		
+		if (textHeight > height - 5) {
+			while (textHeight > height - 5) {
+				text.attr("font-size", String(--fontsize));
+				textHeight = text.node().getBoundingClientRect().height;
+				lineNumber = 0;
+				if (textLines != 1) {
+					if (textLines % 2 == 0) {
+						console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
+						texts.attr("y", text.attr("y") - convertEm(lineHeight * textLines /2 - 0.5, text.node()))
+					} else {
+						console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
+						texts.attr("y", text.attr("y") - convertEm(lineHeight / 2 * (textLines /2 + 0.5 ), text.node()))
+		
+					}
+				}
+			}
+		} else {
+			if (textLines != 1) {
+				if (textLines % 2 == 0) {
+					console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
+					texts.attr("y", text.attr("y") - convertEm(lineHeight * textLines /2 - 0.5, text.node()))
+				} else {
+					console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
+					texts.attr("y", text.attr("y") - convertEm(lineHeight / 2 * (textLines /2 + 0.5 ), text.node()))
+					
+				}
 			}
 		}
+			
+
+		
   });
 }
 
@@ -466,3 +473,25 @@ function changeCreditsSystem()
     //this will reload the page, it's likely better to store this until finished
     document.location.search = kvp.join('&'); 
 }
+
+function getElementFontSize(context) {
+	// Returns a number
+	return parseFloat(
+	  // of the computed font-size, so in px
+	  getComputedStyle(
+		// for the given context
+		context ||
+		  // or the root <html> element
+		  document.documentElement
+	  ).fontSize
+	);
+  }
+  
+  function convertRem(value) {
+	return convertEm(value);
+  }
+  
+  function convertEm(value, context) {
+	return value * getElementFontSize(context);
+  }
+  

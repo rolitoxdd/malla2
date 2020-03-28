@@ -78,7 +78,7 @@ function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector)
 	this.addToCustomTable = function() {
 		let creditos = self.creditos
 		if (sct) {
-			creditos = Math.ceil(creditos * 1.6)
+			creditos = Math.round(creditos * 5 / 3)
 		}
 		let table = d3.select('#customTableContent');
 
