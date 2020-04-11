@@ -83,7 +83,8 @@ const carreras = {
 	'CONSTRU': 'Construcción',
 	'IDP': 'Diseño de Productos',
 	'MET': 'Metalúrgica',
-	'ICA': 'Ambiental'
+	'ICA': 'Ambiental',
+	'ICM': 'Civil en Minas'
 };
 
 /* ---------- axis ---------- */

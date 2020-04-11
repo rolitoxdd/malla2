@@ -11,6 +11,9 @@
     "Nombre": "Civil",
     "Link": "CIV"
   },
+  { "Nombre": "Civil en Minas",
+    "Link": "ICM"
+  },
   {
     "Nombre": "Comercial",
     "Link": "ICOM"

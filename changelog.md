@@ -1,6 +1,9 @@
 # Changelog
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
+# [1.3.3]
+
+- Malla De Ing. Civil en minas agregada
 
 # [1.3.2]
 
