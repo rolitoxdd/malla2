@@ -166,11 +166,12 @@ function main_function(error, data, colorBySector) {
 	// load the data
 	
 	// Agregado de sectores fuera de malla
-	let customCache = JSON.parse(localStorage['Custom-'+ current_malla + '_CUSTOM']);
-	for (sigla in customCache) {
-		// una parte es para acceder al diccionario que contiene las propiedades del sector
-		colorBySector[customCache[sigla][3]] = customCache[sigla][4][customCache[sigla][3]]
-		// la otra parte es la sigla para acceder
+	let customCache = JSON.parse(localStorage['Custom-'+ current_malla + '_SECTORS']);
+	Object.keys(customCache).forEach(sector => {
+		colorBySector[sector] = customCache[sector]
+	})
+	if (!colorBySector["CUSTOM"]) {
+		colorBySector["CUSTOM"] = ["#000000", "Fuera de la malla oficial"]
 	}
 	
 	let longest_semester = 0;
@@ -191,8 +192,8 @@ function main_function(error, data, colorBySector) {
 		// inicializar ramos fuera de malla
 		let datosRamo = customRamosProps[sigla];
 		let prer = [];
-        if (datosRamo.length === 6) {
-            prer = datosRamo[5]
+        if (datosRamo.length === 5) {
+            prer = datosRamo[4]
 		}
 		let ramo = new Ramo(datosRamo[0],datosRamo[1], Number(datosRamo[2]),datosRamo[3],prer, id,colorBySector);
 		id++;

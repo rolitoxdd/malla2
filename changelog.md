@@ -1,6 +1,10 @@
 # Changelog
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
+# [1.3.4]
+
+- Se arreglo un error al generar una malla con un ramo creado con la categoría "Fuera de la malla oficial" usando la opción de crear ramos avanzados.
+
 # [1.3.3]
 
 - Malla De Ing. Civil en minas agregada
