@@ -3,7 +3,7 @@
 
 
 function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector) {
-	this.base = SelectableRamo;
+	this.base = SelectableRamos;
 	this.base(nombre, sigla, creditos, sector, prer, id, colorBySector);
 	// var selected = false;
 	let self = this;
@@ -148,4 +148,4 @@ function CustomRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector)
 }
 
 
-CustomRamo.prototype = SelectableRamo;
+CustomRamo.prototype = SelectableRamos;

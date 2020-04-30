@@ -19,7 +19,7 @@ function start_priorix() {
         for (var sigla in customRamosProps) {
             // inicializar ramos fuera de malla
             let datosRamo = customRamosProps[sigla];
-            let ramo = new SelectableRamo(datosRamo[0],datosRamo[1],datosRamo[2],datosRamo[3],[],id,datosRamo[4]);
+            let ramo = new SelectableRamos(datosRamo[0],datosRamo[1],datosRamo[2],datosRamo[3],[],id,datosRamo[4]);
             id++;
             ramo.isCustom = true;
             all_ramos[sigla] = ramo;
@@ -264,7 +264,7 @@ function crearRamo() {
 
     let sector = {"CUSTOM": ["#000000", "Fuera de la malla oficial"]};
     let customRamo = [nombre,sigla, creditos, 'CUSTOM' ,sector];
-    let ramo = new SelectableRamo(nombre, sigla, Number(creditos), 'CUSTOM', [], id, sector);
+    let ramo = new SelectableRamos(nombre, sigla, Number(creditos), 'CUSTOM', [], id, sector);
     id++;
     all_ramos[sigla] = ramo;
     customRamosProps[sigla] = customRamo;

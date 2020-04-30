@@ -4,7 +4,7 @@ var SELECTED = [];
 // Clase hijo de ramo, al clickear el ramo, este se selecciona en vez de aprobar
 // Aprobar el ramo sigue siendo posible,
 // pero ahora queda a discreción del desarrollador el como accionarlo
-function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySector) {
+function SelectableRamos(nombre, sigla, creditos, sector, prer=[], id, colorBySector) {
 	this.base = Ramo;
 	this.base(nombre, sigla, creditos, sector, prer, id, colorBySector);
 	this.selected = false;
@@ -289,4 +289,4 @@ function SelectableRamo(nombre, sigla, creditos, sector, prer=[], id, colorBySec
 }
 
 
-SelectableRamo.prototype = Ramo;
+SelectableRamos.prototype = Ramo;

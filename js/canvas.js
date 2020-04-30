@@ -34,7 +34,7 @@ if (d3.select(".canvas")._groups[0][0]) {
 	scaleX = 0.67;
 	scaleY = 1;
 	canvas = d3.select(".priori-canvas");
-	tipoRamo = SelectableRamo;
+	tipoRamo = SelectableRamos;
 	welcomeTitle = `¡Bienvenido a la calculadora de prioridad `;
 	welcomeDesc = `¡Selecciona los ramos por semestre e ingresa tus notas para
 	 calcular tu prioridad! A medida que avances de semestre, los ramos aprobados se
