@@ -4,7 +4,7 @@ var malla = null;
 
 class Malla {
 
-    constructor(scaleX = 1, scaleY = 1, ramoType = Ramo ,sct = false) {
+    constructor(sct = false, ramoType = Ramo, scaleX = 1, scaleY = 1 ) {
         if (!malla){
             malla = this;
             // Propiedades antes del render
@@ -20,57 +20,77 @@ class Malla {
 
             // Propiedades despues del render
             this.APPROVED = [];
+            this.SELECTED = [];
             this.RAMOID = 1;
             this.ALLRAMOS = {};
             this.checkPrer = false;
             this.saveEnabled = false;
+            this.isMallaSet = false;
+            this.showCreditSystem = false;
+            this.showCreditStats = false
+
+            this.totalCredits = 0;
+            this.totalRamos = 0;
         }
         return malla;
     }
 
+    enableCreditsStats() {
+        this.showCreditStats = true
+    }
+
+    enableCreditsSystem() {
+        this.showCreditSystem = true
+}
 
     setCarrera(carr) {
         this.currentMalla = carr;
-        d3.queue()
-            .defer(d3.json, "/data/data_" + this.currentMalla + ".json")
-            .defer(d3.json, "/data/colors_" + this.currentMalla + ".json")
-            .defer(this.getInstance)
-            .await(this.setMallaAndSectors)
+        let promises = [];
+
+        promises.push(d3.json("/data/data_" + this.currentMalla + ".json"));
+        promises.push(d3.json("/data/colors_" + this.currentMalla + ".json"));
+        return Promise.all(promises).then(values => {this.setMallaAndSectors(values[0], values[1])})
     }
 
     getInstance(callback) {
         callback(null, malla);
     }
-    setMallaAndSectors(error, malla, sectors, self) {
-        if (error) {
-            alert(error)
-        }
+    setMallaAndSectors(malla, sectors) {
         let semester;
         let longest_semester = 0;
+        let totalCredits = 0;
+        let totalRamos = 0;
 
-        self.rawMalla = malla;
-        self.sectors = sectors;
+        this.rawMalla = malla;
+        this.sectors = sectors;
 
-        for (semester in self.rawMalla) {
-            self.malla[semester] = {};
+        for (semester in this.rawMalla) {
+            this.malla[semester] = {};
 
             if (malla[semester].length > longest_semester)
                 longest_semester = malla[semester].length;
-            malla[semester].forEach(function(ramo) {
+            malla[semester].forEach(ramo => {
+                totalRamos += 1;
                 // Agregado de ramos por semestre
-                self.malla[semester][ramo[1]] = new self.ramoType(ramo[0], ramo[1], ramo[2], ramo[3], (function() {
+                this.malla[semester][ramo[1]] = new this.ramoType(ramo[0], ramo[1], ramo[2], ramo[3], (function() {
                     if (ramo.length > 4) {
                         return ramo[4];
                     }
                     return [];
-                })(), self.RAMOID++, self.sectors[ramo[3]][0]);
-                self.ALLRAMOS[ramo[1]] = self.malla[semester][ramo[1]];
+                })(), this.RAMOID++, this.sectors[ramo[3]][0]);
+                this.ALLRAMOS[ramo[1]] = this.malla[semester][ramo[1]];
+                totalCredits += this.malla[semester][ramo[1]].getDisplayCredits()
             });
         }
-        self.longestSemester = longest_semester;
-
+        this.longestSemester = longest_semester;
+        this.totalCredits = totalCredits;
+        this.totalRamos = totalRamos;
+        this.isMallaSet = true;
     }
     drawMalla(canvasId) {
+        if (!this.isMallaSet)
+            return;
+
         let separator = 10;
         let semesterIndicatorHeight = 30 * this.scaleY;
 
@@ -78,12 +98,14 @@ class Malla {
             separator * (Object.keys(this.malla).length - 1);
         let height = (this.ramoType.getDisplayHeight(this.scaleY) + separator) * this.longestSemester +
             semesterIndicatorHeight * 2 + separator;
+        width += separator; // for full show svg
+        height += separator/2
 
         const canvas = d3.select(canvasId).append("svg")
             .attr("width", width)
             .attr("height", height);
         const drawer = canvas.append('g');
-        let globalX = 0,
+        let globalX = 5,
             globalY = 0;
         let isBigBarRendered = false;
         let semestersPassed = 0;
@@ -303,6 +325,24 @@ class Malla {
         }
     }
 
+    showColorDescriptions(locationId) {
+        Object.keys(this.sectors).forEach(key => {
+            let color_description = d3.select(".color-description").append("div")
+                .attr("style", "display:flex;vertical-align:middle;margin-right:15px;");
+            let circle_color = color_description.append("svg")
+                .attr("height", "25px")
+                .attr("width", "25px");
+            circle_color.append("circle")
+                .attr("r", 10)
+                .attr("cx", 12)
+                .attr("cy", 12)
+                .attr("fill", this.sectors[key][0]);
+
+            color_description.append("span").text(this.sectors[key][1]);
+
+        });
+    }
+
     enablePrerCheck() {
         this.checkPrer = true;
         this.verifyPrer()
@@ -317,10 +357,35 @@ class Malla {
         }
     }
 
-    cleanRamos() {
+    displayCreditSystem() {
+        if (!this.showCreditSystem)
+            return
+        d3.select("#credits-system").text(this.sct ? 'SCT' : 'USM')
+    }
+
+    updateStats() {
+        if (!this.showCreditStats)
+            return
+        let currentCredits = 0;
+        let currentRamos = 0;
         this.APPROVED.forEach(ramo => {
+            currentCredits += ramo.getDisplayCredits();
+            currentRamos += 1
+        })
+        let creditPercentage = currentCredits/this.totalCredits * 100;
+        let careerAdvance = currentRamos/this.totalRamos * 100;
+        d3.select("#credits").text(parseInt(currentCredits))
+        d3.select("#credPercentage").text(parseInt(creditPercentage))
+        d3.select("#ramoPercentage").text(parseInt(careerAdvance))
+    }
+
+    cleanRamos() {
+        let listToClean = [...this.APPROVED]
+        listToClean.forEach(ramo => {
             ramo.cleanRamo()
         })
+        this.verifyPrer()
+        this.updateStats()
     }
 
     enableSave() {
@@ -335,7 +400,9 @@ class Malla {
     loadApproved() {
         let loadedData = StorageManager.loadApproved(this.currentMalla);
             loadedData.forEach(siglaRamo => {
-            this.ALLRAMOS[siglaRamo].approveRamo()
+                console.log(siglaRamo)
+                this.ALLRAMOS[siglaRamo].approveRamo()
         })
+        this.verifyPrer()
     }
 }

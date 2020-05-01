@@ -32,6 +32,14 @@ let personalizar = document.URL.includes('personalizar')
 if (prioridadi || personalizar) {
     relaPath = '../'
 }
+let params = new URLSearchParams(window.location.search)
+
+let carr =  params.get('m')
+if (!carr)
+    carr = 'INF'
+let sct = false
+if (params.get('SCT') === "true")
+    sct = true
 
 $(function() {
     // obtener vistas
@@ -44,23 +52,23 @@ $(function() {
     // llenar carreras
     $.getJSON( relaPath + '/data/carreras.json', function(data) {
                     if (!(prioridadi|personalizar)) {
-                        d3.select('#goToCalculator').attr('href', './prioridad/?m=' + current_malla)
-                        d3.select('#goToGenerator').attr('href', './personalizar/?m=' + current_malla)
+                        d3.select('#goToCalculator').attr('href', './prioridad/?m=' + carr);
+                        d3.select('#goToGenerator').attr('href', './personalizar/?m=' + carr);
                     } else if (prioridadi) {
-                        document.getElementById('goToCalculator').classList.add('active')
-                        d3.select('#goToHome').attr('href', '../?m=' + current_malla)
-                        d3.select('#goToGenerator').attr('href', '../personalizar/?m=' + current_malla)
+                        document.getElementById('goToCalculator').classList.add('active');
+                        d3.select('#goToHome').attr('href', '../?m=' + carr);
+                        d3.select('#goToGenerator').attr('href', '../personalizar/?m=' + carr);
                     } else {
-                        document.getElementById('goToGenerator').classList.add('active')
-                        d3.select('#goToHome').attr('href', '../?m=' + current_malla)
-                        d3.select('#goToCalculator').attr('href', '../prioridad/?m=' + current_malla)
+                        document.getElementById('goToGenerator').classList.add('active');
+                        d3.select('#goToHome').attr('href', '../?m=' + carr);
+                        d3.select('#goToCalculator').attr('href', '../prioridad/?m=' + carr);
                     }
         $.each(data, function(index, value) {
             let tabTpl1 = $('script[data-template="tab-template1"]').text().split(/\${(.+?)}/g);
             let tabTpl2 = $('script[data-template="tab-template2"]').text().split(/\${(.+?)}/g);
             value = [value];
             value.forEach(carrera => {
-                if (carrera['Link'] == current_malla)
+                if (carrera['Link'] == carr)
                 $('.carrera').text(carrera['Nombre'])
                 
             });
@@ -100,3 +108,50 @@ function waitForElement(selector) {
       observer.observe(document.documentElement, { childList: true, subtree: true });
     });
   }
+
+  $(function () {
+      new Malla(sct);
+      let drawnMalla = malla.setCarrera(carr).then((val) => {
+      return malla.drawMalla(".canvas")
+      });
+      malla.showCreditStats = true
+      malla.showCreditSystem = true
+
+      drawnMalla.then(() => {
+          malla.updateStats()
+          malla.displayCreditSystem()
+          malla.showColorDescriptions(".color-description")
+          malla.enablePrerCheck()
+          malla.enableSave()
+          malla.loadApproved()
+      })
+
+  });
+
+function changeCreditsSystem() {
+    let key = 'SCT'
+    let value = 'true'
+    const params = new URLSearchParams(window.location.search);
+    if (params.has(key)) {
+        value = !('true' == params.get(key))
+    }
+    key = encodeURI(key); value = encodeURI(value);
+    var kvp = document.location.search.substr(1).split('&');
+
+    var i=kvp.length; var x; while(i--)
+{
+    x = kvp[i].split('=');
+
+    if (x[0]==key)
+    {
+        x[1] = value;
+        kvp[i] = x.join('=');
+        break;
+    }
+}
+
+    if(i<0) {kvp[kvp.length] = [key,value].join('=');}
+
+    //this will reload the page, it's likely better to store this until finished
+    document.location.search = kvp.join('&');
+}

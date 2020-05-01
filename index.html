@@ -115,17 +115,22 @@
 
  
   <!-- Main -->
-  <section class="container-fluid flex-grow-1">
+  <section class="container-fluid">
     <div class="row justify-content-center no-gutters">
       <div class="col">
-        <div class='canvas text-center' style="overflow-x:auto"></div>		
-        <div class='color-description' style="position:relative;display:flex;justify-content:center;flex-wrap:wrap;"></div>
+        <div class='canvas pt-3 text-center' style="overflow-x:auto"></div>
       </div>
+    </div>
+  </section>
+  <section class="container-xl flex-grow-1">
+    <div class="row">
+      <div class='col color-description' style="position:relative;display:flex;justify-content:center;flex-wrap:wrap;"></div>
     </div>
     <div class="info row">
       <div class="col text-center center-block">
-        <h5>Mostrando créditos <span id="credits-system"></span><br>Créditos aprobados: <span id='creditos'></span></h5>
-        <button type="button" onclick="limpiarRamos()" class="mt-2 btn btn-info">Limpiar ramos aprobados</button>
+        <h5>Mostrando créditos <span id="credits-system"></span><br>Créditos aprobados: <span id='credits'></span>
+          (<span id="credPercentage"></span>%), Total ramos: <span id="ramoPercentage"></span>%</h5>
+        <button type="button" onclick="malla.cleanRamos()" class="mt-2 btn btn-info">Limpiar ramos aprobados</button>
         <button id="credit-system" type="button" onclick="changeCreditsSystem()" class="mt-2 btn btn-secondary"> Cambiar sistema de créditos </button>
       </div>
     </div>
@@ -141,10 +146,10 @@
 
     <!-- scripts -->
 
-  </script>
-  <script src='./js/d3.js'></script>
-  <script src='./js/ramos.js'></script>
-  <script src='./js/canvas.js'></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src='./js/ramo.js'></script>
+  <script src='./js/malla.js'></script>
+  <script src="./js/storageManager.js"></script>
   <script src="./js/init.js"></script>
   <script src="https://kit.fontawesome.com/bf671ef02a.js"></script>
   <script type="text/template" data-template="tab-template1">

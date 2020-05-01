@@ -2,7 +2,7 @@ let semestre = 1;
 let mallaCustom;
 const custom_ramos = new Set();
 let ramosSemestres;
-let customRamosProps = {};
+var customRamosProps = {};
 const editedPrer = new Set();
 let customSectors = {};
 
@@ -18,8 +18,10 @@ function start_generator() {
             let prer = [];
             if (datosRamo.length === 6) {
                 prer = datosRamo[5]
+            } else if (!(datosRamo[4] != [])) {
+                prer = datosRamo[4]
             }
-            let ramo = new CustomRamo(datosRamo[0],datosRamo[1],datosRamo[2],datosRamo[3],prer, id,datosRamo[4]);
+            let ramo = new CustomRamo(datosRamo[0],datosRamo[1],datosRamo[2],datosRamo[3],prer, id, null);
             id++;
             if (all_ramos[datosRamo[1]] == null) {
                 ramo.isCustom = true
@@ -101,6 +103,15 @@ function generate() {
     // guardado
     let id = mallaCustom + '_SEMESTRES';
     localStorage.setItem(id, JSON.stringify(ramosSemestres));
+    Object.keys(customRamosProps).forEach(ramo => {
+        if (customRamosProps[ramo].length == 6) {
+            customRamosProps[ramo].splice(4,1)
+        }
+        if (customRamosProps[ramo][3] == "Fuera de malla oficial") {
+            customRamosProps[ramo][3] = "CUSTOM"
+        }
+
+    })
     localStorage.setItem(mallaCustom + '_CUSTOM', JSON.stringify(customRamosProps));
 
     // redireccion
@@ -230,7 +241,7 @@ function crearRamo() {
     creditos = Number(document.getElementById('custom-credits').value);
 
     let sector = {"CUSTOM": all_sectors['CUSTOM']};
-    let customRamo = [nombre,sigla, creditos, 'CUSTOM' ,sector, []];
+    let customRamo = [nombre,sigla, creditos, 'CUSTOM', []];
     let ramo = new CustomRamo(nombre, sigla, creditos, 'CUSTOM', [], id, sector);
     id++;
     all_ramos[sigla] = ramo;
@@ -609,7 +620,7 @@ function finishedEditingRamo(bool) {
     ramoToApplyEdits.nombre = document.getElementById('custom-namea').value;
     ramoToApplyEdits.creditos = Number(document.getElementById('custom-creditsa').value);
     if ($('#advEditorEnabler').prop('checked')) {
-        ramoToApplyEdits.sector = $('#elegirSector').val();
+        ramoToApplyEdits.sector = document.getElementById('elegirSector').value;
         ramoToApplyEdits.prer.forEach(sigla => {
             all_ramos[sigla].removeReq()
         });
@@ -618,14 +629,13 @@ function finishedEditingRamo(bool) {
             all_ramos[sigla].addReq()
         })
     }
-    let customizedRamo = ['','',0,{},'',''];
+    let customizedRamo = ['','',0,{},''];
 
     customizedRamo[0] = ramoToApplyEdits.nombre;
     customizedRamo[1] = ramoToApplyEdits.sigla;
     customizedRamo[2] = ramoToApplyEdits.creditos;
     customizedRamo[3] = ramoToApplyEdits.sector;
-    customizedRamo[4] = {[customizedRamo[3]]: all_sectors[customizedRamo[3]]};
-    customizedRamo[5] = Array.from(ramoToApplyEdits.prer);
+    customizedRamo[4] = Array.from(ramoToApplyEdits.prer);
 
     customRamosProps[sigla] = customizedRamo;
     custom_ramos.add(sigla);
@@ -648,7 +658,7 @@ function createRamoAdvanced() {
     let sigla = document.getElementById('custom-siglaa').value;
     let nombre = document.getElementById('custom-namea').value;
     let creditos = Number(document.getElementById('custom-creditsa').value);
-    let sector = $('#elegirSector').val();
+    let sector = document.getElementById('elegirSector').value;
     let prer = new Set(editedPrer);
     
     let ramo = new CustomRamo(nombre, sigla, creditos, sector, prer, id, all_sectors);
@@ -659,7 +669,7 @@ function createRamoAdvanced() {
     all_ramos[sigla] = ramo;
     let fakeColorBySector = {[sector]: all_sectors[sector]};
     prer = Array.from(prer);
-    let customRamo = [nombre,sigla, creditos, sector , fakeColorBySector, prer];
+    let customRamo = [nombre,sigla, creditos, sector, prer];
     custom_ramos.add(sigla);
 
     // let sector = {"CUSTOM": ["#000000", "Fuera de la malla oficial"]}

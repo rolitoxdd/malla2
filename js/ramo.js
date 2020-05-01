@@ -6,7 +6,7 @@ class Ramo {
         return width
     }
 
-    static get weight() {
+    static get height() {
         return height
     }
 
@@ -207,6 +207,8 @@ class Ramo {
     isBeingClicked() {
         this.approveRamo();
         malla.verifyPrer();
+        malla.updateStats();
+        malla.saveApproved();
     }
 
     approveRamo() {
@@ -238,11 +240,11 @@ class Ramo {
         _a = new Set(_a);
         for (let r of this.prer) {
             if (!_a.has(r)) {
-                this.ramo.select(".non-approved").transition().duration(70).attr("opacity", "0.71");
+                this.ramo.select(".non-approved").transition().delay(20).attr("opacity", "0.71");
                 return;
             }
         }
-        this.ramo.select(".non-approved").transition().duration(70).attr("opacity", "0.0");
+        this.ramo.select(".non-approved").transition().delay(20).attr("opacity", "0.0");
     }
 
     wrap(sizeX,sizeY) {

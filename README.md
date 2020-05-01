@@ -42,11 +42,16 @@ visualizar los ramos aprobados.
 
 ## Agregar o cambiar una malla
 
-Hay varias formas de agregar o cambiar una malla, por eso mostrare dos formas simples que no requieren mucho conocimiento de codigo para realizarlas. La primera, que es por medio del propio sitio. Y la segunda, que consta de realizar el proceso *a mano*.
+Hay varias formas de agregar o cambiar una malla, por eso mostrare tres formas simples que no requieren mucho conocimiento de codigo para realizarlas. La primera, que es por medio del propio sitio. La segunda es similar a la primera pero hace uso de github. Por último, la tercera consta de realizar el proceso *a mano*.
 
 *Nota*: Es recomendable (por no decir necesario) hacer el proceso en un computador.
 
 ### Usando la malla interactiva
+
+Primero que todo creamos una malla usando la [generadora de mallas](https://csarman.github.io/malla-interactiva/prioridad). Luego completar el siguiente [formulario](https://docs.google.com/forms/d/e/1FAIpQLSc7im-tmzXlWhHYb5XmRhIMGTLQ5GUZj4haRq8iSECYsuXU8A/viewform?usp=sf_link) (Incluye instruccionas para usar la generadora en caso que uno se complique)
+
+
+### Usando la malla interactiva y Github
 
 Primero que todo creamos una malla usando la [generadora de mallas](https://csarman.github.io/malla-interactiva/prioridad). Luego, en el fondo de la página hacer click en "Agregar/Actualizar malla". La página les mostrará dos estructuras en `.json`. ([Explicación de estas aqui](#A-mano))  
 Una vez llegado aquí necesitas tener una cuenta en github para seguir. Si ya la tienes, te logeas y en la página del codigo haces click en "fork", esperas unos segundos y ya tienes una versión propia de la malla. Ahora te diriges a la carpeta data y ahí puedes hacer dos cosas:  
@@ -141,3 +146,4 @@ Se agradece especialmente a:
 * Abel Morgenstern  por agregar la malla de CIV
 * Bernardo Recabarren por agregar la malla de MAT
 * Alois Bellenger Herrera por actualizar la malla de ICQ
+* Josué Venegas por agregar la malla de ICM

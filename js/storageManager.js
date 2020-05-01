@@ -15,6 +15,6 @@ class StorageManager {
         let cacheName = "approvedRamos_" + currentMalla;
         console.log(cacheName);
         console.log(localStorage[cacheName]);
-        return localStorage[cacheName].split(",")
+        return JSON.parse(localStorage[cacheName])
     }
 }
