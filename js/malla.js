@@ -1,60 +1,62 @@
 // Futuro remplazo de canvas.js
-var malla = null;
-
 
 class Malla {
 
-    constructor(sct = false, ramoType = Ramo, scaleX = 1, scaleY = 1 ) {
-        if (!malla){
-            malla = this;
-            // Propiedades antes del render
-            this.scaleX = scaleX;
-            this.scaleY = scaleY;
-            this.separator = 10;
-            this.ramoType = ramoType;
-            this.rawMalla = {};
-            this.sectors = {};
-            this.malla = {};
-            this.sct = sct;
-            this.currentMalla = null;
+    constructor(sct = false, ramoType = Ramo, scaleX = 1, scaleY = 1 , semesterManager = null, card = null) {
 
-            // Propiedades despues del render
-            this.APPROVED = [];
-            this.SELECTED = [];
-            this.RAMOID = 1;
-            this.ALLRAMOS = {};
-            this.checkPrer = false;
-            this.saveEnabled = false;
-            this.isMallaSet = false;
-            this.showCreditSystem = false;
-            this.showCreditStats = false
+        // Propiedades antes del render
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+        this.ramoType = ramoType;
+        this.rawMalla = {};
+        this.sectors = {};
+        this.malla = {};
+        this.sct = sct;
+        if (semesterManager)
+            this.semesterManager = new semesterManager(this, card);
+        this.currentMalla = null;
 
-            this.totalCredits = 0;
-            this.totalRamos = 0;
-        }
-        return malla;
+        // Propiedades despues del render
+        this.APPROVED = [];
+        this.RAMOID = 1;
+        this.ALLRAMOS = {};
+        this.checkPrer = false;
+        this.saveEnabled = false;
+        this.isMallaSet = false;
+        this.showCreditSystem = false;
+        this.showCreditStats = false
+
+        this.totalCredits = 0;
+        this.totalRamos = 0;
+
     }
 
+    // Auto explanatorio
     enableCreditsStats() {
         this.showCreditStats = true
     }
 
+    // Auto explanatorio
     enableCreditsSystem() {
         this.showCreditSystem = true
-}
+    }
 
-    setCarrera(carr) {
+    // Habilita el guardado de ramos aprobados para futuras sesiones
+    enableSave() {
+        this.saveEnabled = true
+    }
+
+    // Obtiene los datos de la carrera y prepara para definirlas
+    setCareer(carr, relaPath) {
         this.currentMalla = carr;
         let promises = [];
 
-        promises.push(d3.json("/data/data_" + this.currentMalla + ".json"));
-        promises.push(d3.json("/data/colors_" + this.currentMalla + ".json"));
+        promises.push(d3.json( relaPath + "data/data_" + this.currentMalla + ".json"));
+        promises.push(d3.json( relaPath + "data/colors_" + this.currentMalla + ".json"));
         return Promise.all(promises).then(values => {this.setMallaAndSectors(values[0], values[1])})
     }
 
-    getInstance(callback) {
-        callback(null, malla);
-    }
+    // Define los datos de la malla y propiedades
     setMallaAndSectors(malla, sectors) {
         let semester;
         let longest_semester = 0;
@@ -77,7 +79,7 @@ class Malla {
                         return ramo[4];
                     }
                     return [];
-                })(), this.RAMOID++, this.sectors[ramo[3]][0]);
+                })(), this.RAMOID++, this.sectors[ramo[3]][0], this);
                 this.ALLRAMOS[ramo[1]] = this.malla[semester][ramo[1]];
                 totalCredits += this.malla[semester][ramo[1]].getDisplayCredits()
             });
@@ -87,6 +89,8 @@ class Malla {
         this.totalRamos = totalRamos;
         this.isMallaSet = true;
     }
+
+    // Renderiza la malla. canvasId puede ser una clase o una id
     drawMalla(canvasId) {
         if (!this.isMallaSet)
             return;
@@ -98,19 +102,19 @@ class Malla {
             separator * (Object.keys(this.malla).length - 1);
         let height = (this.ramoType.getDisplayHeight(this.scaleY) + separator) * this.longestSemester +
             semesterIndicatorHeight * 2 + separator;
-        width += separator; // for full show svg
-        height += separator/2
+        let canvasWidth = width + separator; // for full show svg
+        let canvasHeight = height + separator/2
 
         const canvas = d3.select(canvasId).append("svg")
-            .attr("width", width)
-            .attr("height", height);
+            .attr("width", canvasWidth)
+            .attr("height", canvasHeight);
         const drawer = canvas.append('g');
-        let globalX = 5,
+        let globalX = separator / 2,
             globalY = 0;
         let isBigBarRendered = false;
         let semestersPassed = 0;
-        let currentYearIndicator;
         let currentYear = 0;
+        let currentYearIndicator;
         let currentYearIndicatorText;
         let yearIndicator;
         for (let semester in this.malla) {
@@ -138,11 +142,14 @@ class Malla {
                     .attr("fill", "white")
                     .attr("dominant-baseline", "central")
                     .attr('text-anchor', 'middle');
-
-                yearIndicator.on("click", function () {
-                    let number = parseInt(d3.select(this).select("text").text().substr(4));
+                let localYearIndicator = yearIndicator
+                yearIndicator.on("click", (bar = localYearIndicator) => {
+                    const year = bar;
+                    console.log(year)
+                    console.log(bar)
+                    let number = parseInt(bar.select("text").text().substr(4));
                     let ramosToSelect;
-                if (this.getBBox().width === malla.ramoType.getDisplayWidth(malla.scaleX)) {
+                if (bar.node().getBBox().width <= this.ramoType.getDisplayWidth(this.scaleX) * 2 - this.ramoType.getDisplayWidth(this.scaleX) / 2) {
                     d3.select("#sem" + (number * 2 + 1)).dispatch('click')
                 } else {
                     d3.select("#sem" + number * 2).dispatch('click');
@@ -167,7 +174,8 @@ class Malla {
                     .attr("y", globalY)
                     .attr("width", width)
                     .attr("height", semesterIndicatorHeight)
-                    .attr("fill", '#EEE');
+                    .attr("fill", '#EEE')
+                    .classed("sem", true);
                 isBigBarRendered = true;
             }
 
@@ -175,7 +183,10 @@ class Malla {
                 .attr("id", "sem" + semester.substr(1))
                 .attr("cursor", "pointer")
                 .attr("width", this.ramoType.getDisplayWidth(this.scaleX))
-                .attr("height", semesterIndicatorHeight);
+                .attr("height", semesterIndicatorHeight)
+                .classed("sem", true);
+
+
 
 
 
@@ -187,6 +198,7 @@ class Malla {
                 .attr("width", this.ramoType.getDisplayWidth(this.scaleX))
                 .attr("height", semesterIndicatorHeight)
                 .attr("fill", '#EEE');
+
             isBigBarRendered = true;
 
             semesterIndicator.append("text")
@@ -199,7 +211,7 @@ class Malla {
                 .attr("dominant-baseline", "central")
                 .attr('text-anchor', 'middle');
 
-            semesterIndicator.on("click", function () {
+            semesterIndicator.on("click", (bar = semesterIndicator) => {
                 function deRomanize(roman){
                     var r_nums = getRnums();
                     var a_nums = getAnums();
@@ -223,8 +235,8 @@ class Malla {
                     else return -1;
                 }
 
-                let semNumber = deRomanize(d3.select(this).select("text").text());
-                Object.values(malla.malla["s" + semNumber]).forEach(ramo => {
+                let semNumber = deRomanize(bar.select("text").text());
+                Object.values(this.malla["s" + semNumber]).forEach(ramo => {
                     ramo.isBeingClicked()
                 })
 
@@ -325,6 +337,7 @@ class Malla {
         }
     }
 
+    // Renderiza las descripciones de las categorías
     showColorDescriptions(locationId) {
         Object.keys(this.sectors).forEach(key => {
             let color_description = d3.select(".color-description").append("div")
@@ -343,11 +356,13 @@ class Malla {
         });
     }
 
+    // Permite que se revise si los ramos cumplen prerrequisitos
     enablePrerCheck() {
         this.checkPrer = true;
         this.verifyPrer()
     }
 
+    // Revisa que ramos cumplen prerrequisitos y "oculta" los que no los cumplen
     verifyPrer() {
         if (this.checkPrer) {
             Object.values(this.ALLRAMOS).forEach(ramo => {
@@ -357,12 +372,14 @@ class Malla {
         }
     }
 
+    // Retorna el sistema de créditos utilizado
     displayCreditSystem() {
         if (!this.showCreditSystem)
             return
         d3.select("#credits-system").text(this.sct ? 'SCT' : 'USM')
     }
 
+    // Actualiza los datos como porcentaje de ramos aprobados etc
     updateStats() {
         if (!this.showCreditStats)
             return
@@ -379,7 +396,8 @@ class Malla {
         d3.select("#ramoPercentage").text(parseInt(careerAdvance))
     }
 
-    cleanRamos() {
+    // Limpia los ramos aprobados
+    cleanSubjects() {
         let listToClean = [...this.APPROVED]
         listToClean.forEach(ramo => {
             ramo.cleanRamo()
@@ -388,21 +406,40 @@ class Malla {
         this.updateStats()
     }
 
-    enableSave() {
-        this.saveEnabled = true
+
+    // Auto explanatorio
+    approveSubject(subject) {
+        this.APPROVED.push(subject)
     }
 
+    // Auto explanatorio
+    deApproveSubject(subject) {
+        let _i = this.APPROVED.indexOf(subject);
+        if (_i > -1) {
+            this.APPROVED.splice(_i, 1);
+        }
+    }
+
+    // Auto explanatorio
     saveApproved() {
-        if (this.saveEnabled)
-            StorageManager.saveApproved(this.APPROVED, this.currentMalla)
+        if (this.saveEnabled) {
+            let cacheName = "approvedRamos_" + this.currentMalla;
+            let cacheToSave = [];
+            this.APPROVED.forEach(ramo => {
+                cacheToSave.push(ramo.sigla)
+            });
+            localStorage[cacheName] = JSON.stringify(cacheToSave);
+        }
     }
 
+    // Auto explanatorio
     loadApproved() {
-        let loadedData = StorageManager.loadApproved(this.currentMalla);
+        let cacheName = "approvedRamos_" + this.currentMalla;
+        let loadedData = JSON.parse(localStorage[cacheName])
             loadedData.forEach(siglaRamo => {
-                console.log(siglaRamo)
                 this.ALLRAMOS[siglaRamo].approveRamo()
         })
         this.verifyPrer()
     }
+
 }

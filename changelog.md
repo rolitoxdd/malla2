@@ -1,6 +1,15 @@
 # Changelog
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
+# [1.4.0] Unreleased
+
+-[x] Se corrigió un problema donde las carreras no se mostraban
+-[ ] El código ha sido refactorizado y ahora sigue el estándar ECMAScript 6
+    - [x] Malla
+    - [ ] Prioridad
+    - [ ] Generadora
+-[ ] ajustes de interfaz 
+
 # [1.3.5]
 
 - Se agregó un link a un formulario para informar cambios de las mallas.

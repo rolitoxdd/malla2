@@ -13,12 +13,13 @@ class Ramo {
     static getDisplayWidth(scaleX) {
         return width * scaleX;
     }
+
     static getDisplayHeight(scaleY){
         return height * scaleY;
     }
 
 
-    constructor(name, sigla, credits, sector, prer = [], id, color) {
+    constructor(name, sigla, credits, sector, prer = [], id, color, malla, isCustom = false) {
         // Propiedades del ramo
         this.name = name;
         this.sigla = sigla;
@@ -28,6 +29,8 @@ class Ramo {
         this.color = color;
 
         // Propiedades para renderizado e interacciones
+        this.malla = malla
+        this.isCustom = isCustom
         this.id = id;
         this.ramo = null;
         this.approved = false;
@@ -151,18 +154,18 @@ class Ramo {
                 .attr('cx', posX + r + c_x + variantX)
                 .attr('cy', posY + sizeY - graybar / 2)
                 .attr('r', r)
-                .attr('fill', malla.ALLRAMOS[p].color)
+                .attr('fill', this.malla.ALLRAMOS[p].color)
                 .attr('stroke', 'white');
             this.ramo.append('text')
                 .attr('x', posX + r + c_x + variantX)
                 .attr('y', posY + sizeY - graybar / 2)
-                .text(malla.ALLRAMOS[p].id)
+                .text(this.malla.ALLRAMOS[p].id)
                 .attr("dominant-baseline", "central")
                 .attr("text-anchor", "middle")
                 .attr("font-size", fontsize)
                 .attr("dy", 0)
                 .attr('fill', () => {
-                    if (this.needsWhiteText(malla.ALLRAMOS[p].color))
+                    if (this.needsWhiteText(this.malla.ALLRAMOS[p].color))
                         return "white";
                     return '#222222';
                 });
@@ -174,7 +177,7 @@ class Ramo {
 
     getDisplayCredits() {
         let credits = this.credits;
-         if (malla.sct) {
+         if (this.malla.sct) {
              credits = Math.round(credits * 5 / 3)
          }
         return credits;
@@ -206,22 +209,19 @@ class Ramo {
 
     isBeingClicked() {
         this.approveRamo();
-        malla.verifyPrer();
-        malla.updateStats();
-        malla.saveApproved();
+        this.malla.verifyPrer();
+        this.malla.updateStats();
+        this.malla.saveApproved();
     }
 
     approveRamo() {
         if (!this.approved) {
             d3.select("#" + this.sigla).select(".cross").transition().delay(20).attr("opacity", "1");
-            malla.APPROVED.push(this);
+            this.malla.approveSubject(this)
         } else {
             d3.select("#" + this.sigla).select(".cross").transition().delay(20).attr("opacity", "0.01");
-            let _i = malla.APPROVED.indexOf(this);
-            if (_i > -1) {
-                malla.APPROVED.splice(_i, 1);
+            this.malla.deApproveSubject(this)
             }
-        }
         this.approved = !this.approved;
     }
 
@@ -234,7 +234,7 @@ class Ramo {
 
     verifyPrer() {
         let _a = [];
-        malla.APPROVED.forEach(function(ramo) {
+        this.malla.APPROVED.forEach(function(ramo) {
             _a.push(ramo.sigla);
         });
         _a = new Set(_a);

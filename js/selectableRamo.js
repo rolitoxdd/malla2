@@ -1,9 +1,8 @@
 
 class SelectableRamo extends Ramo{
 
-
-    constructor(name, sigla, credits, sector, prer = [], id, color, isCustom=false) {
-        super(name, sigla, credits, sector, prer, id, color, isCustom);
+    constructor(name, sigla, credits, sector, prer = [], id, color, malla, isCustom=false) {
+        super(name, sigla, credits, sector, prer, id, color, malla, isCustom);
         this.isCustom = isCustom;
         this.selected = false;
     }
@@ -46,7 +45,7 @@ class SelectableRamo extends Ramo{
             if (!this.isCustom)
                 d3.select("#" + this.sigla).select(".selected").transition().delay(20).attr("opacity", ".8");
 
-            malla.SELECTED.push(this);
+            this.malla.semesterManager.addSubject(this);
             // let card = d3.select('#ramos').append('div');
             // card.attr('id', "p-" + self.sigla);
             // card.attr('class', 'form-group mb-2');
@@ -80,10 +79,7 @@ class SelectableRamo extends Ramo{
             if (!this.isCustom)
                 d3.select("#" + this.sigla).select(".selected").transition().delay(20).attr("opacity", "0.01");
 
-            let _i = malla.SELECTED.indexOf(this);
-            if (_i > -1) {
-               malla.SELECTED.splice(_i, 1);
-            }
+            this.malla.semesterManager.removeSubject(this)
             let card = d3.select('#p-' + this.sigla);
             card.transition().duration(300).style("opacity", "0.001").remove();
 

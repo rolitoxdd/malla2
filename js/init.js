@@ -16,8 +16,17 @@
     },
 });*/
 
+let vh = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+window.addEventListener('resize', () => {
+    // We execute the same script as before
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+
 function contactar() {
-    window.location = "mailto:cpaulang@alumnos.inf.utfsm.cl";
+    window.location = "mailto:cpaulang@alumnos.inf.utfsm.cl?subject=Malla Interactiva";
     $('#contacto').modal('hide')
 }
 
@@ -26,10 +35,19 @@ function render(props) {
         return (i % 2) ? props[tok] : tok;
     };
 }
-var relaPath = './'
-let prioridadi = document.URL.includes('prioridad')
+let relaPath = './'
+let prioridad = document.URL.includes('prioridad')
 let personalizar = document.URL.includes('personalizar')
-if (prioridadi || personalizar) {
+let mallaPersonal = document.URL.includes("malla")
+let texts = "Malla"
+if (mallaPersonal)
+    texts = "Personal"
+else if (prioridad)
+    texts = "Prioridad"
+else if (personalizar)
+    texts = "Personalizar"
+
+if (texts !== "Malla") {
     relaPath = '../'
 }
 let params = new URLSearchParams(window.location.search)
@@ -41,91 +59,111 @@ let sct = false
 if (params.get('SCT') === "true")
     sct = true
 
-$(function() {
-    // obtener vistas
-    let includes = $('[data-include]');
-    jQuery.each(includes, function(){
-      let file = relaPath + 'views/' + $(this).data('include') + '.html';
-      $(this).load(file);
-    });
-    // No encuentra los elementos si no espero
-    // llenar carreras
-    $.getJSON( relaPath + '/data/carreras.json', function(data) {
-                    if (!(prioridadi|personalizar)) {
-                        d3.select('#goToCalculator').attr('href', './prioridad/?m=' + carr);
-                        d3.select('#goToGenerator').attr('href', './personalizar/?m=' + carr);
-                    } else if (prioridadi) {
-                        document.getElementById('goToCalculator').classList.add('active');
-                        d3.select('#goToHome').attr('href', '../?m=' + carr);
-                        d3.select('#goToGenerator').attr('href', '../personalizar/?m=' + carr);
-                    } else {
-                        document.getElementById('goToGenerator').classList.add('active');
-                        d3.select('#goToHome').attr('href', '../?m=' + carr);
-                        d3.select('#goToCalculator').attr('href', '../prioridad/?m=' + carr);
-                    }
-        $.each(data, function(index, value) {
-            let tabTpl1 = $('script[data-template="tab-template1"]').text().split(/\${(.+?)}/g);
-            let tabTpl2 = $('script[data-template="tab-template2"]').text().split(/\${(.+?)}/g);
-            value = [value];
-            value.forEach(carrera => {
-                if (carrera['Link'] == carr)
-                $('.carrera').text(carrera['Nombre'])
-                
-            });
-            $('#carreras1-nav').append(value.map(function (value) {
-                return tabTpl1.map(render(value)).join('');
-            }));
-            $('#carreras2-nav').append(value.map(function (value) {
-                return tabTpl2.map(render(value)).join('');
-            }));
-        });
-        
-    });
-});
+document.addEventListener("DOMContentLoaded",() => loadViews())
 
-function waitForElement(selector) {
-    return new Promise(function(resolve, reject) {
-      var element = document.querySelector(selector);
-  
-      if(element) {
-        resolve(element);
-        return;
-      }
-  
-      var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-          var nodes = Array.from(mutation.addedNodes);
-          for(var node of nodes) {
-            if(node.matches && node.matches(selector)) {
-              observer.disconnect();
-              resolve(node);
-              return;
+function loadViews() {
+    // obtener vistas
+    let includes = document.querySelectorAll('[data-include]')
+    let promises = []
+    let welcomeTexts = {}
+    includes.forEach(include => {
+        let fileURL = relaPath + 'views/' + include.attributes['data-include'].nodeValue + '.html';
+        promises.push(fetch(fileURL).then(response => response.text())
+            .then(data => {
+                include.insertAdjacentHTML("afterbegin", data)
+            }))
+    })
+    let fileURL = relaPath + "data/welcomeTexts.json"
+    promises.push(fetch(fileURL).then(response => response.json()))
+    Promise.all(promises).then((datas) => {
+        welcomeTexts = datas[2][texts]
+        if (mallaPersonal) {
+
+        } else if (!(prioridad|personalizar)) {
+            d3.select('#goToCalculator').attr('href', './prioridad/?m=' + carr);
+            d3.select('#goToGenerator').attr('href', './personalizar/?m=' + carr);
+        } else if (prioridad) {
+            document.getElementById('goToCalculator').classList.add('active');
+            d3.select('#goToHome').attr('href', '../?m=' + carr);
+            d3.select('#goToGenerator').attr('href', '../personalizar/?m=' + carr);
+        } else {
+            document.getElementById('goToGenerator').classList.add('active');
+            d3.select('#goToHome').attr('href', '../?m=' + carr);
+            d3.select('#goToCalculator').attr('href', '../prioridad/?m=' + carr);
+        }
+        return fetch(relaPath + '/data/carreras.json')
+    }).then(response => response.json()).then((careers,) => {
+        let tabTpl1 = document.querySelector('script[data-template="tab-template1"]').text.split(/\${(.+?)}/g);
+        let tabTpl2 = document.querySelector('script[data-template="tab-template2"]').text.split(/\${(.+?)}/g);
+        careers.forEach(careers => {
+            if (careers['Link'] === carr) {
+                welcomeTexts["welcomeTitle"] = welcomeTexts["welcomeTitle"].replace("CARRERA", careers['Nombre'])
+                $('.carrera').text(careers['Nombre'])
             }
-          };
         });
-      });
-  
-      observer.observe(document.documentElement, { childList: true, subtree: true });
-    });
-  }
+        $('#carreras1-nav').append(careers.map(function (values) {
+            return tabTpl1.map(render(values)).join('');
+        }));
+        $('#carreras2-nav').append(careers.map(function (values) {
+            return tabTpl2.map(render(values)).join('');
+        }));
+        document.querySelector(".overlay-content h3").textContent = welcomeTexts["welcomeTitle"]
+        document.querySelector(".overlay-content h5").textContent = welcomeTexts["welcomeDesc"]
+
+    })
+}
+
+function removePopUp() {
+    d3.select("body").style("overflow", "auto")
+    d3.selectAll(".blur").style("filter", "blur(0px)");
+    d3.select(".overlay").transition().style("filter", "opacity(0%)").on('end', function() {
+        d3.select(this).remove();
+    })
+    d3.select(".overlay-content").transition().style("filter", "opacity(0%)").on('end', function() {
+        d3.select(this).remove();
+    })
+}
 
   $(function () {
-      new Malla(sct);
-      let drawnMalla = malla.setCarrera(carr).then((val) => {
-      return malla.drawMalla(".canvas")
-      });
-      malla.showCreditStats = true
-      malla.showCreditSystem = true
+      if (sct) {
+          document.getElementById("creditsExample").textContent = "Créditos SCT";
+          document.getElementById("creditsNumberExample").textContent = "2";
+      }
 
+
+      let malla = null
+      if (prioridad) {
+          malla = new Malla(sct, SelectableRamo, 0.804, 1, SemesterManager, "#priorix")
+          malla.enableCreditsSystem()
+
+      } else if (personalizar) {
+          malla = new Malla(sct, SelectableRamo, 0.804, 1, SemesterManager)
+
+
+          document.getElementById("#reset").addEventListener("click", () => malla.semesterManager.cleanSemester())
+          document.getElementById("#resetc").addEventListener("click", () => malla.semesterManager.cleanAll())
+      } else  if (mallaPersonal) {
+          malla = new Malla((sct))
+          document.getElementById("cleanApprovedButton").addEventListener("click",() => malla.cleanSubjects())
+      } else {
+          malla = new Malla(sct);
+          malla.enableCreditsStats()
+          malla.enableCreditsSystem()
+          malla.enableSave()
+          document.getElementById("cleanApprovedButton").addEventListener("click", () => malla.cleanSubjects())
+
+      }
+
+      let drawnMalla = malla.setCareer(carr, relaPath).then((val) => {
+          return malla.drawMalla(".canvas")
+      });
       drawnMalla.then(() => {
           malla.updateStats()
           malla.displayCreditSystem()
           malla.showColorDescriptions(".color-description")
           malla.enablePrerCheck()
-          malla.enableSave()
           malla.loadApproved()
       })
-
   });
 
 function changeCreditsSystem() {
@@ -133,7 +171,7 @@ function changeCreditsSystem() {
     let value = 'true'
     const params = new URLSearchParams(window.location.search);
     if (params.has(key)) {
-        value = !('true' == params.get(key))
+        value = !('true' === params.get(key))
     }
     key = encodeURI(key); value = encodeURI(value);
     var kvp = document.location.search.substr(1).split('&');
@@ -142,7 +180,7 @@ function changeCreditsSystem() {
 {
     x = kvp[i].split('=');
 
-    if (x[0]==key)
+    if (x[0]===key)
     {
         x[1] = value;
         kvp[i] = x.join('=');

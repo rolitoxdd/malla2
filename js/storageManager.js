@@ -17,4 +17,9 @@ class StorageManager {
         console.log(localStorage[cacheName]);
         return JSON.parse(localStorage[cacheName])
     }
+
+    static loadSemesters(currentMalla, text) {
+        let cacheName = currentMalla + '_' + text;
+
+    }
 }

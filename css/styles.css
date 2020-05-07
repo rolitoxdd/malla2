@@ -21,7 +21,16 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* General */
-body { min-height: 100vh; }
+body {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.blur {
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+    filter: blur(50px);
+;
+}
 
 .non-approved {
     fill: white;
@@ -30,23 +39,45 @@ body { min-height: 100vh; }
 .bars {
     fill: grey;
 }
-#overlay {
-    position: absolute; /* Sit on top of the parent content*/
+.canvas {
+}
+.overlay-content {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    z-index: 201; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+    overflow-y: auto;
+
+}
+
+
+#content {
+    overflow: hidden;
+}
+
+.overlay-content h5, .overlay-content h3 {
+    filter: opacity(60%);
+}
+
+.overlay {
+    position: fixed; /* Sit on top of the parent content*/
     /* display: none; Hidden by default */
     width: 100%;  /*Full width (cover the whole page)*/
-    height: 100%; /*Full height /*(cover the whole page)*/
-    align-self: stretch;
-    justify-self: stretch;
-    top: 0; 
+    min-height: 100vh; /*Full height !*(cover the whole page)*/
+
+    top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0;
-    filter: opacity(90%);
-    /* background-color: rgba(255,255,255,0.9); Black background with opacity */
+    filter: opacity(20%);
+    /*background-color: rgba(255,255,255,0.9);/* Black background with opacity */
     z-index: 200; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
+    overflow: auto; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
+
 
 /* .sector:hover {
       filter: brightness(85%);
@@ -61,6 +92,13 @@ body { min-height: 100vh; }
 } */
 
 @media(prefers-color-scheme: dark) {
+
+    rect.sem, g.sem rect {
+        fill: #777777;
+    }
+    g.sem text {
+        fill: white;
+    }
    
     .non-approved {
         fill: #000;
