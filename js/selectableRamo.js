@@ -46,35 +46,7 @@ class SelectableRamo extends Ramo{
                 d3.select("#" + this.sigla).select(".selected").transition().delay(20).attr("opacity", ".8");
 
             this.malla.semesterManager.addSubject(this);
-            // let card = d3.select('#ramos').append('div');
-            // card.attr('id', "p-" + self.sigla);
-            // card.attr('class', 'form-group mb-2');
-            // card.attr('style', 'opacity:0.001');
-            // card.append('label')
-            //     .attr('class', 'text-left mb-1')
-            //     .attr('for', 'nota-' + self.sigla)
-            //     .text(self.nombre);
-            // let insideCard = card.append('div');
-            // insideCard.attr('class','input-group');
-            // insideCard.append('div')
-            //     .attr('class','input-group-prepend')
-            //     .append('span')
-            //     .attr('class','input-group-text')
-            //     .text('Nota');
-            // insideCard.append('input')
-            //     .attr('class', 'form-control')
-            //     .attr('id', 'nota-' + self.sigla)
-            //     .attr('name', 'nota-' + self.sigla)
-            //     .attr('type', 'number')
-            //     .attr('min','0')
-            //     .attr('max','100')
-            //     .attr('placeholder', '0');
-            // insideCard.append('div')
-            //     .attr('class','input-group-append')
-            //     .append('span')
-            //     .attr('class','input-group-text')
-            //     .text('x ' + creditos + ' creditos');
-            // card.transition().duration(300).style("opacity", "1");
+
         } else { // Ramo ya no esta seleccionado
             if (!this.isCustom)
                 d3.select("#" + this.sigla).select(".selected").transition().delay(20).attr("opacity", "0.01");

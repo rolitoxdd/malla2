@@ -19,7 +19,7 @@ class Ramo {
     }
 
 
-    constructor(name, sigla, credits, sector, prer = [], id, color, malla, isCustom = false) {
+    constructor(name, sigla, credits, sector, prer = [], id, color, malla, creditsSCT = 0, isCustom = false) {
         // Propiedades del ramo
         this.name = name;
         this.sigla = sigla;
@@ -27,6 +27,10 @@ class Ramo {
         this.sector = sector;
         this.prer = new Set(prer);
         this.color = color;
+        if (creditsSCT)
+            this.creditsSCT = creditsSCT
+        else
+            this.creditsSCT = Math.round(credits * 5 / 3)
 
         // Propiedades para renderizado e interacciones
         this.malla = malla
@@ -37,6 +41,21 @@ class Ramo {
     }
 
 
+    getSCTCredits() {
+        return this.creditsSCT
+    }
+
+    getUSMCredits() {
+        return this.credits;
+    }
+
+    getDisplayCredits() {
+        if (this.malla.sct) {
+            return  this.getSCTCredits()
+        } else {
+            return this.getUSMCredits()
+        }
+    }
 
     draw(canvas, posX, posY, scaleX, scaleY) {
         this.ramo = canvas.append('g')
@@ -175,13 +194,6 @@ class Ramo {
         this.wrap(sizeX - 5, sizeY / 5 * 3);
     }
 
-    getDisplayCredits() {
-        let credits = this.credits;
-         if (this.malla.sct) {
-             credits = Math.round(credits * 5 / 3)
-         }
-        return credits;
-    }
 
     drawActions(posX, posY, sizeX, sizeY) {
         if (this.ramo == null)

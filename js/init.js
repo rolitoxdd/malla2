@@ -114,12 +114,11 @@ function loadViews() {
 }
 
 function removePopUp() {
-    d3.select("body").style("overflow", "auto")
-    d3.selectAll(".blur").style("filter", "blur(0px)");
-    d3.select(".overlay").transition().style("filter", "opacity(0%)").on('end', function() {
-        d3.select(this).remove();
-    })
-    d3.select(".overlay-content").transition().style("filter", "opacity(0%)").on('end', function() {
+    d3.select("body").style("overflow", "initial")
+    d3.selectAll(".overlay").style("-webkit-backdrop-filter", "blur(0px) contrast(100%)");
+    d3.selectAll(".overlay").style("backdrop-filter", "blur(0px) contrast(100%)");
+    d3.select(".overlay-content").transition().style("filter", "opacity(0)")
+    d3.select(".overlay").transition().style("filter", "opacity(0)").on('end', function() {
         d3.select(this).remove();
     })
 }
@@ -133,7 +132,7 @@ function removePopUp() {
 
       let malla = null
       if (prioridad) {
-          malla = new Malla(sct, SelectableRamo, 0.804, 1, SemesterManager, "#priorix")
+          malla = new Malla(sct, SelectableRamo, 0.804, 1, Priorix, "#priorix")
           malla.enableCreditsSystem()
 
       } else if (personalizar) {

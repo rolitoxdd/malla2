@@ -4,8 +4,10 @@ class SemesterManager {
         this.selectedPerSemester = {}
         this.semester = 1;
         this.saveEnabled = false
+        this.subjectsInManySemesters = false
         this.malla = malla
         this.card = d3.select(card)
+        this.displayedSubjects = {}
 
 
         //
@@ -14,6 +16,7 @@ class SemesterManager {
         this.card.select("#resetc").on("click", () => this.cleanAll())
         this.card.select("#forward").on("click", () => this.nextSemester())
         this.backButton = this.card.select("#back").on("click", () => this.prevSemester())
+        this.noSubjectsText = this.card.select(".no-subjects")
 
 
         this.updateSemesterIndicator()
@@ -24,6 +27,9 @@ class SemesterManager {
     }
 
     addSubject(subject) {
+        if (this.SELECTED.length === 0)
+            this.noSubjectsText.classed("d-none", true)
+
         this.SELECTED.push(subject)
         this.displaySubject(subject)
     }
@@ -34,10 +40,14 @@ class SemesterManager {
             this.SELECTED.splice(_i, 1);
         }
         this.unDisplaySubject(subject)
+        if (this.SELECTED.length === 0) {
+            this.noSubjectsText.classed("d-none", false)
+        }
     }
 
     displaySubject(subject) {
         // Do something
+        // this.displayedSubjects[subject.sigla] =
     }
 
     unDisplaySubject(subject) {
@@ -49,6 +59,7 @@ class SemesterManager {
         console.log(this.selectedPerSemester[this.semester])
         this.saveSemesters()
         this.cleanSemester()
+        this.selectedPerSemester[this.semester].forEach(subject => subject.approveRamo())
         this.semester++
         if (this.semester === 2)
             this.backButton.classed("disabled", false)
@@ -65,10 +76,11 @@ class SemesterManager {
             delete this.selectedPerSemester[this.semester]
         else
             this.selectedPerSemester[this.semester] = [...this.SELECTED]
-        this.saveSemesters()
         this.cleanSemester()
-        if (this.semester === 2) {
+        this.saveSemesters()
+        this.deApprovePrevSemester()
             this.semester--
+        if (this.semester === 1) {
             this.backButton.classed("disabled", true)
         }
             this.updateSemesterIndicator()
@@ -77,23 +89,36 @@ class SemesterManager {
         })
     }
 
+    deApprovePrevSemester() {
+        let currentSemester = this.selectedPerSemester[this.semester]
+        this.selectedPerSemester[this.semester - 1].forEach(subject => {
+            if (this.subjectsInManySemesters) {
+                if (currentSemester) {
+                    if (currentSemester.indexOf(subject) === -1) {
+                        subject.approveRamo()
+                    } else {
+                        subject.approveRamo()
+                    }
+                }
+            } else {
+                subject.approveRamo()
+            }
+        })
+    }
+
     cleanSemester() {
         let semesterToClean = [...this.SELECTED]
         semesterToClean.forEach(subject => {
             subject.selectRamo()
-            this.cleanSelectedSubject(subject)
         })
     }
 
     cleanAll () {
-        this.cleanSemester()
+        this.cleanSemester(0)
         this.semester = 1
         this.selectedPerSemester = {}
     }
 
-    cleanSelectedSubject(subject) {
-        // Do something (Limpiar ramo de la pagina)
-    }
 
     loadSemesters() {
         console.log("Fake Loading...")
