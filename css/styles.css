@@ -50,6 +50,15 @@ hr {
     backdrop-filter: blur(15px);
 }
 
+.card-sticky-bottom {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+}
+
 .priorix-result {
     position: -webkit-sticky;
     position: sticky;
@@ -110,7 +119,7 @@ hr {
 }
 
 @supports not ((backdrop-filter: none) or (-webkit-backdrop-filter: none) ){
-    .overlay, .card-sticky-top {
+    .overlay, .card-sticky-top, .card-sticky-bottom {
         background: #ffffffdd;
     }
     .overlay-content h3, .overlay-content h5 {
@@ -146,7 +155,7 @@ hr {
     }
 
     @supports not ((backdrop-filter: none) or (-webkit-backdrop-filter: none) ) {
-        .overlay, .card-sticky-top {
+        .overlay, .card-sticky-top, .card-sticky-bottom {
             background: #272727dd;
         }
         .overlay-content h3, .overlay-content h5 {

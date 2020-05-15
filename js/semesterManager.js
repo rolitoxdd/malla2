@@ -1,5 +1,5 @@
 class SemesterManager {
-    constructor(malla, card) {
+    constructor(malla, card, mallaEditor = false) {
         this.SELECTED = []
         this.selectedPerSemester = {}
         this.semester = 1;
@@ -8,6 +8,10 @@ class SemesterManager {
         this.malla = malla
         this.card = d3.select(card)
         this.displayedSubjects = {}
+        if (mallaEditor)
+            this.mallaEditor = mallaEditor
+        else
+            this.mallaEditor = null
 
 
         //
@@ -69,6 +73,8 @@ class SemesterManager {
                 subject.selectRamo()
             });
         }
+        this.malla.verifyPrer()
+
     }
 
     prevSemester() {
@@ -87,22 +93,13 @@ class SemesterManager {
         this.selectedPerSemester[this.semester].forEach(subject => {
             subject.selectRamo()
         })
+        this.malla.verifyPrer()
     }
 
     deApprovePrevSemester() {
-        let currentSemester = this.selectedPerSemester[this.semester]
         this.selectedPerSemester[this.semester - 1].forEach(subject => {
-            if (this.subjectsInManySemesters) {
-                if (currentSemester) {
-                    if (currentSemester.indexOf(subject) === -1) {
-                        subject.approveRamo()
-                    } else {
-                        subject.approveRamo()
-                    }
-                }
-            } else {
+            if (subject.approved)
                 subject.approveRamo()
-            }
         })
     }
 

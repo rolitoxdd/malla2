@@ -45,7 +45,7 @@ if (mallaPersonal)
 else if (prioridad)
     texts = "Prioridad"
 else if (personalizar)
-    texts = "Personalizar"
+    texts = "Generadora"
 
 if (texts !== "Malla") {
     relaPath = '../'
@@ -134,13 +134,14 @@ function removePopUp() {
       if (prioridad) {
           malla = new Malla(sct, SelectableRamo, 0.804, 1, Priorix, "#priorix")
           malla.enableCreditsSystem()
+          malla.semesterManager.subjectsInManySemesters = true
 
       } else if (personalizar) {
-          malla = new Malla(sct, SelectableRamo, 0.804, 1, SemesterManager)
+          malla = new Malla(sct, SelectableRamo, 0.804, 1, Generator, "#priorix")
 
 
-          document.getElementById("#reset").addEventListener("click", () => malla.semesterManager.cleanSemester())
-          document.getElementById("#resetc").addEventListener("click", () => malla.semesterManager.cleanAll())
+          //document.getElementById("#reset").addEventListener("click", () => malla.semesterManager.cleanSemester())
+          //document.getElementById("#resetc").addEventListener("click", () => malla.semesterManager.cleanAll())
       } else  if (mallaPersonal) {
           malla = new Malla((sct))
           document.getElementById("cleanApprovedButton").addEventListener("click",() => malla.cleanSubjects())

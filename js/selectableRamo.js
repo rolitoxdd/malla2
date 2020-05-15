@@ -29,12 +29,7 @@ class SelectableRamo extends Ramo{
         if (this.approved) { // Si el ramo esta aprobado, no se selecciona
             if (!this.isCustom) {
 
-            d3.select("#" + this.sigla).select(".selected").attr('stroke','red');
-                d3.select("#" + this.sigla).select(".selected").transition().duration(200).attr("opacity", ".8")
-                    .transition().duration(150).attr("opacity", ".5")
-                    .transition().duration(150).attr("opacity", ".8")
-                    .transition().duration(200).attr("opacity", ".001")
-                    .attr('stroke','green');
+                this.showWarning()
             }
             return;
         }
@@ -43,13 +38,13 @@ class SelectableRamo extends Ramo{
             let creditos = this.getDisplayCredits();
 
             if (!this.isCustom)
-                d3.select("#" + this.sigla).select(".selected").transition().delay(20).attr("opacity", ".8");
+                this.ramo.select(".selected").transition().delay(20).attr("opacity", ".8");
 
             this.malla.semesterManager.addSubject(this);
 
         } else { // Ramo ya no esta seleccionado
             if (!this.isCustom)
-                d3.select("#" + this.sigla).select(".selected").transition().delay(20).attr("opacity", "0.01");
+                this.ramo.select(".selected").transition().delay(20).attr("opacity", "0.01");
 
             this.malla.semesterManager.removeSubject(this)
             let card = d3.select('#p-' + this.sigla);
@@ -58,4 +53,18 @@ class SelectableRamo extends Ramo{
         }
         this.selected = !this.selected;
     };
+
+    showWarning(warningColor = "red") {
+        if (!this.isCustom) {
+            this.ramo.select(".selected").attr('stroke',warningColor);
+            let animation = this.ramo.select(".selected").transition().duration(200).attr("opacity", ".8")
+                .transition().duration(150).attr("opacity", ".5")
+                .transition().duration(150).attr("opacity", ".8")
+                .transition().duration(200).attr("opacity", ".001")
+                .attr('stroke','green');
+            if (this.selected) {
+                animation.transition().attr("opacity", ".8")
+            }
+        }
+    }
 }

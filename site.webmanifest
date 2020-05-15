@@ -13,6 +13,7 @@
             "type": "image/png"
         }
     ],
+    "start_url": "https://csarman.github.io/malla-interactiva",
     "theme_color": "#f8f9fa",
     "background_color": "#f8f9fa",
     "display": "standalone"
