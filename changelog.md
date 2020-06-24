@@ -11,14 +11,14 @@ Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
     - [ ] Generadora
 -[ ] ajustes de interfaz 
 - La malla ahora tiene un identificador de año para una mejor lectura visual
-- Pulsar un semestre o año selecciona todos los ramos de dicho semestre o año
+- Pulsar el indicador de semestre o año selecciona todos los ramos de dicho semestre o año
 
 - La calculadora de prioridad ahora calcula la prioridad usando créditos USM y créditos SCT al mismo tiempo.
 - Se corrigió un problema donde al volver al semestre pasado, la prioridad calculada era erronea
 - Se redujeron faltas ortográficas en general.
 - Spamear clicks en los ramos ya no genera ramos duplicados en la calculadora
-- Existe una nueva "Pantalla de inicio" que cubre la ventana completa
-
+- Existe una nueva "Pantalla de bienvenida" que cubre la ventana completa
+- Ahora se pueden eliminar asignaturas sin importar si están asignadas a algún semestre
 # [1.3.5]
 
 - Se agregó un link a un formulario para informar cambios de las mallas.

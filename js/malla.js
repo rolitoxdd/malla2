@@ -2,7 +2,7 @@
 
 class Malla {
 
-    constructor(sct = false, ramoType = Ramo, scaleX = 1, scaleY = 1 , semesterManager = null, card = null) {
+    constructor(sct = false, ramoType = Ramo, scaleX = 1, scaleY = 1) {
 
         // Propiedades antes del render
         this.scaleX = scaleX;
@@ -12,8 +12,10 @@ class Malla {
         this.sectors = {};
         this.malla = {};
         this.sct = sct;
-        if (semesterManager)
-            this.semesterManager = new semesterManager(this, card);
+        this.longestSemester = 0;
+        this.totalCredits = 0;
+        this.totalRamos = 0;
+        this.semesterManager = null
         this.currentMalla = null;
 
         // Propiedades despues del render
@@ -74,12 +76,18 @@ class Malla {
             malla[semester].forEach(ramo => {
                 totalRamos += 1;
                 // Agregado de ramos por semestre
-                this.malla[semester][ramo[1]] = new this.ramoType(ramo[0], ramo[1], ramo[2], ramo[3], (function() {
-                    if (ramo.length > 4) {
-                        return ramo[4];
-                    }
-                    return [];
-                })(), this.RAMOID++, this.sectors[ramo[3]][0], this);
+                if (ramo.length === 6) {
+                    // Nuevo formato con ramos SCT
+                    this.malla[semester][ramo[1]] = new this.ramoType(ramo[0], ramo[1], ramo[2], ramo[4], ramo[5],this.RAMOID++, this, ramo[3])
+                } else {
+                    // Formato antiguo
+                    this.malla[semester][ramo[1]] = new this.ramoType(ramo[0], ramo[1], ramo[2], ramo[3], (function hasPrer() {
+                        if (ramo.length > 4) {
+                            return ramo[4];
+                        }
+                        return [];
+                    })(), this.RAMOID++, this);
+                }
                 this.ALLRAMOS[ramo[1]] = this.malla[semester][ramo[1]];
                 totalCredits += this.malla[semester][ramo[1]].getDisplayCredits()
             });
@@ -88,6 +96,18 @@ class Malla {
         this.totalCredits = totalCredits;
         this.totalRamos = totalRamos;
         this.isMallaSet = true;
+    }
+
+    setSemesterManager(semesterManager) {
+        this.semesterManager = semesterManager
+    }
+
+    addSubject(subject) {
+        this.ALLRAMOS[subject.sigla] = subject
+    }
+
+    delSubjects(subject) {
+        delete this.ALLRAMOS[subject.sigla]
     }
 
     // Renderiza la malla. canvasId puede ser una clase o una id
@@ -114,10 +134,11 @@ class Malla {
         let isBigBarRendered = false;
         let semestersPassed = 0;
         let currentYear = 0;
-        let currentYearIndicator;
-        let currentYearIndicatorText;
-        let yearIndicator;
-        for (let semester in this.malla) {
+        let currentYearIndicator = null;
+        let currentYearIndicatorText = null;
+        let yearIndicator = null;
+
+        Object.keys(this.malla).forEach(semester => {
             globalY = 0;
             // Barra indicadora de años
             if (semestersPassed === 0) {
@@ -143,10 +164,8 @@ class Malla {
                     .attr("dominant-baseline", "central")
                     .attr('text-anchor', 'middle');
                 let localYearIndicator = yearIndicator
-                yearIndicator.on("click", (bar = localYearIndicator) => {
-                    const year = bar;
-                    console.log(year)
-                    console.log(bar)
+                yearIndicator.on("click", () => {
+                    let bar = d3.select(d3.event.currentTarget)
                     let number = parseInt(bar.select("text").text().substr(4));
                     let ramosToSelect;
                 if (bar.node().getBBox().width <= this.ramoType.getDisplayWidth(this.scaleX) * 2 - this.ramoType.getDisplayWidth(this.scaleX) / 2) {
@@ -204,38 +223,13 @@ class Malla {
             semesterIndicator.append("text")
                 .attr('x', globalX + this.ramoType.getDisplayWidth(this.scaleX) / 2.0)
                 .attr('y', globalY + semesterIndicatorHeight / 2)
-                .text(romanize(parseInt(semester.substr(1))))
-                // .attr("font-family", "sans-serif")
-                // .attr("font-weight", "bold")
-                // .attr("fill", "white")
+                .text(this.romanize(parseInt(semester.substr(1))))
                 .attr("dominant-baseline", "central")
                 .attr('text-anchor', 'middle');
 
-            semesterIndicator.on("click", (bar = semesterIndicator) => {
-                function deRomanize(roman){
-                    var r_nums = getRnums();
-                    var a_nums = getAnums();
-                    var remainder = roman.replace(/i/g, "M");
-                    var arabic = 0, count = 0, test = remainder;
-
-                    var len=r_nums.length;
-                    for ( var i=1;  i<len; ++i ){
-                        var numchrs = r_nums[i].length;
-                        while( remainder.substr(0,numchrs) === r_nums[i]){
-                            if((count++) > 30) return -1;
-                            arabic += a_nums[i];
-                            remainder = remainder.substr(numchrs,remainder.length-numchrs);
-                        }
-                        if(remainder.length <= 0) break;
-                    }
-                    if(remainder.length !==0 ){
-                        alert(roman + " INVALID truncating to "+test.replace(remainder,'') );
-                    }
-                    if( (0 < arabic) && (arabic < 4000000) )return arabic;
-                    else return -1;
-                }
-
-                let semNumber = deRomanize(bar.select("text").text());
+            semesterIndicator.on("click", () => {
+                let bar = d3.select(d3.event.currentTarget)
+                let semNumber = this.deRomanize(bar.select("text").text());
                 Object.values(this.malla["s" + semNumber]).forEach(ramo => {
                     ramo.isBeingClicked()
                 })
@@ -244,97 +238,19 @@ class Malla {
 
             globalY += semesterIndicatorHeight + separator;
 
-            for (let ramo in this.malla[semester]) {
-                this.malla[semester][ramo].draw(drawer, globalX, globalY, this.scaleX, this.scaleY);
+            Object.keys(this.malla[semester]).forEach(subject => {
+                this.malla[semester][subject].draw(drawer, globalX, globalY, this.scaleX, this.scaleY);
                 globalY += this.ramoType.getDisplayHeight(this.scaleY) + separator;
-            }
+            })
+
 
             globalX += this.ramoType.getDisplayWidth(this.scaleX) + separator;
-        }
+        })
+
 
 
         // Funciones solo para dibujar mallas
-        function romanize(arabic) {
-            if (arabic > 3999999 || arabic < 1) {
-                return 'Expect number from 1 to 3,999,999';
-            }
-            let r_nums = getRnums();
-            let a_nums = getAnums();
-            let remainder = parseInt(arabic);
-            let roman = '', count = 0;
 
-            let len = r_nums.length;
-            for (let i = 1; i < len; ++i) {
-                while (remainder >= parseInt(a_nums[i])) {
-                    if ((count++) > 30) return -1;
-                    roman = roman + r_nums[i];
-                    remainder = remainder - a_nums[i];
-                }
-                if (remainder <= 0) break;
-            }
-            return roman;
-        }
-
-
-        function getRnums() {
-            let r_nums = Array();
-            r_nums[1] = 'm';
-            r_nums[2] = 'cm';
-            r_nums[3] = 'd';
-            r_nums[4] = 'cd';
-            r_nums[5] = 'c';
-            r_nums[6] = 'xc';
-            r_nums[7] = 'l';
-            r_nums[8] = 'xl';
-            r_nums[9] = 'x';
-            r_nums[10] = 'Mx';
-            r_nums[11] = 'v';
-            r_nums[12] = 'Mv';
-            r_nums[13] = 'M';
-            r_nums[14] = 'CM';
-            r_nums[15] = 'D';
-            r_nums[16] = 'CD';
-            r_nums[17] = 'C';
-            r_nums[18] = 'XC';
-            r_nums[19] = 'L';
-            r_nums[20] = 'XL';
-            r_nums[21] = 'X';
-            r_nums[22] = 'IX';
-            r_nums[23] = 'V';
-            r_nums[24] = 'IV';
-            r_nums[25] = 'I';
-            return r_nums;
-        }
-
-        function getAnums() {
-            let a_nums = Array();
-            a_nums[1] = 1000000;
-            a_nums[2] = 900000;
-            a_nums[3] = 500000;
-            a_nums[4] = 400000;
-            a_nums[5] = 100000;
-            a_nums[6] = 90000;
-            a_nums[7] = 50000;
-            a_nums[8] = 40000;
-            a_nums[9] = 10000;
-            a_nums[10] = 9000;
-            a_nums[11] = 5000;
-            a_nums[12] = 4000;
-            a_nums[13] = 1000;
-            a_nums[14] = 900;
-            a_nums[15] = 500;
-            a_nums[16] = 400;
-            a_nums[17] = 100;
-            a_nums[18] = 90;
-            a_nums[19] = 50;
-            a_nums[20] = 40;
-            a_nums[21] = 10;
-            a_nums[22] = 9;
-            a_nums[23] = 5;
-            a_nums[24] = 4;
-            a_nums[25] = 1;
-            return a_nums;
-        }
     }
 
     // Renderiza las descripciones de las categorías
@@ -420,6 +336,10 @@ class Malla {
         }
     }
 
+    getSubject(sigla) {
+        return this.ALLRAMOS[sigla]
+    }
+
     // Auto explanatorio
     saveApproved() {
         if (this.saveEnabled) {
@@ -442,4 +362,110 @@ class Malla {
         this.verifyPrer()
     }
 
+    // EXTRA
+
+    deRomanize(roman){
+        let r_nums = this.getRnums();
+        let a_nums = this.getAnums();
+        let remainder = roman.replace(/i/g, "M");
+        let arabic = 0, count = 0, test = remainder;
+
+        let len=r_nums.length;
+        for (let i=1; i<len; ++i ){
+            const numchrs = r_nums[i].length;
+            while( remainder.substr(0,numchrs) === r_nums[i]){
+                if((count++) > 30) return -1;
+                arabic += a_nums[i];
+                remainder = remainder.substr(numchrs,remainder.length-numchrs);
+            }
+            if(remainder.length <= 0) break;
+        }
+        if(remainder.length !==0 ){
+            alert(roman + " INVALID truncating to "+test.replace(remainder,'') );
+        }
+        if( (0 < arabic) && (arabic < 4000000) )return arabic;
+        else return -1;
+    }
+
+    romanize(arabic) {
+        if (arabic > 3999999 || arabic < 1) {
+            return 'Expect number from 1 to 3,999,999';
+        }
+        let r_nums = this.getRnums();
+        let a_nums = this.getAnums();
+        let remainder = parseInt(arabic);
+        let roman = '', count = 0;
+
+        let len = r_nums.length;
+        for (let i = 1; i < len; ++i) {
+            while (remainder >= parseInt(a_nums[i])) {
+                if ((count++) > 30) return -1;
+                roman = roman + r_nums[i];
+                remainder = remainder - a_nums[i];
+            }
+            if (remainder <= 0) break;
+        }
+        return roman;
+    }
+
+
+    getRnums() {
+        let r_nums = Array();
+        r_nums[1] = 'm';
+        r_nums[2] = 'cm';
+        r_nums[3] = 'd';
+        r_nums[4] = 'cd';
+        r_nums[5] = 'c';
+        r_nums[6] = 'xc';
+        r_nums[7] = 'l';
+        r_nums[8] = 'xl';
+        r_nums[9] = 'x';
+        r_nums[10] = 'Mx';
+        r_nums[11] = 'v';
+        r_nums[12] = 'Mv';
+        r_nums[13] = 'M';
+        r_nums[14] = 'CM';
+        r_nums[15] = 'D';
+        r_nums[16] = 'CD';
+        r_nums[17] = 'C';
+        r_nums[18] = 'XC';
+        r_nums[19] = 'L';
+        r_nums[20] = 'XL';
+        r_nums[21] = 'X';
+        r_nums[22] = 'IX';
+        r_nums[23] = 'V';
+        r_nums[24] = 'IV';
+        r_nums[25] = 'I';
+        return r_nums;
+    }
+
+    getAnums() {
+        let a_nums = Array();
+        a_nums[1] = 1000000;
+        a_nums[2] = 900000;
+        a_nums[3] = 500000;
+        a_nums[4] = 400000;
+        a_nums[5] = 100000;
+        a_nums[6] = 90000;
+        a_nums[7] = 50000;
+        a_nums[8] = 40000;
+        a_nums[9] = 10000;
+        a_nums[10] = 9000;
+        a_nums[11] = 5000;
+        a_nums[12] = 4000;
+        a_nums[13] = 1000;
+        a_nums[14] = 900;
+        a_nums[15] = 500;
+        a_nums[16] = 400;
+        a_nums[17] = 100;
+        a_nums[18] = 90;
+        a_nums[19] = 50;
+        a_nums[20] = 40;
+        a_nums[21] = 10;
+        a_nums[22] = 9;
+        a_nums[23] = 5;
+        a_nums[24] = 4;
+        a_nums[25] = 1;
+        return a_nums;
+    }
 }

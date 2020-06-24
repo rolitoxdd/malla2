@@ -413,10 +413,10 @@ function wrap(text, width, height) {
 				lineNumber = 0;
 				if (textLines != 1) {
 					if (textLines % 2 == 0) {
-						console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
+						//console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
 						texts.attr("y", text.attr("y") - convertEm(lineHeight * textLines /2 - 0.5, text.node()))
 					} else {
-						console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
+						//console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
 						texts.attr("y", text.attr("y") - convertEm(lineHeight / 2 * (textLines /2 + 0.5 ), text.node()))
 		
 					}
@@ -425,10 +425,10 @@ function wrap(text, width, height) {
 		} else {
 			if (textLines != 1) {
 				if (textLines % 2 == 0) {
-					console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
+					//console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
 					texts.attr("y", text.attr("y") - convertEm(lineHeight * textLines /2 - 0.5, text.node()))
 				} else {
-					console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
+					//console.log(convertEm(lineHeight / 2 * textLines /2, text.node()))
 					texts.attr("y", text.attr("y") - convertEm(lineHeight / 2 * (textLines /2 + 0.5 ), text.node()))
 					
 				}

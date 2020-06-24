@@ -1,4 +1,4 @@
-/**
+/*
  * Obtencion de archivos JS de manera paralela y carga sincronica
  */
 //loadjs(['https://kit.fontawesome.com/bf671ef02a.js', 'https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js', '/js/ramos.js', '/js/canvas.js'], 'init');
@@ -131,14 +131,17 @@ function removePopUp() {
 
 
       let malla = null
+      let semesterManager = null
       if (prioridad) {
-          malla = new Malla(sct, SelectableRamo, 0.804, 1, Priorix, "#priorix")
+          malla = new Malla(sct, SelectableRamo, 0.804, 1)
           malla.enableCreditsSystem()
           malla.semesterManager.subjectsInManySemesters = true
 
       } else if (personalizar) {
-          malla = new Malla(sct, SelectableRamo, 0.804, 1, Generator, "#priorix")
-
+          malla = new Malla(sct, SelectableRamo, 0.804, 1)
+          document.getElementById("custom-credits-USM").addEventListener("input", function updateSCTPlaceholder() {
+              document.getElementById("custom-credits-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
+          })
 
           //document.getElementById("#reset").addEventListener("click", () => malla.semesterManager.cleanSemester())
           //document.getElementById("#resetc").addEventListener("click", () => malla.semesterManager.cleanAll())
@@ -163,6 +166,13 @@ function removePopUp() {
           malla.showColorDescriptions(".color-description")
           malla.enablePrerCheck()
           malla.loadApproved()
+      })
+      drawnMalla.then(() => {
+          if (prioridad)
+              semesterManager = new Priorix(malla, "#priorix")
+          else if (personalizar)
+              semesterManager = new Generator(malla, "#priorix")
+          malla.setSemesterManager(semesterManager)
       })
   });
 

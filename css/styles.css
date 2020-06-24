@@ -118,6 +118,21 @@ hr {
     opacity: .6;
 }
 
+.sector {
+    filter: brightness(100%);
+    color: black;
+    transition: 0.2s;
+}
+
+.sector:hover {
+    filter: brightness(85%);
+    color: black;
+
+}
+
+sector:hover .text-white {
+    filter: brightness(85%);
+}
 @supports not ((backdrop-filter: none) or (-webkit-backdrop-filter: none) ){
     .overlay, .card-sticky-top, .card-sticky-bottom {
         background: #ffffffdd;

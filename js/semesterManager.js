@@ -49,6 +49,19 @@ class SemesterManager {
         }
     }
 
+    removeSubjectOutsideSemester(subject) {
+        Object.keys(this.selectedPerSemester).forEach(semester => {
+            if (semester !== this.semester) {
+                let found = this.selectedPerSemester[semester].indexOf(subject)
+                if (found !== -1){
+                    this.selectedPerSemester[semester].splice(found,1)
+                    if (semester < this.semester)
+                        subject.approveRamo()
+                }
+            }
+        })
+    }
+
     displaySubject(subject) {
         // Do something
         // this.displayedSubjects[subject.sigla] =
@@ -60,7 +73,6 @@ class SemesterManager {
 
     nextSemester() {
         this.selectedPerSemester[this.semester] = [...this.SELECTED]
-        console.log(this.selectedPerSemester[this.semester])
         this.saveSemesters()
         this.cleanSemester()
         this.selectedPerSemester[this.semester].forEach(subject => subject.approveRamo())

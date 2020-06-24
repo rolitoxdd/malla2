@@ -1,6 +1,7 @@
 class Generator extends SemesterManager {
     constructor(malla, card) {
         super(malla, card);
+        this.mallaEditor = new MallaEditor(this, "#unoficialSubjects", "#sectors")
     }
 
     displaySubject(subject) {
@@ -41,4 +42,15 @@ class Generator extends SemesterManager {
 
     }
 
+    nextSemester() {
+        super.nextSemester();
+        if (this.mallaEditor)
+            this.mallaEditor.semesterChange()
+    }
+
+    prevSemester() {
+        super.prevSemester();
+        if (this.mallaEditor)
+            this.mallaEditor.semesterChange()
+    }
 }

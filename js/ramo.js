@@ -19,14 +19,13 @@ class Ramo {
     }
 
 
-    constructor(name, sigla, credits, sector, prer = [], id, color, malla, creditsSCT = 0, isCustom = false) {
+    constructor(name, sigla, credits, sector, prer = [], id, malla, creditsSCT = 0, isCustom = false) {
         // Propiedades del ramo
         this.name = name;
         this.sigla = sigla;
         this.credits = credits;
         this.sector = sector;
         this.prer = new Set(prer);
-        this.color = color;
         if (creditsSCT)
             this.creditsSCT = creditsSCT
         else
@@ -38,6 +37,7 @@ class Ramo {
         this.id = id;
         this.ramo = null;
         this.approved = false;
+        //console.log(this.sector)
     }
 
 
@@ -66,13 +66,13 @@ class Ramo {
             sizeY = this.constructor.getDisplayHeight(scaleY);
         let graybar = sizeY / 5;
         let credits = this.getDisplayCredits(this.credits);
-
+        let color = this.malla.sectors[this.sector][0]
         this.ramo.append("rect")
             .attr("x", posX)
             .attr("y", posY)
             .attr("width", sizeX )
             .attr("height", sizeY)
-            .attr("fill", this.color);
+            .attr("fill", color);
 
         // above bar
         this.ramo.append("rect")
@@ -119,7 +119,7 @@ class Ramo {
             .text(this.name)
             .attr("class", "ramo-label")
             .attr("fill", () => {
-                if (this.needsWhiteText(this.color))
+                if (this.needsWhiteText(color))
                     return "white";
                 return '#222222';
             })
@@ -169,11 +169,12 @@ class Ramo {
                 variantX = 1;
                 variantY--;
             }
+            let prerColor = this.malla.sectors[this.malla.ALLRAMOS[p].sector][0]
             this.ramo.append("circle")
                 .attr('cx', posX + r + c_x + variantX)
                 .attr('cy', posY + sizeY - graybar / 2)
                 .attr('r', r)
-                .attr('fill', this.malla.ALLRAMOS[p].color)
+                .attr('fill', prerColor)
                 .attr('stroke', 'white');
             this.ramo.append('text')
                 .attr('x', posX + r + c_x + variantX)
@@ -184,7 +185,7 @@ class Ramo {
                 .attr("font-size", fontsize)
                 .attr("dy", 0)
                 .attr('fill', () => {
-                    if (this.needsWhiteText(this.malla.ALLRAMOS[p].color))
+                    if (this.needsWhiteText(prerColor))
                         return "white";
                     return '#222222';
                 });
@@ -228,10 +229,12 @@ class Ramo {
 
     approveRamo() {
         if (!this.approved) {
-            d3.select("#" + this.sigla).select(".cross").transition().delay(20).attr("opacity", "1");
+            if (!this.isCustom)
+                d3.select("#" + this.sigla).select(".cross").transition().delay(20).attr("opacity", "1");
             this.malla.approveSubject(this)
         } else {
-            d3.select("#" + this.sigla).select(".cross").transition().delay(20).attr("opacity", "0.01");
+            if (!this.isCustom)
+                d3.select("#" + this.sigla).select(".cross").transition().delay(20).attr("opacity", "0.01");
             this.malla.deApproveSubject(this)
             }
         this.approved = !this.approved;
@@ -245,6 +248,8 @@ class Ramo {
     }
 
     verifyPrer() {
+        if (this.isCustom)
+            return;
         let _a = [];
         this.malla.APPROVED.forEach(function(ramo) {
             _a.push(ramo.sigla);
@@ -261,14 +266,14 @@ class Ramo {
 
     wrap(sizeX,sizeY) {
         let text = this.ramo.select(".ramo-label");
-        let emEquivalent = convertEm(1, text.node());
+        // let emEquivalent = convertEm(1, text.node());
         let words = text.text().split(/\s+/).reverse(),
             word,
             line = [],
             lineNumber = 0,
             lineHeight = 1.1, // ems
-            y = text.attr("y"),
-            dy = 0,
+/*            y = text.attr("y"),
+            dy = 0,*/
             fontsize = parseInt(text.attr("font-size"),10),
             tspan = text.text(null).append("tspan").attr("x", text.attr("x")).attr("dominant-baseline", "central").attr("dy", 0 + "em"),
             textLines,
@@ -314,22 +319,22 @@ class Ramo {
 
 
         // Funciones
-        function getElementFontSize(context) {
-            // Returns a number
-            return parseFloat(
-                // of the computed font-size, so in px
-                getComputedStyle(
-                    // for the given context
-                    context ||
-                    // or the root <html> element
-                    document.documentElement
-                ).fontSize
-            );
-        }
+        // function getElementFontSize(context) {
+        //     // Returns a number
+        //     return parseFloat(
+        //         // of the computed font-size, so in px
+        //         getComputedStyle(
+        //             // for the given context
+        //             context ||
+        //             // or the root <html> element
+        //             document.documentElement
+        //         ).fontSize
+        //     );
+        // }
 
-        function convertEm(value, context) {
-            return value * getElementFontSize(context);
-        }
+        // function convertEm(value, context) {
+        //     return value * getElementFontSize(context);
+        // }
     }
 
     needsWhiteText(colorHex) {
