@@ -135,7 +135,6 @@ function removePopUp() {
       if (prioridad) {
           malla = new Malla(sct, SelectableRamo, 0.804, 1)
           malla.enableCreditsSystem()
-          malla.semesterManager.subjectsInManySemesters = true
 
       } else if (personalizar) {
           malla = new Malla(sct, SelectableRamo, 0.804, 1)
@@ -168,8 +167,10 @@ function removePopUp() {
           malla.loadApproved()
       })
       drawnMalla.then(() => {
-          if (prioridad)
+          if (prioridad){
               semesterManager = new Priorix(malla, "#priorix")
+              semesterManager.subjectsInManySemesters = true
+          }
           else if (personalizar)
               semesterManager = new Generator(malla, "#priorix")
           malla.setSemesterManager(semesterManager)

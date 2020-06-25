@@ -22,6 +22,11 @@ class Generator extends SemesterManager {
                 .classed('mr-3', true)
                 .classed('py-2', true)
                 .text(subject.name);
+            let right = subjectInfo.append("button")
+            right.classed("btn btn-secondary", true)
+                .attr("type", "button")
+                .text("Editar");
+            right.on("click", this.mallaEditor.setUpModal.bind(this.mallaEditor, true, subject))
             // let rigth = card.append('button');
             // rigth.classed('btn', true)
             //     .classed('btn-warning', true)
@@ -31,8 +36,15 @@ class Generator extends SemesterManager {
             //     .attr('onclick','editRamo("' + self.sigla + '")')
             //     .text('Editar');
             this.displayedSubjects[subject.sigla] = subjectInfo
+            this.mallaEditor.updateState(subject)
         }
 
+    }
+
+    updateDisplayedSubject(subject) {
+        super.updateDisplayedSubject(subject)
+        let subjectInfo = this.displayedSubjects[subject.sigla]
+        subjectInfo.select("div").text(subject.name)
     }
 
     unDisplaySubject(subject) {
@@ -45,12 +57,14 @@ class Generator extends SemesterManager {
     nextSemester() {
         super.nextSemester();
         if (this.mallaEditor)
+            // indica que hay que actualizar la tabla de asignaturas no oficiales
             this.mallaEditor.semesterChange()
     }
 
     prevSemester() {
         super.prevSemester();
         if (this.mallaEditor)
+            // indica que hay que actualizar la tabla de asignaturas no oficiales
             this.mallaEditor.semesterChange()
     }
 }

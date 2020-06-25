@@ -98,15 +98,25 @@ class Malla {
         this.isMallaSet = true;
     }
 
+    // Define el controlador de semestres para que las asignaturas puedan acceder a el
     setSemesterManager(semesterManager) {
         this.semesterManager = semesterManager
     }
 
+    // Agrega ramos a la malla
     addSubject(subject) {
         this.ALLRAMOS[subject.sigla] = subject
     }
 
+    // Elimina ramos de la malla y todo rastro de ellos
     delSubjects(subject) {
+        Object.values(this.ALLRAMOS).forEach(otherSubject => {
+            // Elimina el ramo como prerrequisito de otros
+            if (otherSubject.prer.has(subject.sigla)){
+                otherSubject.prer.delete(subject.sigla)
+                otherSubject.verifyPrer()
+            }
+        })
         delete this.ALLRAMOS[subject.sigla]
     }
 

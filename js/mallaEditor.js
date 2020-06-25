@@ -1,32 +1,38 @@
 class MallaEditor {
     constructor(semesterManager, customSubjectLocation, categoryLocation = false) {
+        // This constructor is bananas
         this.semesterManager = semesterManager
         this.customManager = document.querySelector(customSubjectLocation)
         this.categories = Object.assign({}, this.semesterManager.malla.sectors)
+        this.categoryList = {}
+        this.subjectList = []
+        this.tableList = {}
+        this.defaultSector = ["Custom", "#000000", "Fuera de la malla oficial"]
+        this.categories["Custom"] = ["#000000", "Fuera de la malla oficial"]
+
         if (categoryLocation) {
             this.categoryManager = document.querySelector(categoryLocation)
             this.fillCategories()
             let showModalButton = document.querySelector("#showCatModal")
             showModalButton.addEventListener("click", this.setUpCategoryModal.bind(this))
             let categoryModalId = showModalButton.getAttribute("data-target")
-
+            this.createCatEventListener = this.createCategory.bind(this)
+            this.editCatEventListener = null
             this.categoryModal = $(categoryModalId)
             this.categoryModal.on("hidden.bs.modal", e => {
                 e.target.querySelector("#cat-name").value = ""
                 e.target.querySelector("#small-cat-name").value = ""
+                e.target.querySelector("#small-cat-name").removeAttribute("disabled")
                 e.target.querySelector("#cat-color").value = ""
 
                 let doneButton = e.target.querySelector("#sectorDoneButton")
-                doneButton.removeEventListener("click", this.createCategory)
-                doneButton.removeEventListener("click", this.editCategory)
+                doneButton.removeEventListener("click", this.createCatEventListener)
+                doneButton.removeEventListener("click", this.editCatEventListener)
 
             })
 
         } else
             this.categoryManager = null
-        this.subjectList = []
-        this.tableList = {}
-        this.defaultSector = ["Custom", "#000000", "Fuera de la malla oficial"]
 
         this.subjectTable = this.customManager.querySelector("#customTableContent")
 
@@ -39,7 +45,8 @@ class MallaEditor {
             e.target.querySelector("#custom-sigla").value = ""
             e.target.querySelector("#custom-credits-USM").value = ""
             e.target.querySelector("#custom-credits-SCT").value = ""
-            e.target.querySelector("#custom-credits-SCT").placeholder = 0        })
+            e.target.querySelector("#custom-credits-SCT").placeholder = 0
+        })
 
         this.createAdvancedSubjectModal = null
 
@@ -48,15 +55,22 @@ class MallaEditor {
             .addEventListener("click", e => {
                 this.createSubject(modal)
             })
+
         let advanced =this.customManager.getElementsByClassName("button-advanced-subject")
+
         if (advanced.length !== 0) {
+            this.createSubEventListener = this.createAdvancedSubject.bind(this)
+            this.editSubEvent = null
+            this.advanced = true
             let advancedCreatorModalId = advanced[0]
                 .getAttribute("data-target")
             this.createAdvancedSubjectModal = $(advancedCreatorModalId)
             advanced[0].addEventListener("click", () => {this.setUpModal()})
             this.createAdvancedSubjectModal.on("hidden.bs.modal", e => {
                 e.target.querySelector("#custom-namea").value = ""
-                e.target.querySelector("#custom-siglaa").value = ""
+                let sigla = e.target.querySelector("#custom-siglaa")
+                sigla.value = ""
+                sigla.removeAttribute("disabled")
                 e.target.querySelector("#custom-creditsa-USM").value = ""
                 e.target.querySelector("#custom-creditsa-SCT").value = ""
                 e.target.querySelector("#custom-creditsa-SCT").placeholder = 0
@@ -74,24 +88,28 @@ class MallaEditor {
                 prerC.append(choosePrer)
                 e.target.querySelector("#prerList").textContent = ""
                 let doneButton = e.target.querySelector("#createAdvSubject")
-                doneButton.removeEventListener("click", this.createAdvancedSubject.bind(this))
-                doneButton.removeEventListener("click", this.editSubject.bind(this))
+                doneButton.removeEventListener("click", this.createSubEventListener)
+                doneButton.removeEventListener("click", this.editSubEvent)
             })
             let prerChooser = this.createAdvancedSubjectModal.get(0).querySelector("#prerChooser")
             prerChooser.addEventListener("change", this.addPrerToModal.bind(this))
-        }
+        } else
+            this.advanced = false
 
-        this.subjectModalPrer = null
+        this.subjectModalPrer = new Set()
     }
 
-    setUpModal(e, isEdit = false, subject=null) {
+    // prepara el modal para agregar o editar asignaturas
+    setUpModal(isEdit = false, subject=null) {
         let modal = this.createAdvancedSubjectModal.get(0)
         let sectorChooser = modal.querySelector("#sectorChooser")
         Object.keys(this.categories).forEach(category => {
-            let option = document.createElement("option")
-            option.value = category
-            option.textContent = this.categories[category][1]
-            sectorChooser.append(option)
+            if (category !== "Custom") {
+                let option = document.createElement("option")
+                option.value = category
+                option.textContent = this.categories[category][1]
+                sectorChooser.append(option)
+            }
         })
         if (this.categories[this.defaultSector[0]])
             sectorChooser.firstElementChild.textContent = this.categories[this.defaultSector[0]][1]
@@ -104,18 +122,37 @@ class MallaEditor {
             option.textContent = this.semesterManager.malla.ALLRAMOS[sigla].name + " | " + sigla
             prerChooser.append(option)
         })
+        this.subjectModalPrer = new Set()
         if (isEdit) {
+            modal.querySelector("#custom-namea").value = subject.name
+            let sigla = modal.querySelector("#custom-siglaa")
+            sigla.value = subject.sigla
+            sigla.setAttribute("disabled", "disabled")
+            modal.querySelector("#custom-creditsa-USM").value = subject.getUSMCredits()
+            if (Math.round(subject.getUSMCredits() * 5 / 3) !== subject.getSCTCredits())
+                modal.querySelector("#custom-creditsa-SCT").value = subject.getSCTCredits()
+            sectorChooser.value = subject.sector
+            subject.prer.forEach(sigla => {
+                prerChooser.value = sigla
+                this.addPrerToModal(null, prerChooser)
+            })
+            if (this.tableList[subject.sigla])
+                this.editSubEvent = this.tableList[subject.sigla][1]
+            else
+                this.editSubEvent = this.editSubject.bind(this, subject)
             this.createAdvancedSubjectModal.get(0).querySelector("#createAdvSubject")
-                .addEventListener("click", this.editSubject.bind(this, subject))
+                .addEventListener("click", this.editSubEvent)
+            this.createAdvancedSubjectModal.modal("show")
         } else {
-            this.subjectModalPrer = []
             this.createAdvancedSubjectModal.get(0).querySelector("#createAdvSubject")
-                .addEventListener("click", this.createAdvancedSubject.bind(this))
+                .addEventListener("click", this.createSubEventListener)
 
         }
     }
 
     // Subject related
+
+    // Muestra la asignatura en la tabla
     displaySubject(subject) {
         let fadeIn = [
             {opacity: 0},
@@ -138,17 +175,20 @@ class MallaEditor {
         } else {
             subjectState.textContent = "No seleccionado"
         }
-        let subjectPrer = document.createElement("td")
-        let i = 0
-        subject.prer.forEach(prer => {
-            if (i = 0) {
-                subjectPrer.textContent = + prer
-                i = 1
-            } else
-                subjectPrer.textContent += " " + prer
-        })
-        if (subjectPrer.textContent.length === 0)
-            subjectPrer.textContent = "Sin prerrequisitos"
+        let subjectPrer = null
+        if (this.advanced) {
+            subjectPrer = document.createElement("td")
+            let i = 0
+            subject.prer.forEach(prer => {
+                if (i === 0) {
+                    subjectPrer.textContent = +prer
+                    i = 1
+                } else
+                    subjectPrer.textContent += " " + prer
+            })
+            if (subjectPrer.textContent.length === 0)
+                subjectPrer.textContent = "Sin prerrequisitos"
+        }
 
         let actionsCol = document.createElement("td")
         actionsCol.classList.add("py-0")
@@ -166,7 +206,19 @@ class MallaEditor {
         })
         if(subject.selected)
             selectButton.textContent = "Deseleccionar"
-        actions.appendChild(selectButton)
+        actions.append(selectButton)
+        let editButton = null
+        let editCatEventListener = null
+        if (this.advanced) {
+            editButton = document.createElement("button")
+            editButton.setAttribute("type", "button")
+            editButton.classList.add("btn", "btn-secondary")
+            editButton.textContent = "Editar"
+            editCatEventListener = this.editSubject.bind(this, subject)
+            editButton.addEventListener("click", this.setUpModal.bind(this, true, subject))
+            actions.append(editButton)
+        }
+
         if (subject.isCustom) {
             let deleteButton = document.createElement("button")
             deleteButton.setAttribute("id", "delete-" + subject.sigla)
@@ -175,30 +227,58 @@ class MallaEditor {
             deleteButton.addEventListener("click", e => {this.deleteSubject(subject)})
             actions.appendChild(deleteButton)
         }
-        actionsCol.appendChild(actions)
+        actionsCol.append(actions)
 
         subjectInfo.append(subjectRow)
         subjectInfo.append(subjectNameCol)
         subjectInfo.append(subjectCreditsCol)
         subjectInfo.append(subjectState)
-        subjectInfo.append(subjectPrer)
+        if (this.advanced)
+            subjectInfo.append(subjectPrer)
         subjectInfo.append(actionsCol)
         subjectInfo.childNodes.forEach(x => x.classList.add("align-middle"))
         if (subjectInfo.animate)
             subjectInfo.animate(fadeIn, 500)
 
         this.subjectTable.append(subjectInfo)
-        this.tableList[subject.sigla] = subjectInfo
+        this.tableList[subject.sigla] = [subjectInfo, editCatEventListener]
 
 
     }
 
+    // Elimina la asignatura de la tabla
     unDisplaySubject(subject) {
         this.subjectTable.querySelector("#custom-" + subject.sigla).remove()
     }
 
+    // Actualiza la asignatura en la tabla con nuevos datos
     updateState(subject) {
-        let subjectState = this.tableList[subject.sigla].querySelector("#state")
+        if (!subject.isCustom) {
+            if (!subject.beenEdited) {
+                return;
+            } else if (this.tableList[subject.sigla] === undefined) {
+                this.displaySubject(subject)
+                return
+            }
+        }
+        let subjectRow = this.tableList[subject.sigla][0].childNodes
+        subjectRow[1].textContent = subject.name
+        subjectRow[2].textContent = subject.getUSMCredits() + " USM | " + subject.getSCTCredits() + " SCT"
+        if (this.advanced) {
+            let subjectPrer = subjectRow[4]
+            subjectPrer.textContent = null
+            let i = 0
+            subject.prer.forEach(prer => {
+                if (i === 0) {
+                    subjectPrer.textContent = +prer
+                    i = 1
+                } else
+                    subjectPrer.textContent += " " + prer
+            })
+            if (subjectPrer.textContent.length === 0)
+                subjectPrer.textContent = "Sin prerrequisitos"
+        }
+        let subjectState = subjectRow[3]
         let selectable = true
         subjectState.textContent = "No seleccionado"
         if (subject.selected) {
@@ -217,7 +297,7 @@ class MallaEditor {
             })
         }
 
-        let subjectSelButton = this.tableList[subject.sigla].querySelector("#sel-" + subject.sigla)
+        let subjectSelButton = this.tableList[subject.sigla][0].querySelector("#sel-" + subject.sigla)
         if (selectable) {
             subjectSelButton.removeAttribute("disabled")
             if (subject.isCustom) {
@@ -232,12 +312,14 @@ class MallaEditor {
 
     }
 
+    // Como actuar cuando se cambia de semestre
     semesterChange() {
         this.subjectList.forEach(sigla => {
             this.updateState(this.semesterManager.malla.getSubject(sigla))
         })
     }
 
+    // Crea la asignatura a partir del modal
     createSubject(modal) {
         let name = modal.querySelector("#custom-name").value
         let sigla = modal.querySelector("#custom-sigla").value
@@ -256,6 +338,7 @@ class MallaEditor {
         this.displaySubject(subject)
     }
 
+    // Crea la asignatura a partir del modal
     createAdvancedSubject() {
         let modal = this.createAdvancedSubjectModal.get(0)
         let name = modal.querySelector("#custom-namea").value
@@ -275,29 +358,51 @@ class MallaEditor {
         this.displaySubject(subject)
     }
 
+    // Edita la asignatura a partir del modal
     editSubject(subject) {
-
+        let modal = this.createAdvancedSubjectModal.get(0)
+        subject.name = modal.querySelector("#custom-namea").value
+        subject.sector = modal.querySelector("#sectorChooser").value
+        subject.prer = new Set(this.subjectModalPrer)
+        let creditsUSM = modal.querySelector("#custom-creditsa-USM").value
+        let creditsSCT = modal.querySelector("#custom-creditsa-SCT").value
+        if (creditsSCT.length === 0)
+            creditsSCT = null
+        subject.updateCredits(creditsUSM, creditsSCT)
+        subject.verifyPrer()
+        subject.beenEdited = true
+        this.updateState(subject)
+        this.semesterManager.updateDisplayedSubject(subject)
     }
 
-    deleteSubject(subject) { // Remove subjects even if selected on previous semesters
+    // Elimina asignaturas creadas
+    deleteSubject(subject) {
         if (subject.selected)
             subject.selectRamo()
         this.semesterManager.removeSubjectOutsideSemester(subject)
         this.unDisplaySubject(subject)
+
+
         let i = this.subjectList.indexOf(subject.sigla)
         if (i > -1) {
             this.subjectList.splice(i, 1);
+            this.semesterManager.malla.delSubjects(subject)
         }
     }
 
     loadSubjects() {return {}}
 
-    addPrerToModal(e){
-        console.log(e.target)
-        let selectedOption = e.target.selectedOptions[0]
+    addPrerToModal(e, prerChooser = null){
+        let selector = null
+        if (prerChooser)
+            selector = prerChooser
+        else
+            selector = e.target
+
+        let selectedOption= selector.selectedOptions[0]
         if (selectedOption.value !== 0) {
             let arText = selectedOption.textContent.split(" | ")
-            this.subjectModalPrer.push(selectedOption.value)
+            this.subjectModalPrer.add(selectedOption.value)
             selectedOption.setAttribute("disabled", "disabled")
             let prer = document.createElement("li")
             prer.setAttribute("id", "pre-" + arText[1])
@@ -309,22 +414,29 @@ class MallaEditor {
             delBtn.classList.add("btn", "btn-danger")
             delBtn.setAttribute("type", "button")
             delBtn.textContent = "Quitar"
+            delBtn.addEventListener("click", () => {
+                this.subjectModalPrer.delete(selectedOption.value)
+                selectedOption.removeAttribute("disabled")
+                prer.remove()
+            })
             prer.append(text)
-            prer.append(delBtn)
 
+            prer.append(delBtn)
             this.createAdvancedSubjectModal.get(0).querySelector("#prerList").append(prer)
         }
-
-
+        selector.firstElementChild.setAttribute("selected", true)
     }
 
     // Category related
+
+    // Llenado inicial de la tabla de categorías
     fillCategories() {
         Object.keys(this.categories).forEach(category => {
             this.displayCategory(category)
         })
     }
 
+    // Se explica solo
     createCategory() {
         let modal = this.categoryModal.get(0)
         let name = modal.querySelector("#cat-name").value
@@ -335,22 +447,34 @@ class MallaEditor {
         this.displayCategory(shortName)
     }
 
-    editCategory() {
-
+    // Se explica solo
+    editCategory(category) {
+        let modal = this.categoryModal.get(0)
+        this.categories[category][0] = modal.querySelector("#cat-color").value
+        this.categories[category][1] = modal.querySelector("#cat-name").value
+        this.updateCategory(category)
     }
 
-    setUpCategoryModal(e, isEdit=false, category="Custom") {
+    setUpCategoryModal(isEdit=false, category="Custom") {
         if (isEdit) {
-            this.categoryModal.get(0).querySelector("#sectorDoneButton")
-                .addEventListener("click", this.editCategory.bind(this, category))
+            let modal = this.categoryModal.get(0)
+            modal.querySelector("#cat-name").value = this.categories[category][1]
+            let categorySN = modal.querySelector("#small-cat-name")
+            categorySN.value = category
+            categorySN.setAttribute("disabled", true)
+            modal.querySelector("#cat-color").value = this.categories[category][0]
+            this.editCatEventListener = this.editCategory.bind(this, category)
+            modal.querySelector("#sectorDoneButton")
+                .addEventListener("click", this.editCatEventListener)
+            this.categoryModal.modal("show")
         } else {
             this.categoryModal.get(0).querySelector("#sectorDoneButton")
-                .addEventListener("click", this.createCategory.bind(this))
+                .addEventListener("click", this.createCatEventListener)
         }
     }
 
+    // Se explica solo
     displayCategory(categorySN) { // ShortName
-        //<button class="list-group-item list-group-item-action text-white sector" type="button" onclick="editSector(&quot;PC&quot;)" id="sec-PC" style="background-color: rgb(0, 131, 143); filter: brightness(100%);">Plan Común</button>
         let category = document.createElement("button")
         category.classList.add("list-group-item",
             "list-group-item-action",
@@ -364,16 +488,25 @@ class MallaEditor {
         category.setAttribute("id", "cat-" + categorySN)
         category.style.backgroundColor = color
         category.textContent = this.categories[categorySN][1]
+        category.addEventListener("click", this.setUpCategoryModal.bind(this, true, categorySN))
         this.categoryManager.append(category)
+        this.categoryList[categorySN] = category
     }
 
+    // Actualiza la categoría segun la edición del usuario
+    updateCategory(categorySN) {
+        let category = this.categoryList[categorySN]
+        category.style.backgroundColor = this.categories[categorySN][0]
+        category.textContent = this.categories[categorySN][1]
+    }
 
     loadCategories() {
         // for now
         this.categories = this.semesterManager.malla.sectors
-        this.categoryList = Object.keys(this.categories)
+        //this.categoryList = Object.keys(this.categories)
     }
 
+    // Retorna un booleano dependiendo si el hex entregado contrasta mejor con blanco
     needsWhiteText(colorHex) {
         // Convert hex to RGB first
         let r = 0, g = 0, b = 0;

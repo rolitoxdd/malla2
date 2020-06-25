@@ -26,10 +26,12 @@ class SemesterManager {
         this.updateSemesterIndicator()
     }
 
+    // actualiza el indicador de semestre de la página
     updateSemesterIndicator() {
         this.semesterIndicator.text(this.semester)
     }
 
+    // agrega la asignatura al semestre
     addSubject(subject) {
         if (this.SELECTED.length === 0)
             this.noSubjectsText.classed("d-none", true)
@@ -38,6 +40,7 @@ class SemesterManager {
         this.displaySubject(subject)
     }
 
+    // elimina la asignatura del semestre
     removeSubject(subject) {
         let _i = this.SELECTED.indexOf(subject);
         if (_i > -1) {
@@ -49,6 +52,7 @@ class SemesterManager {
         }
     }
 
+    // elimina la asignatura de semestres guardados, sin contar el semestre actual
     removeSubjectOutsideSemester(subject) {
         Object.keys(this.selectedPerSemester).forEach(semester => {
             if (semester !== this.semester) {
@@ -62,15 +66,21 @@ class SemesterManager {
         })
     }
 
+    // muestra la asignatura en el manager
     displaySubject(subject) {
         // Do something
         // this.displayedSubjects[subject.sigla] =
     }
 
+    // actualiza la asignatura en el manager en caso de haberse editado
+    updateDisplayedSubject(subject) {}
+
+    // elimina la asignatura del manager
     unDisplaySubject(subject) {
         // Do something
     }
 
+    // se pasa al siguiente semestre
     nextSemester() {
         this.selectedPerSemester[this.semester] = [...this.SELECTED]
         this.saveSemesters()
@@ -89,6 +99,7 @@ class SemesterManager {
 
     }
 
+    // se pasa al semestre anterior
     prevSemester() {
         if (this.SELECTED.length === 0 && this.semester >= Object.values(this.selectedPerSemester).length)
             delete this.selectedPerSemester[this.semester]
@@ -108,6 +119,7 @@ class SemesterManager {
         this.malla.verifyPrer()
     }
 
+    // se desaprueban las asinaturas del semestre anterior para hacer posible su selección
     deApprovePrevSemester() {
         this.selectedPerSemester[this.semester - 1].forEach(subject => {
             if (subject.approved)
@@ -115,6 +127,7 @@ class SemesterManager {
         })
     }
 
+    // se quitan todas las asignaturas del semestre
     cleanSemester() {
         let semesterToClean = [...this.SELECTED]
         semesterToClean.forEach(subject => {
@@ -122,6 +135,7 @@ class SemesterManager {
         })
     }
 
+    // se "reinicia" eliminando todo dato guardado
     cleanAll () {
         this.cleanSemester(0)
         this.semester = 1

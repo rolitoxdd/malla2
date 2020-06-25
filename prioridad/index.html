@@ -102,16 +102,15 @@
 
 <!-- Agregar ramo personalizado -->
 <div class="modal fade"
+     id="modalCreateSubject"
      tabindex="-1"
-     id="crearRamoModal"
      role="dialog"
-     aria-labelledby="crearRamo"
+     aria-labelledby="CreateSubject"
      aria-hidden="true">
-
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="crearRamo">Añadir asignatura fuera de la malla</h5>
+        <h5 class="modal-title" id="">Añadir asignatura fuera de la malla</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -122,23 +121,35 @@
           <input type="text"
                  class="form-control"
                  id="custom-name"
-                 placeholder="Introducción a la malla interactiva">
+                 autocomplete="off"
+                 placeholder="Introducción a la malla interactiva"
+                 required>
         </div>
         <div class="form-group">
           <label for="custom-sigla">Sigla asignatura</label>
-          <input type="text" class="form-control" id="custom-sigla" placeholder="INF-123">
-          <small id="sigla-Help" class="form-text text-muted">
-            Asegurate de que la sigla sea única y NO contenga espacios.
+          <input type="text" class="form-control" autocomplete="off" id="custom-sigla" placeholder="INF-123" required>
+          <small id="custom-sigla-Help" class="form-text text-muted">
+            Asegurate de que la sigla NO contenga espacios. Por favor seguir formato del ejemplo
           </small>
         </div>
         <div class="form-group">
-          <label for="custom-credits">Creditos USM</label>
-          <input type="number" class="form-control" id="custom-credits" placeholder="1">
+          <label for="custom-credits-USM">Créditos USM</label>
+          <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-USM" required pattern="[1-9]+" placeholder="1">
+          <small id="custom-credits-USM-help" class="form-text text-muted">
+            Obligatorio
+          </small>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" id="crearRamo" onclick="crearRamo(true)" class="btn btn-primary">Agregar</button>
+        <div class="form-group">
+          <label for="custom-credits-SCT">Créditos SCT</label>
+          <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-SCT" pattern="[1-9]+" placeholder="2">
+          <small id="custom-credits-SCT-help" class="form-text text-muted">
+            Si esta entrada no se llena, los créditos se calcularan en base a los USM
+          </small>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" id="createSubject" class="btn btn-primary button-create-subject">Agregar</button>
       </div>
     </div>
   </div>
@@ -297,7 +308,7 @@
             <hr class="w-100 mt-auto mb-0">
             <div class="text-muted mb-0 text-center py-1 px-3 px-xl-1 w-100">
               <small class="mb-0">
-                ¿La asignatura que quieres no esta en la malla? ¡Crealo en la <a data-scroll href="#anchor">tabla de abajo</a>!
+                ¿La asignatura que quieres no esta en la malla? ¡Crealo en la <a data-scroll href="#unoficialSubjects">tabla de abajo</a>!
               </small>
             </div>
           </div>
@@ -350,7 +361,7 @@
     </div>
   </div>
   <!-- Ramos Fuera de malla -->
-  <div id="anchor" class="row justify-content-center mt-5">
+  <div id="unoficialSubjects" class="row justify-content-center mt-5">
     <div class="col-lg-auto">
       <div id="custramo" class="card">
         <div  class="card-header">
@@ -376,8 +387,8 @@
           <button
                   type="button"
                   data-toggle="modal"
-                  data-target="#crearRamoModal"
-                  class="btn btn-primary btn-sm">
+                  data-target="#modalCreateSubject"
+                  class="btn btn-primary btn-sm button-create-subject">
             Crear Asignatura
           </button>
         </div>
@@ -425,6 +436,7 @@
 <script src="../js/semesterManager.js"></script>
 <script src="../js/priorix.js"></script>
 <script src='../js/malla.js'></script>
+<script src="../js/mallaEditor.js"></script>
 <!-- Smooth scroll -->
 <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 

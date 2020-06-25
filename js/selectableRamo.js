@@ -21,10 +21,12 @@ class SelectableRamo extends Ramo {
             .attr("class", "selected");
     }
 
+    // acciones a realizar cuando se clickea el ramo
     isBeingClicked() {
         this.selectRamo()
     }
 
+    // se selecciona o deselecciona el ramo con su respectiva animación
     selectRamo() {
         if (this.approved) { // Si el ramo esta aprobado, no se selecciona
             if (!this.isCustom) {
@@ -35,7 +37,6 @@ class SelectableRamo extends Ramo {
         }
 
         if (!this.selected) { // Ramo se ha seleccionado
-            let creditos = this.getDisplayCredits();
 
             if (!this.isCustom)
                 this.ramo.select(".selected").transition().delay(20).attr("opacity", ".8");
@@ -54,6 +55,7 @@ class SelectableRamo extends Ramo {
         this.selected = !this.selected;
     };
 
+    // activa la animación de warning con el color que se desee
     showWarning(warningColor = "red") {
         if (!this.isCustom) {
             this.ramo.select(".selected").attr('stroke',warningColor);

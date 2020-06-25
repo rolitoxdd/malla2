@@ -4,6 +4,8 @@ class Priorix extends SemesterManager {
         this.faes = {
             1: 1
         }
+
+        // {USM : {1 : numero, 2: otroNumero, ...}}, SCT : {...}}
         this.prevSemesterSums = {
             'USM': {},
             'SCT': {}
@@ -16,13 +18,21 @@ class Priorix extends SemesterManager {
             'USM': 0,
             'SCT': 0
         }
+
+        // {USM : {1 : numero, 2: otroNumero, ...}}, SCT : {...}}
         this.totalApprovedCredits = {
             'USM': {},
             'SCT': {}
         }
+
+        // {1 : {siglaRamo: nota, ...}, ...}
         this.subjectGrades= {}
 
         this.card.select(".fae").on('input', () => this.calculate())
+
+
+        this.mallaEditor = new MallaEditor(this, "#unoficialSubjects")
+
     }
 
     // overwritten
@@ -38,6 +48,38 @@ class Priorix extends SemesterManager {
         this.totalCredits['USM'] = this.totalCredits['USM'] - subject.getUSMCredits()
         this.totalCredits['SCT'] = this.totalCredits['SCT'] - subject.getSCTCredits()
 
+    }
+
+    // elimina todo rastro del ramo a elimnar y vuelve a calclular la prioridad
+    removeSubjectOutsideSemester(subject) {
+        Object.keys(this.selectedPerSemester).forEach(semester => {
+            if (semester !== this.semester) {
+                let found = this.selectedPerSemester[semester].indexOf(subject)
+                if (found !== -1){
+                    this.selectedPerSemester[semester].splice(found,1)
+                    if (semester < this.semester) {
+                        subject.approveRamo()
+                        this.totalCredits["USM"] -= subject.getUSMCredits()
+                        this.totalCredits["SCT"] -= subject.getSCTCredits()
+
+                        let grade = this.subjectGrades[semester][subject.sigla]
+                        let scoreToDeleteUSM = grade * subject.getUSMCredits()
+                        let scoreToDeleteSCT = grade * subject.getSCTCredits()
+                        delete this.subjectGrades[semester][subject.sigla]
+                        for (semester; semester < this.semester; semester++) {
+                            if (grade > 54) {
+                                this.totalApprovedCredits["USM"][semester] -= subject.getUSMCredits()
+                                this.totalApprovedCredits["SCT"][semester] -= subject.getSCTCredits()
+                            }
+                            this.prevSemesterSums["USM"][semester] -= scoreToDeleteUSM
+                            this.prevSemesterSums["SCT"][semester] -= scoreToDeleteSCT
+                        }
+                    }
+                }
+            }
+        })
+        console.log(this.totalApprovedCredits, this.totalCredits, this.prevSemesterSums, this.currentSemesterSum, this.subjectGrades)
+        this.calculate()
     }
 
     displaySubject(subject) {
@@ -163,8 +205,7 @@ class Priorix extends SemesterManager {
         //super.prevSemester();
     }
 
-    // new
-
+    // Calcula la prioridad y actualiza el resultado mostrado
     calculate() {
         let currentApprovedCreditsUSM, currentApprovedCreditsSCT
         let currentSemesterSumUSM, currentSemesterSumSCT
@@ -210,6 +251,7 @@ class Priorix extends SemesterManager {
         this.faes[this.semester] = fae
         this.totalApprovedCredits["USM"][this.semester] = currentApprovedCreditsUSM
         this.totalApprovedCredits["SCT"][this.semester] = currentApprovedCreditsSCT
+        console.log(this.totalApprovedCredits, this.totalCredits, this.prevSemesterSums, this.currentSemesterSum, this.subjectGrades)
     }
 
 }

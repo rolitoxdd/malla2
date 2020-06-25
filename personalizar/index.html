@@ -153,7 +153,7 @@
                 <label class="input-group-text" for="gruposDeRamos">Grupo de Ramo</label>
               </div> -->
               <select class="custom-select" id="sectorChooser">
-                <option selected>Fuera de malla oficial</option>
+                <option value="Custom" selected>Fuera de malla oficial</option>
               </select>
             </div>
             <label for="prerChooser">Prerrequisitos</label>
@@ -231,7 +231,7 @@
           </div>
           <div class="form-group">
             <label for="custom-credits-SCT">Créditos SCT</label>
-            <input type="number" inputmode="numerical" autocomplete="off" value="0" class="form-control" id="custom-credits-SCT" pattern="[1-9]+" placeholder="2">
+            <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-SCT" pattern="[1-9]+" placeholder="2">
             <small id="custom-credits-SCT-help" class="form-text text-muted">
               Si esta entrada no se llena, los créditos se calcularan en base a los USM
             </small>

@@ -34,21 +34,33 @@ class Ramo {
         // Propiedades para renderizado e interacciones
         this.malla = malla
         this.isCustom = isCustom
+        this.beenEdited= false
         this.id = id;
         this.ramo = null;
         this.approved = false;
         //console.log(this.sector)
     }
 
-
+    // Auto explanatorio
     getSCTCredits() {
         return this.creditsSCT
     }
 
+    // Auto explanatorio
     getUSMCredits() {
         return this.credits;
     }
 
+    // Actualiza uno o ambos créditos dependiendo de los valores de entrada
+    updateCredits(creditsUSM, creditsSCT = 0) {
+        this.credits = creditsUSM
+        if (creditsSCT)
+            this.creditsSCT = creditsSCT
+        else
+            this.creditsSCT = Math.round(creditsUSM * 5 / 3)
+    }
+
+    // Retorna los creditos del tipo correcto según como el usuario lo pida
     getDisplayCredits() {
         if (this.malla.sct) {
             return  this.getSCTCredits()
@@ -57,6 +69,7 @@ class Ramo {
         }
     }
 
+    // renderiza el ramo
     draw(canvas, posX, posY, scaleX, scaleY) {
         this.ramo = canvas.append('g')
             .attr("cursor", "pointer")
@@ -195,7 +208,7 @@ class Ramo {
         this.wrap(sizeX - 5, sizeY / 5 * 3);
     }
 
-
+    // renderiza las animaciones de interacción
     drawActions(posX, posY, sizeX, sizeY) {
         if (this.ramo == null)
             return null;
@@ -216,10 +229,12 @@ class Ramo {
             .attr("stroke-width", 9);
     }
 
+    // Crea las reacciones a las interacciones del usuario
     createActionListeners() {
         this.ramo.on("click", () => this.isBeingClicked());
     }
 
+    // se llama cuando se pulsa del ramo
     isBeingClicked() {
         this.approveRamo();
         this.malla.verifyPrer();
@@ -227,6 +242,7 @@ class Ramo {
         this.malla.saveApproved();
     }
 
+    // Auto explanatorio
     approveRamo() {
         if (!this.approved) {
             if (!this.isCustom)
@@ -240,6 +256,7 @@ class Ramo {
         this.approved = !this.approved;
     }
 
+    // Se pone el ramo en el estado inicial
     cleanRamo() {
         // Se llama a metodos internos necesarios que "limpien" el ramo
         if (this.approved) {
@@ -247,6 +264,7 @@ class Ramo {
         }
     }
 
+    // Se verifica que el ramo tenga los prerrequisitos cumplidos
     verifyPrer() {
         if (this.isCustom)
             return;
@@ -264,6 +282,7 @@ class Ramo {
         this.ramo.select(".non-approved").transition().delay(20).attr("opacity", "0.0");
     }
 
+    // funcion para encuadrar texto
     wrap(sizeX,sizeY) {
         let text = this.ramo.select(".ramo-label");
         // let emEquivalent = convertEm(1, text.node());
@@ -337,6 +356,7 @@ class Ramo {
         // }
     }
 
+    // retorna true si el color contrasta mejor con texto blanco
     needsWhiteText(colorHex) {
         // Convert hex to RGB first
         let r = 0, g = 0, b = 0;

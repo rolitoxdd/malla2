@@ -19,6 +19,8 @@ Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 - Spamear clicks en los ramos ya no genera ramos duplicados en la calculadora
 - Existe una nueva "Pantalla de bienvenida" que cubre la ventana completa
 - Ahora se pueden eliminar asignaturas sin importar si están asignadas a algún semestre
+- Ahora se pueden editar asignaturas desde la tabla de asignaturas
+
 # [1.3.5]
 
 - Se agregó un link a un formulario para informar cambios de las mallas.
