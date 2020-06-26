@@ -26,10 +26,13 @@ class Ramo {
         this.credits = credits;
         this.sector = sector;
         this.prer = new Set(prer);
-        if (creditsSCT)
+        if (creditsSCT){
             this.creditsSCT = creditsSCT
-        else
+            this.USMtoSCT = false
+        } else {
             this.creditsSCT = Math.round(credits * 5 / 3)
+            this.USMtoSCT = true
+        }
 
         // Propiedades para renderizado e interacciones
         this.malla = malla

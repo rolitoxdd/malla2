@@ -38,7 +38,8 @@ function render(props) {
 let relaPath = './'
 let prioridad = document.URL.includes('prioridad')
 let personalizar = document.URL.includes('personalizar')
-let mallaPersonal = document.URL.includes("malla")
+let mallaPersonal = document.URL.includes("malla.")
+let contact = document.URL.includes("contact")
 let texts = "Malla"
 if (mallaPersonal)
     texts = "Personal"
@@ -76,40 +77,57 @@ function loadViews() {
     let fileURL = relaPath + "data/welcomeTexts.json"
     promises.push(fetch(fileURL).then(response => response.json()))
     Promise.all(promises).then((datas) => {
-        welcomeTexts = datas[2][texts]
+        welcomeTexts = datas.pop()[texts]
         if (mallaPersonal) {
-
+            d3.select('#goToGenerator').attr('href', './?m=' + carr);
+            d3.select("#contact").attr("href", relaPath + "contact.html")
         } else if (!(prioridad|personalizar)) {
             d3.select('#goToCalculator').attr('href', './prioridad/?m=' + carr);
             d3.select('#goToGenerator').attr('href', './personalizar/?m=' + carr);
+            if (!contact)
+                d3.select("#contact").attr("href", relaPath + "contact.html")
+            else {
+                document.getElementById('contact').classList.add('active');
+                d3.select('#goToHome').attr('href', './?m=' + carr);
+            }
         } else if (prioridad) {
             document.getElementById('goToCalculator').classList.add('active');
             d3.select('#goToHome').attr('href', '../?m=' + carr);
             d3.select('#goToGenerator').attr('href', '../personalizar/?m=' + carr);
+            d3.select("#contact").attr("href", relaPath + "contact.html")
         } else {
             document.getElementById('goToGenerator').classList.add('active');
             d3.select('#goToHome').attr('href', '../?m=' + carr);
             d3.select('#goToCalculator').attr('href', '../prioridad/?m=' + carr);
+            d3.select("#generate").attr("href", "./malla.html?m=" + carr)
+            d3.select("#contact").attr("href", relaPath + "contact.html")
         }
+        d3.select("#contact").attr("href", relaPath + "contact.html")
         return fetch(relaPath + '/data/carreras.json')
     }).then(response => response.json()).then((careers,) => {
-        let tabTpl1 = document.querySelector('script[data-template="tab-template1"]').text.split(/\${(.+?)}/g);
-        let tabTpl2 = document.querySelector('script[data-template="tab-template2"]').text.split(/\${(.+?)}/g);
-        careers.forEach(careers => {
-            if (careers['Link'] === carr) {
-                welcomeTexts["welcomeTitle"] = welcomeTexts["welcomeTitle"].replace("CARRERA", careers['Nombre'])
-                $('.carrera').text(careers['Nombre'])
+        //if (!mallaPersonal) {
+            let tabTpl1 = document.querySelector('script[data-template="tab-template1"]').text.split(/\${(.+?)}/g);
+            let tabTpl2 = document.querySelector('script[data-template="tab-template2"]').text.split(/\${(.+?)}/g);
+            if (contact) {
+                document.querySelectorAll(".carrers").forEach(element => element.remove())
             }
-        });
-        $('#carreras1-nav').append(careers.map(function (values) {
-            return tabTpl1.map(render(values)).join('');
-        }));
-        $('#carreras2-nav').append(careers.map(function (values) {
-            return tabTpl2.map(render(values)).join('');
-        }));
-        document.querySelector(".overlay-content h3").textContent = welcomeTexts["welcomeTitle"]
-        document.querySelector(".overlay-content h5").textContent = welcomeTexts["welcomeDesc"]
 
+            careers.forEach(careers => {
+                if (careers['Link'] === carr) {
+                    welcomeTexts["welcomeTitle"] = welcomeTexts["welcomeTitle"].replace("CARRERA", careers['Nombre'])
+                    $('.carrera').text(careers['Nombre'])
+                }
+            });
+            $('#carreras1-nav').append(careers.map(function (values) {
+                return tabTpl1.map(render(values)).join('');
+            }));
+            $('#carreras2-nav').append(careers.map(function (values) {
+                return tabTpl2.map(render(values)).join('');
+            }));
+            if ( document.querySelector(".overlay-content h3")){
+            document.querySelector(".overlay-content h3").textContent = welcomeTexts["welcomeTitle"]
+            document.querySelector(".overlay-content h5").textContent = welcomeTexts["welcomeDesc"]
+        }
     })
 }
 
@@ -124,6 +142,9 @@ function removePopUp() {
 }
 
   $(function () {
+      if (contact)
+          return
+
       if (sct) {
           document.getElementById("creditsExample").textContent = "Créditos SCT";
           document.getElementById("creditsNumberExample").textContent = "2";
@@ -135,18 +156,27 @@ function removePopUp() {
       if (prioridad) {
           malla = new Malla(sct, SelectableRamo, 0.804, 1)
           malla.enableCreditsSystem()
-
-      } else if (personalizar) {
-          malla = new Malla(sct, SelectableRamo, 0.804, 1)
           document.getElementById("custom-credits-USM").addEventListener("input", function updateSCTPlaceholder() {
               document.getElementById("custom-credits-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
           })
 
+      } else if (personalizar && !mallaPersonal) {
+          malla = new Malla(sct, SelectableRamo, 0.804, 1)
+          document.getElementById("custom-credits-USM").addEventListener("input", function updateSCTPlaceholder() {
+              document.getElementById("custom-creditsa-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
+          })
+          document.getElementById("custom-creditsa-USM").addEventListener("input", function updateSCTPlaceholder() {
+              document.getElementById("custom-creditsa-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
+          })
+
+
           //document.getElementById("#reset").addEventListener("click", () => malla.semesterManager.cleanSemester())
           //document.getElementById("#resetc").addEventListener("click", () => malla.semesterManager.cleanAll())
       } else  if (mallaPersonal) {
-          malla = new Malla((sct))
+          malla = new CustomMalla(sct)
           document.getElementById("cleanApprovedButton").addEventListener("click",() => malla.cleanSubjects())
+          malla.enableCreditsStats()
+          malla.enableCreditsSystem()
       } else {
           malla = new Malla(sct);
           malla.enableCreditsStats()
@@ -163,17 +193,29 @@ function removePopUp() {
           malla.updateStats()
           malla.displayCreditSystem()
           malla.showColorDescriptions(".color-description")
-          malla.enablePrerCheck()
-          malla.loadApproved()
+          document.getElementById("overlay").addEventListener("click", () => {
+              if (prioridad || personalizar && !mallaPersonal) {
+                  malla.semesterManager.loadSemesters()
+              } else
+                  malla.loadApproved()
+              malla.enablePrerCheck()
+          })
       })
       drawnMalla.then(() => {
           if (prioridad){
               semesterManager = new Priorix(malla, "#priorix")
               semesterManager.subjectsInManySemesters = true
+              semesterManager.mallaEditor.loadSubjects()
           }
-          else if (personalizar)
+          else if (personalizar && !mallaPersonal) {
               semesterManager = new Generator(malla, "#priorix")
+              semesterManager.mallaEditor.loadSubjects()
+              semesterManager.mallaEditor.loadCategories()
+          }
           malla.setSemesterManager(semesterManager)
+          malla.generateCode()
+
+
       })
   });
 

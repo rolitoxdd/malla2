@@ -1,6 +1,5 @@
 class SemesterManager {
     constructor(malla, card, mallaEditor = false) {
-        this.SELECTED = []
         this.selectedPerSemester = {}
         this.semester = 1;
         this.saveEnabled = false
@@ -8,6 +7,8 @@ class SemesterManager {
         this.malla = malla
         this.card = d3.select(card)
         this.displayedSubjects = {}
+        this.saveEnabled = true
+
         if (mallaEditor)
             this.mallaEditor = mallaEditor
         else
@@ -33,21 +34,23 @@ class SemesterManager {
 
     // agrega la asignatura al semestre
     addSubject(subject) {
-        if (this.SELECTED.length === 0)
+        if (this.selectedPerSemester[this.semester] === undefined) {
             this.noSubjectsText.classed("d-none", true)
+            this.selectedPerSemester[this.semester] = []
+        }
 
-        this.SELECTED.push(subject)
+        this.selectedPerSemester[this.semester].push(subject)
         this.displaySubject(subject)
     }
 
     // elimina la asignatura del semestre
     removeSubject(subject) {
-        let _i = this.SELECTED.indexOf(subject);
+        let _i = this.selectedPerSemester[this.semester].indexOf(subject);
         if (_i > -1) {
-            this.SELECTED.splice(_i, 1);
+            this.selectedPerSemester[this.semester].splice(_i, 1);
         }
         this.unDisplaySubject(subject)
-        if (this.SELECTED.length === 0) {
+        if (this.selectedPerSemester[this.semester].length === 0) {
             this.noSubjectsText.classed("d-none", false)
         }
     }
@@ -82,40 +85,52 @@ class SemesterManager {
 
     // se pasa al siguiente semestre
     nextSemester() {
-        this.selectedPerSemester[this.semester] = [...this.SELECTED]
+        let backup = [...this.selectedPerSemester[this.semester]]
         this.saveSemesters()
+        this.saveEnabled = false
         this.cleanSemester()
+        this.selectedPerSemester[this.semester] = backup
         this.selectedPerSemester[this.semester].forEach(subject => subject.approveRamo())
         this.semester++
         if (this.semester === 2)
             this.backButton.classed("disabled", false)
         this.updateSemesterIndicator()
-        if (this.selectedPerSemester[this.semester]) {
-            this.selectedPerSemester[this.semester].forEach(subject => {
+        if (this.selectedPerSemester[this.semester] !== undefined) {
+            backup = [...this.selectedPerSemester[this.semester]]
+            backup.forEach(subject => {
                 subject.selectRamo()
             });
+            this.selectedPerSemester[this.semester] = backup
         }
+        this.saveEnabled = true
         this.malla.verifyPrer()
 
     }
 
     // se pasa al semestre anterior
     prevSemester() {
-        if (this.SELECTED.length === 0 && this.semester >= Object.values(this.selectedPerSemester).length)
+        let backup = this.selectedPerSemester[this.semester]
+        if ((backup === undefined|| backup === []) && this.semester >= Object.values(this.selectedPerSemester).length)
             delete this.selectedPerSemester[this.semester]
         else
-            this.selectedPerSemester[this.semester] = [...this.SELECTED]
-        this.cleanSemester()
+            backup = [...this.selectedPerSemester[this.semester]]
         this.saveSemesters()
+        this.saveEnabled = false
+        this.cleanSemester()
+        if ((backup !== undefined && backup !== []))
+            this.selectedPerSemester[this.semester] = backup
         this.deApprovePrevSemester()
             this.semester--
         if (this.semester === 1) {
             this.backButton.classed("disabled", true)
         }
             this.updateSemesterIndicator()
-        this.selectedPerSemester[this.semester].forEach(subject => {
+        backup = [... this.selectedPerSemester[this.semester]]
+        backup.forEach(subject => {
             subject.selectRamo()
         })
+        this.selectedPerSemester[this.semester] = backup
+        this.saveEnabled = true
         this.malla.verifyPrer()
     }
 
@@ -129,17 +144,27 @@ class SemesterManager {
 
     // se quitan todas las asignaturas del semestre
     cleanSemester() {
-        let semesterToClean = [...this.SELECTED]
-        semesterToClean.forEach(subject => {
-            subject.selectRamo()
-        })
+        if (this.selectedPerSemester[this.semester] !== undefined) {
+            let semesterToClean = [...this.selectedPerSemester[this.semester]]
+            semesterToClean.forEach(subject => {
+                subject.selectRamo()
+            })
+        }
+
     }
 
     // se "reinicia" eliminando todo dato guardado
     cleanAll () {
-        this.cleanSemester(0)
+        this.saveEnabled = false
+        this.cleanSemester()
         this.semester = 1
+        this.updateSemesterIndicator()
         this.selectedPerSemester = {}
+        this.backButton.classed("disabled", true)
+        this.malla.cleanSubjects()
+        this.saveEnabled = true
+        this.saveSemesters()
+
     }
 
 

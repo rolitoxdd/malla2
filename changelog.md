@@ -7,8 +7,8 @@ Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 -[ ] Gran parte del código ahora está basado en OOP
 -[ ] El código ha sido refactorizado y ahora sigue el estándar ECMAScript 6
     - [x] Malla
-    - [ ] Prioridad
-    - [ ] Generadora
+    - [x] Prioridad
+    - [x] Generadora
 -[ ] ajustes de interfaz 
 - La malla ahora tiene un identificador de año para una mejor lectura visual
 - Pulsar el indicador de semestre o año selecciona todos los ramos de dicho semestre o año
@@ -20,6 +20,10 @@ Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 - Existe una nueva "Pantalla de bienvenida" que cubre la ventana completa
 - Ahora se pueden eliminar asignaturas sin importar si están asignadas a algún semestre
 - Ahora se pueden editar asignaturas desde la tabla de asignaturas
+- El formato de las mallas ha sido cambiado (compatibilidad para futuras funciones)
+- [ ] Contacto ahora tiene una página dedicada
+- [ ] Se agregaron instrucciones a la generadora y a la calculadora
+- [ ] serviceWorker
 
 # [1.3.5]
 

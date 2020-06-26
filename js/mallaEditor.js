@@ -12,9 +12,8 @@ class MallaEditor {
 
         if (categoryLocation) {
             this.categoryManager = document.querySelector(categoryLocation)
-            this.fillCategories()
             let showModalButton = document.querySelector("#showCatModal")
-            showModalButton.addEventListener("click", this.setUpCategoryModal.bind(this))
+            showModalButton.addEventListener("click", this.setUpCategoryModal.bind(this, false, null))
             let categoryModalId = showModalButton.getAttribute("data-target")
             this.createCatEventListener = this.createCategory.bind(this)
             this.editCatEventListener = null
@@ -24,10 +23,12 @@ class MallaEditor {
                 e.target.querySelector("#small-cat-name").value = ""
                 e.target.querySelector("#small-cat-name").removeAttribute("disabled")
                 e.target.querySelector("#cat-color").value = ""
-
+                console.log("hidden")
                 let doneButton = e.target.querySelector("#sectorDoneButton")
                 doneButton.removeEventListener("click", this.createCatEventListener)
                 doneButton.removeEventListener("click", this.editCatEventListener)
+                doneButton.textContent = "Agregar"
+                e.target.querySelector("#catTitle").textContent = "Agregar"
 
             })
 
@@ -45,7 +46,7 @@ class MallaEditor {
             e.target.querySelector("#custom-sigla").value = ""
             e.target.querySelector("#custom-credits-USM").value = ""
             e.target.querySelector("#custom-credits-SCT").value = ""
-            e.target.querySelector("#custom-credits-SCT").placeholder = 0
+            e.target.querySelector("#custom-credits-SCT").placeholder = 2
         })
 
         this.createAdvancedSubjectModal = null
@@ -88,8 +89,10 @@ class MallaEditor {
                 prerC.append(choosePrer)
                 e.target.querySelector("#prerList").textContent = ""
                 let doneButton = e.target.querySelector("#createAdvSubject")
+                doneButton.textContent = "Agregar"
                 doneButton.removeEventListener("click", this.createSubEventListener)
                 doneButton.removeEventListener("click", this.editSubEvent)
+                this.createAdvancedSubjectModal.get(0).querySelector("#advSubjectTitle").textContent = "Agregar"
             })
             let prerChooser = this.createAdvancedSubjectModal.get(0).querySelector("#prerChooser")
             prerChooser.addEventListener("change", this.addPrerToModal.bind(this))
@@ -140,6 +143,8 @@ class MallaEditor {
                 this.editSubEvent = this.tableList[subject.sigla][1]
             else
                 this.editSubEvent = this.editSubject.bind(this, subject)
+            this.createAdvancedSubjectModal.get(0).querySelector("#createAdvSubject").textContent = "Editar"
+            this.createAdvancedSubjectModal.get(0).querySelector("#advSubjectTitle").textContent = "Editar"
             this.createAdvancedSubjectModal.get(0).querySelector("#createAdvSubject")
                 .addEventListener("click", this.editSubEvent)
             this.createAdvancedSubjectModal.modal("show")
@@ -181,10 +186,10 @@ class MallaEditor {
             let i = 0
             subject.prer.forEach(prer => {
                 if (i === 0) {
-                    subjectPrer.textContent = +prer
+                    subjectPrer.textContent = prer
                     i = 1
                 } else
-                    subjectPrer.textContent += " " + prer
+                    subjectPrer.textContent += " | " + prer
             })
             if (subjectPrer.textContent.length === 0)
                 subjectPrer.textContent = "Sin prerrequisitos"
@@ -270,44 +275,47 @@ class MallaEditor {
             let i = 0
             subject.prer.forEach(prer => {
                 if (i === 0) {
-                    subjectPrer.textContent = +prer
+                    subjectPrer.textContent = prer
                     i = 1
                 } else
-                    subjectPrer.textContent += " " + prer
+                    subjectPrer.textContent += " | " + prer
             })
             if (subjectPrer.textContent.length === 0)
                 subjectPrer.textContent = "Sin prerrequisitos"
         }
         let subjectState = subjectRow[3]
-        let selectable = true
         subjectState.textContent = "No seleccionado"
         if (subject.selected) {
             subjectState.textContent = "Seleccionado"
         //} else if () {
         } else {
+            let i = true
             Object.keys(this.semesterManager.selectedPerSemester).forEach(semester => {
                 if (semester !== this.semesterManager.semester) {
                     let found = this.semesterManager.selectedPerSemester[semester].indexOf(subject)
                     if (found !== -1){
                         if (semester < this.semesterManager.semester)
-                            selectable = false
-                        subjectState.textContent = "Seleccionado en S" + semester
+                        if (i) {
+                            subjectState.textContent = "Seleccionado en S" + semester
+                            i = false
+                        } else {
+                            subjectState.textContent += ", S" + semester
+                        }
                     }
                 }
             })
         }
 
         let subjectSelButton = this.tableList[subject.sigla][0].querySelector("#sel-" + subject.sigla)
-        if (selectable) {
+        if (subject.selected) {
+            subjectSelButton.textContent = "Deseleccionar"
+        } else
+            subjectSelButton.textContent = "Seleccionar"
+
+        if (!subject.approved) {
             subjectSelButton.removeAttribute("disabled")
-            if (subject.isCustom) {
-                // Do something if necessary
-            }
         } else {
             subjectSelButton.setAttribute("disabled", "disabled")
-            if (subject.isCustom) {
-                // Do something if necessary
-            }
         }
 
     }
@@ -336,6 +344,7 @@ class MallaEditor {
         this.subjectList.push(subject.sigla)
         this.semesterManager.malla.addSubject(subject)
         this.displaySubject(subject)
+        this.saveSubjects()
     }
 
     // Crea la asignatura a partir del modal
@@ -356,6 +365,8 @@ class MallaEditor {
         this.semesterManager.malla.addSubject(subject)
         this.createAdvancedSubjectModal.modal("hide")
         this.displaySubject(subject)
+        this.saveSubjects()
+
     }
 
     // Edita la asignatura a partir del modal
@@ -370,9 +381,13 @@ class MallaEditor {
             creditsSCT = null
         subject.updateCredits(creditsUSM, creditsSCT)
         subject.verifyPrer()
+        if (!subject.beenEdited)
+            this.subjectList.push(subject.sigla)
         subject.beenEdited = true
         this.updateState(subject)
         this.semesterManager.updateDisplayedSubject(subject)
+        this.saveSubjects()
+
     }
 
     // Elimina asignaturas creadas
@@ -388,9 +403,118 @@ class MallaEditor {
             this.subjectList.splice(i, 1);
             this.semesterManager.malla.delSubjects(subject)
         }
+        this.saveSubjects()
+
     }
 
-    loadSubjects() {return {}}
+    saveSubjects() {
+        let subjects = []
+        let cache = {}
+        this.subjectList.forEach(sigla => {
+            subjects.push(this.semesterManager.malla.ALLRAMOS[sigla])
+        })
+        subjects.forEach(subject => {
+            cache[subject.sigla] = [subject.name, subject.getUSMCredits(), subject.sector, [...subject.prer]]
+            if (subject.USMtoSCT)
+                cache[subject.sigla].push(0)
+            else
+                cache[subject.sigla].push(subject.getSCTCredits())
+        })
+        cache = JSON.stringify(cache)
+        if (this.advanced) {
+            localStorage["generatorUserSubjects" + this.semesterManager.malla.currentMalla] = cache
+        } else {
+            localStorage["priorixUserSubjects" + this.semesterManager.malla.currentMalla] = cache
+        }
+    }
+
+    loadSubjects() {
+        let cache
+        if (this.advanced){
+            cache = localStorage["generatorUserSubjects" + this.semesterManager.malla.currentMalla]
+        } else {
+            cache = localStorage["priorixUserSubjects" + this.semesterManager.malla.currentMalla]
+        }
+        if (cache === undefined) {
+            this.loadOldSubjects()
+            return
+        }
+        cache = JSON.parse(cache)
+        //console.log(cache)
+        Object.keys(cache).forEach(sigla => {
+            let data = cache[sigla]
+            if (this.semesterManager.malla.ALLRAMOS[sigla] === undefined) {
+                let subject = new SelectableRamo(data[0], sigla, data[1], data[2], data[3],
+                    this.semesterManager.malla.RAMOID++, this.semesterManager.malla, data[4], true)
+                this.semesterManager.malla.addSubject(subject)
+                this.subjectList.push(subject.sigla)
+                this.displaySubject(subject)
+            } else {
+                let subject = this.semesterManager.malla.ALLRAMOS[sigla]
+                subject.name = data[0]
+                subject.updateCredits(data[1], data[4])
+                subject.sector = data[2]
+                subject.prer = new Set(data[3])
+                subject.beenEdited = true
+                this.updateState(subject)
+            }
+        })
+    }
+
+    loadOldSubjects() {
+        let cache
+        if (this.advanced){
+            cache = localStorage["Custom-" + this.semesterManager.malla.currentMalla + "_CUSTOM"]
+            if (cache) {
+                let customSubjects = JSON.parse(cache);
+
+                for (let sigla in customSubjects) {
+                    // inicializar ramos fuera de malla
+                    let data = customSubjects[sigla];
+                    let prer = [];
+                    if (data.length === 6) {
+                        prer = data[5]
+                    } else if (!(data[4] != [])) {
+                        prer = data[4]
+                    }
+                    if (this.semesterManager.malla.ALLRAMOS[sigla] === undefined) {
+                        let subject = new this.semesterManager.malla.ramoType(data[0], data[1], data[2], data[3], prer,
+                            this.semesterManager.malla.RAMOID++, this.semesterManager.malla, 0, true);
+                        this.semesterManager.malla.addSubject(subject)
+                        this.subjectList.push(subject.sigla)
+                        this.displaySubject(subject)
+                    } else {
+                        let subject = this.semesterManager.malla.ALLRAMOS[sigla]
+                        subject.name = data[0]
+                        subject.updateCredits(data[2])
+                        subject.sector = data[3]
+                        subject.prer = prer
+                        subject.beenEdited = true
+                        this.updateState(subject)
+                    }
+                }
+            }
+        } else {
+            // prioridad
+            cache = localStorage["prioridad-" + this.semesterManager.malla.currentMalla + "_CUSTOM"]
+            if (cache) {
+                cache = JSON.parse(cache);
+
+                for (let sigla in cache) {
+                    // inicializar ramos fuera de malla
+                    let customSubject = cache[sigla];
+                    let subject = new this.semesterManager.malla.ramoType(customSubject[0],customSubject[1],
+                        customSubject[2],customSubject[3],[],this.semesterManager.malla.RAMOID++,
+                        this.semesterManager.malla, 0,true);
+                    this.semesterManager.malla.addSubject(subject)
+                    this.subjectList.push(subject.sigla)
+                    this.displaySubject(subject)
+                }
+            }
+        }
+        this.saveSubjects()
+        delete  localStorage["Custom-" + this.semesterManager.malla.currentMalla + "_CUSTOM"]
+    }
 
     addPrerToModal(e, prerChooser = null){
         let selector = null
@@ -445,6 +569,7 @@ class MallaEditor {
         this.categories[shortName] = [color, name]
         this.categoryModal.modal("hide")
         this.displayCategory(shortName)
+        this.saveCategories()
     }
 
     // Se explica solo
@@ -453,6 +578,7 @@ class MallaEditor {
         this.categories[category][0] = modal.querySelector("#cat-color").value
         this.categories[category][1] = modal.querySelector("#cat-name").value
         this.updateCategory(category)
+        this.saveCategories()
     }
 
     setUpCategoryModal(isEdit=false, category="Custom") {
@@ -466,6 +592,9 @@ class MallaEditor {
             this.editCatEventListener = this.editCategory.bind(this, category)
             modal.querySelector("#sectorDoneButton")
                 .addEventListener("click", this.editCatEventListener)
+            modal.querySelector("#catTitle").textContent = "Editar"
+            modal.querySelector("#sectorDoneButton").textContent = "Editar"
+
             this.categoryModal.modal("show")
         } else {
             this.categoryModal.get(0).querySelector("#sectorDoneButton")
@@ -500,10 +629,40 @@ class MallaEditor {
         category.textContent = this.categories[categorySN][1]
     }
 
+    saveCategories() {
+        localStorage["generatorUserCategory" + this.semesterManager.malla.currentMalla] = JSON.stringify(this.categories)
+    }
+
     loadCategories() {
-        // for now
-        this.categories = this.semesterManager.malla.sectors
-        //this.categoryList = Object.keys(this.categories)
+        let cache = localStorage["generatorUserCategory" + this.semesterManager.malla.currentMalla]
+        if (cache) {
+            cache = JSON.parse(cache)
+            //console.log(this.categoryManager.children)
+            let addCatButton = this.categoryManager.firstChild
+            this.categoryManager.append(addCatButton)
+            Object.keys(cache).forEach(categorySN => {
+                this.categories[categorySN] = cache[categorySN]
+            })
+        } else {
+            this.loadOldCategories()
+        }
+        this.fillCategories()
+    }
+
+    loadOldCategories() {
+        let cache = localStorage["Custom-" + this.semesterManager.malla.currentMalla + "_SECTORS"]
+        if (cache) {
+            cache = JSON.parse(cache)
+            //console.log(this.categoryManager.children)
+            let addCatButton = this.categoryManager.firstChild
+            this.categoryManager.append(addCatButton)
+            Object.keys(cache).forEach(categorySN => {
+                this.categories[categorySN] = cache[categorySN]
+            })
+            //delete localStorage["Custom-" + this.semesterManager.malla.currentMalla + "_SECTORS"]
+            this.saveCategories()
+            delete localStorage["Custom-" + this.semesterManager.malla.currentMalla + "_CUSTOM"]
+        }
     }
 
     // Retorna un booleano dependiendo si el hex entregado contrasta mejor con blanco

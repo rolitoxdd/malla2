@@ -37,6 +37,7 @@ class Generator extends SemesterManager {
             //     .text('Editar');
             this.displayedSubjects[subject.sigla] = subjectInfo
             this.mallaEditor.updateState(subject)
+            this.saveSemesters()
         }
 
     }
@@ -44,13 +45,15 @@ class Generator extends SemesterManager {
     updateDisplayedSubject(subject) {
         super.updateDisplayedSubject(subject)
         let subjectInfo = this.displayedSubjects[subject.sigla]
-        subjectInfo.select("div").text(subject.name)
+        if (subjectInfo)
+            subjectInfo.select("div").text(subject.name)
     }
 
     unDisplaySubject(subject) {
         this.displayedSubjects[subject.sigla]
             .transition().duration(300).style("opacity", "0.001").remove();
         delete this.displayedSubjects[subject.sigla]
+        this.saveSemesters()
 
     }
 
@@ -66,5 +69,57 @@ class Generator extends SemesterManager {
         if (this.mallaEditor)
             // indica que hay que actualizar la tabla de asignaturas no oficiales
             this.mallaEditor.semesterChange()
+    }
+    cleanAll() {
+        super.cleanAll();
+        delete localStorage["generatorUserData" + this.malla.currentMalla]
+    }
+
+    saveSemesters() {
+        if (this.saveEnabled) {
+
+            let cache = {}
+            Object.keys(this.selectedPerSemester).forEach(semester => {
+                let list = []
+                this.selectedPerSemester[semester].forEach(subject => {
+                    list.push(subject.sigla)
+                })
+                cache[semester] = list
+            })
+            cache = JSON.stringify(cache)
+            localStorage["generatorUserData" + this.malla.currentMalla] = cache
+        }
+    }
+
+    loadSemesters() {
+        let needToDelete = false
+        let cache = localStorage["generatorUserData" + this.malla.currentMalla]
+        if (!cache) {
+            cache = localStorage["Custom-" + this.malla.currentMalla + "_SEMESTRES"]
+            if (!cache)
+                return
+            localStorage["generatorUserData" + this.malla.currentMalla] = cache
+        }
+        if (cache) {
+            cache = JSON.parse(cache)
+            this.saveEnabled = false
+            let firstSemester = cache[1]
+            firstSemester.forEach(sigla => {
+                this.malla.ALLRAMOS[sigla].selectRamo()
+            })
+            let i = 1
+            for (i; i < Object.keys(cache).length; i++) {
+                this.selectedPerSemester[i + 1] = []
+                cache[i + 1].forEach(sigla => {
+                    this.selectedPerSemester[i + 1].push(this.malla.ALLRAMOS[sigla])
+                })
+                this.nextSemester()
+            }
+            this.saveEnabled = true
+            if (needToDelete) {
+                this.saveSemesters()
+                delete localStorage["Custom-" + this.malla.currentMalla + "_SEMESTRES"]
+            }
+        }
     }
 }

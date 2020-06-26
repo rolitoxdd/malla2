@@ -72,35 +72,6 @@
 
 
 
-  <!-- Contact Modal -->
-  <div class="modal fade bg-danger"
-    id="contacto" 
-    tabindex="-1" 
-    role="dialog" 
-    aria-labelledby="contacto" 
-    aria-hidden="true">
-
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-light">
-          <h5 class="modal-title" ><i class="fas fa-exclamation-triangle"></i> Antes de contactar</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Si deseas <strong> agregar o cambiar </strong> una <strong> malla</strong>, primero te invito a mirar el codigo fuente. ¡Allí podras encontrar toda la informacion que necesitas! <br>
-          Si encontraste un <strong> error/bug </strong> en la pagina puedes reportarlo desde el codigo fuente vía "Issues". De todas formas puedes contactarme.
-        </div>
-        <div class="modal-footer bg-light">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <a href="http://github.com/CsarMan/Mallas" class="btn btn-primary"><i class="fas fa-code-branch"></i> Codigo fuente</a>
-          <button type="button" id="contactar" onclick="contactar()" class="btn btn-danger"><i class="fas fa-envelope"></i> Contactar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Contact Modal END -->
 
   <!-- Agregar ramo Avanzado -->
   <div class="modal fade"
@@ -112,7 +83,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="titleRamoAvanzado">Añadir Asignatura: <em>Advanced Edition</em></h5>
+          <h5 class="modal-title"> <span id="advSubjectTitle">Añadir</span> Asignatura: <em>Advanced Edition</em></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -256,7 +227,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="sectorTitle" id="crearSector">Añadir categoría</h5>
+        <h5 class="sectorTitle"> <span id="catTitle">Añadir</span> categoría</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -294,7 +265,7 @@
   <!-- Sector Modal END -->
 
 
-  <div class="overlay" onclick="removePopUp()">
+  <div id="overlay" class="overlay" onclick="removePopUp()">
     <div class="overlay-content" onclick="removePopUp()">
       <div class="container-fluid align-middle py-5">
         <div class="row justify-content-center  align-items-center">
@@ -389,11 +360,12 @@
               <div class="col-5 col-sm-8">
                 <div class="row justify-content-center no-gutters">
                   <div class="btn-group" role="group">
-                    <button
-                            type="button"
+                    <a
+                            id="generate"
+                            href="#"
                             class="action btn btn-info btn-card">
-                      Calcular
-                    </button>
+                      Generar
+                    </a>
                     <button type="reset" id="reset" class="btn btn-danger btn-card">
                       Limpiar Semestre
                     </button>
@@ -450,14 +422,14 @@
               data-toggle="modal" 
               data-target="#modalCreateSubject"  
               class="btn btn-primary btn-sm button-create-subject">
-              Crear asignatura
+              Agregar asignatura
             </button>
             <button 
               type="button" 
               data-toggle="modal" 
               data-target="#modalAdvancedSubject"
               class="btn btn-warning btn-sm button-advanced-subject">
-              Crear asignatura avanzada
+              Agregar asignatura avanzada
             </button>
           </div>
         </div>

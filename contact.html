@@ -74,26 +74,33 @@
   <!-- Main -->
   <section class="container-xl flex-grow-1 d-flex">
     <div class="row justify-content-center align-items-center no-gutters flex-grow-1">
-      <div class="col-auto">
-        <div class="card">
-          <div class="row no-gutters">
-            <div class="col-auto">
-            <img class="rounded-left" src="https://www.gravatar.com/avatar/1174a0fe2b15fdcb7fe3a7ec54aab61b?s=200"/>
-            </div>
+      <div class="col-md-5 col-sm-8">
+        <div class="card text-center mt-3">
+          <div class="row no-gutters pt-3">
             <div class="col">
-              <div class="card-header"><strong>César Paulangelo</strong></div>
-            <div class="card-body">
-              <p class="card-text">
-              cesar.paulangelo@sansano.usm.cl <br>
-              <small class="text-muted">
-              Estudiante Ingeniería civil informática
-              <br> Universidad técnica Federico Santa María
-              </small>
-              </p>
-
+              <img class="rounded-circle" width="150px" height="150px" src="https://www.gravatar.com/avatar/1174a0fe2b15fdcb7fe3a7ec54aab61b?s=150"/>
             </div>
-            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col">
+              <div class="card-body">
+                <h4 class="card-title">César Paulangelo</h4>
+                <h6 class="card-subtitle text-muted mb-3">
+                  Estudiante Ingeniería civil informática
+                  <br> Universidad técnica Federico Santa María
+                </h6>
+                <div class="card-text">
+                  <a href="mailto:cesar.paulangelo@sansano.usm.cl?subject=Malla Interactiva">
+                    <i class="fas fa-envelope"></i> cesar.paulangelo@sansano.usm.cl
+                  </a>
+                  <br>
+<!--                  <a referrerpolicy="origin" rel="noopener" target="_blank" href="https://github.com/CsarMan">-->
+<!--                    <i class="fab fa-github"></i> Github-->
+<!--                  </a>-->
+                </div>
 
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -112,13 +119,13 @@
     <!-- scripts -->
 
   <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src='./js/compressed.js'></script>
+  <script src='./js/init.js'></script>
   <script src="https://kit.fontawesome.com/bf671ef02a.js"></script>
-  <script type="text/template" data-template="tab-template1">
-    <li><a class="nav-item nav-link" href="?m=${Link}"><span class="d-md-none">Malla </span>${Nombre}</a></li>
-  </script>
-  <script type="text/template" data-template="tab-template2">
-    <a class="dropdown-item" href="?m=${Link}">Malla ${Nombre}</a>
-  </script>
+<script type="text/template" data-template="tab-template1">
+  <li><a class="nav-item nav-link" href="?m=${Link}"><span class="d-md-none">Malla </span>${Nombre}</a></li>
+</script>
+<script type="text/template" data-template="tab-template2">
+  <a class="dropdown-item" href="?m=${Link}">Malla ${Nombre}</a>
+</script>
 </body>
 </html>

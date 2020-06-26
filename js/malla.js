@@ -76,7 +76,7 @@ class Malla {
             malla[semester].forEach(ramo => {
                 totalRamos += 1;
                 // Agregado de ramos por semestre
-                if (ramo.length === 6) {
+                if (ramo.length === 7) {
                     // Nuevo formato con ramos SCT
                     this.malla[semester][ramo[1]] = new this.ramoType(ramo[0], ramo[1], ramo[2], ramo[4], ramo[5],this.RAMOID++, this, ramo[3])
                 } else {
@@ -208,8 +208,15 @@ class Malla {
                 isBigBarRendered = true;
             }
 
+            isBigBarRendered = true;
+            let intToRomanize = semester
+            if (intToRomanize[0] === "s") {
+                intToRomanize = parseInt(intToRomanize.substr(1))
+            } else {
+                intToRomanize = parseInt(intToRomanize)
+            }
             let semesterIndicator = drawer.append("g")
-                .attr("id", "sem" + semester.substr(1))
+                .attr("id", "sem" + intToRomanize)
                 .attr("cursor", "pointer")
                 .attr("width", this.ramoType.getDisplayWidth(this.scaleX))
                 .attr("height", semesterIndicatorHeight)
@@ -228,19 +235,20 @@ class Malla {
                 .attr("height", semesterIndicatorHeight)
                 .attr("fill", '#EEE');
 
-            isBigBarRendered = true;
 
             semesterIndicator.append("text")
                 .attr('x', globalX + this.ramoType.getDisplayWidth(this.scaleX) / 2.0)
                 .attr('y', globalY + semesterIndicatorHeight / 2)
-                .text(this.romanize(parseInt(semester.substr(1))))
+                .text(this.romanize(intToRomanize))
                 .attr("dominant-baseline", "central")
                 .attr('text-anchor', 'middle');
 
             semesterIndicator.on("click", () => {
                 let bar = d3.select(d3.event.currentTarget)
                 let semNumber = this.deRomanize(bar.select("text").text());
-                Object.values(this.malla["s" + semNumber]).forEach(ramo => {
+                if (semester[0] === "s")
+                    semNumber = "s" + semNumber
+                Object.values(this.malla[semNumber]).forEach(ramo => {
                     ramo.isBeingClicked()
                 })
 
@@ -364,12 +372,14 @@ class Malla {
 
     // Auto explanatorio
     loadApproved() {
-        let cacheName = "approvedRamos_" + this.currentMalla;
-        let loadedData = JSON.parse(localStorage[cacheName])
+        if (this.saveEnabled) {
+            let cacheName = "approvedRamos_" + this.currentMalla;
+            let loadedData = JSON.parse(localStorage[cacheName])
             loadedData.forEach(siglaRamo => {
                 this.ALLRAMOS[siglaRamo].approveRamo()
-        })
-        this.verifyPrer()
+            })
+            this.verifyPrer()
+        }
     }
 
     // EXTRA
@@ -477,5 +487,107 @@ class Malla {
         a_nums[24] = 4;
         a_nums[25] = 1;
         return a_nums;
+    }
+
+    generateCode() {
+        let data = {}
+        let expresion1 = /("s[0-9]+":)+|(\[(?:,?[^\[\]])+(?:,\[[^\]]*\])(?:,?[^\]]*)+\])+/g
+
+        Object.keys(this.malla).forEach(semester => {
+            let key
+            if (semester.includes("s"))
+                key = semester
+            else
+                key = "s" + semester
+            data[key] = []
+
+            Object.keys(this.malla[semester]).forEach(sigla => {
+                let subject = this.ALLRAMOS[sigla]
+                let subjectData = []
+
+                subjectData.push(subject.name)
+                subjectData.push(subject.sigla)
+                subjectData.push(subject.getUSMCredits())
+                if (subject.USMtoSCT)
+                    subjectData.push(0)
+                else
+                    subjectData.push(subject.getSCTCredits())
+
+                subjectData.push(subject.sector)
+                subjectData.push([...subject.prer])
+                subjectData.push("")
+                data[key].push(subjectData)
+
+            })
+            // for (siglaRamoindex in customMalla[semester]) {
+            // }
+        })
+        let mallaResult = JSON.stringify(data).match(expresion1);
+
+        let s = "{\n"
+        let first = true
+        let firstSem = true
+        mallaResult.forEach(item => {
+            if (/("s[0-9]+":)/.test(item)) {
+                if (firstSem) {
+                    s += "    " + item + " [\n"
+                    firstSem = false
+                } else {
+                    s += "\n    ],\n" + "    " + item + " [\n"
+                }
+                first = true
+            } else if (first) {
+                s += "        " + item
+                first = false
+            } else
+                s += ",\n" + "        " + item
+        })
+        s += "\n" + "    " + "]\n" + "}"
+        let expresion2 = /("[^\]]+\],?)/g
+        let colorResult = JSON.stringify(this.sectors).match(expresion2)
+        let c = "{"
+
+        colorResult.forEach(color => {
+            c += "\n" + "    " + color
+        })
+        c += "\n}"
+
+        if (document.getElementById('mallaCode')) {
+            new ClipboardJS('.btn');
+            document.getElementById('mallaCode').textContent = s;
+            document.getElementById('colorCode').textContent = c
+            PR.prettyPrint()
+
+            document.getElementById('abrev').value = this.currentMalla
+            document.getElementById("carrMalla1").textContent = this.currentMalla
+            document.getElementById("carrMalla2").textContent = this.currentMalla
+            document.getElementById("carrColor1").textContent = this.currentMalla
+            document.getElementById("carrColor2").textContent = this.currentMalla
+
+            let file1 = new Blob([s], {"aplication/json": "aplication/json"});
+            let file2 = new Blob([c], {"aplication/json": "aplication/json"});
+            let downloadLink1 = document.getElementById('dMalla')
+            let downloadLink2 = document.getElementById('dColor')
+            downloadLink1.setAttribute('href', URL.createObjectURL(file1))
+            downloadLink1.setAttribute('download', "data_" + this.currentMalla + '.json')
+            downloadLink2.setAttribute("href", URL.createObjectURL(file2))
+            downloadLink2.setAttribute("download", "colors_" + this.currentMalla + '.json')
+        } else {
+            console.log(s)
+            console.log(c)
+        }
+        if (document.getElementById("abrev")) {
+            document.getElementById("abrev").addEventListener('input', function (input) {
+                document.getElementById("carrMalla1").textContent = input.target.value.toUpperCase()
+                document.getElementById("carrMalla2").textContent = input.target.value.toUpperCase()
+                document.getElementById("carrColor1").textContent = input.target.value.toUpperCase()
+                document.getElementById("carrColor2").textContent = input.target.value.toUpperCase()
+                document.getElementById('dMalla').setAttribute('download', "data_" + input.target.value.toUpperCase() + '.json')
+                document.getElementById('dColor').setAttribute("download", "colors_" + input.target.value.toUpperCase() + '.json')
+
+                $('[data-toggle="tooltip"]').tooltip()
+                $('[data-toggle="tooltip"]').tooltip('disable')
+            })
+        }
     }
 }

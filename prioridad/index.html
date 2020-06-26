@@ -70,35 +70,7 @@
                   height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
-<!-- Contact Modal -->
-<div class="modal fade bg-danger"
-     id="contacto"
-     tabindex="-1"
-     role="dialog"
-     aria-labelledby="contacto"
-     aria-hidden="true">
 
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h5 class="modal-title" ><i class="fas fa-exclamation-triangle"></i> Antes de contactar</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Si deseas <strong> agregar o cambiar </strong> una <strong> malla</strong>, primero te invito a mirar el codigo fuente. ¡Allí podras encontrar toda la informacion que necesitas! <br>
-        Si encontraste un <strong> error/bug </strong> en la pagina puedes reportarlo desde el codigo fuente vía "Issues". De todas formas puedes contactarme.
-      </div>
-      <div class="modal-footer bg-light">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <a href="http://github.com/CsarMan/Mallas" class="btn btn-primary"><i class="fas fa-code-branch"></i> Codigo fuente</a>
-        <button type="button" id="contactar" onclick="contactar()" class="btn btn-danger"><i class="fas fa-envelope"></i> Contactar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Contact Modal END -->
 
 <!-- Agregar ramo personalizado -->
 <div class="modal fade"
@@ -208,7 +180,7 @@
 </div>
 <!-- -->
 
-<div class="overlay" onclick="removePopUp()">
+<div id="overlay" class="overlay" onclick="removePopUp()">
   <div class="overlay-content" onclick="removePopUp()">
     <div class="container-fluid align-middle py-5">
       <div class="row justify-content-center  align-items-center">
@@ -280,7 +252,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">FAE: </span>
                     </div>
-                    <input type="number" inputmode="number" autocomplete="off" class="form-control fae" value="1">
+                    <input type="number" inputmode="number" step="0.001" autocomplete="off" class="form-control fae" value="1">
                   </div>
                 </div>
                 <hr class="w-100 mt-2 m-0">
@@ -323,13 +295,6 @@
               <div class="col-5 col-sm-8">
                 <div class="row justify-content-center no-gutters">
                   <div class="btn-group" role="group">
-                    <button
-                            type="button"
-                            id="Calcular"
-                            onclick="calcularPrioridad()"
-                            class="btn btn-info btn-card">
-                      Calcular
-                    </button>
                     <button type="reset" id="reset" class="btn btn-danger btn-card">
                       Limpiar Semestre
                     </button>
@@ -389,7 +354,7 @@
                   data-toggle="modal"
                   data-target="#modalCreateSubject"
                   class="btn btn-primary btn-sm button-create-subject">
-            Crear Asignatura
+            Agregar Asignatura
           </button>
         </div>
       </div>
