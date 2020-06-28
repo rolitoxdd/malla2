@@ -121,7 +121,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" id="createSubject" class="btn btn-primary button-create-subject">Agregar</button>
+        <button type="button" id="createSubject" class="btn btn-primary button-create-subject" data-dismiss="modal">Agregar</button>
       </div>
     </div>
   </div>
@@ -423,31 +423,6 @@
     speed: 500,
     easing: 'easeInOutCubic'
   });
-  var mediaQueryList = window.matchMedia("(max-width: 575.98px)");
-  if (mediaQueryList.matches) {
-    d3.select('.btn-group')
-            .classed('btn-group-sm', true)
-    // .classed('btn-group-vertical', true)
-    // .classed('btn-group', false);
-    d3.select('#resetc').classed('btn-sm', true)
-  }
-  function handleOrientationChange(mql) {
-    if (mql.matches) {
-      d3.select('.btn-group')
-              .classed('btn-group-sm', true)
-      // .classed('btn-group-vertical', true)
-      // .classed('btn-group', false);
-      d3.select('#resetc').classed('btn-sm', true)
-    } else {
-      d3.select('.btn-group')
-              .classed('btn-group-sm', false)
-      // .classed('btn-group-vertical', false)
-      // .classed('btn-group', true);
-      d3.select('#resetc').classed('btn-sm', false)
-    }
-  }
-  mediaQueryList.addListener(handleOrientationChange)
-  handleOrientationChange(mediaQueryList);
 </script>
 </body>
 </html>

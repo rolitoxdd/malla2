@@ -7,8 +7,8 @@ class MallaEditor {
         this.categoryList = {}
         this.subjectList = []
         this.tableList = {}
-        this.defaultSector = ["Custom", "#000000", "Fuera de la malla oficial"]
-        this.categories["Custom"] = ["#000000", "Fuera de la malla oficial"]
+        this.defaultSector = ["Custom", "#000000", "Fuera de la malla | editado"]
+        this.categories["Custom"] = ["#000000", "Fuera de la malla | editado"]
 
         if (categoryLocation) {
             this.categoryManager = document.querySelector(categoryLocation)
@@ -345,6 +345,10 @@ class MallaEditor {
         this.semesterManager.malla.addSubject(subject)
         this.displaySubject(subject)
         this.saveSubjects()
+
+        if (this.advanced) {
+            this.saveCategories()
+        }
     }
 
     // Crea la asignatura a partir del modal
@@ -359,7 +363,6 @@ class MallaEditor {
         modal.querySelector("#prerList").querySelectorAll("li").forEach(item => {
             prer.push(item.getAttribute("id").slice(4))
         })
-        console.log(prer)
         let subject = new SelectableRamo(name, sigla, creditsUSM, sectorName, prer, this.semesterManager.malla.RAMOID++, this.semesterManager.malla, creditsSCT ,true)
         this.subjectList.push(subject.sigla)
         this.semesterManager.malla.addSubject(subject)
@@ -405,6 +408,16 @@ class MallaEditor {
         }
         this.saveSubjects()
 
+    }
+
+    restoreSubject(subject) {
+        // revisa en malla.rawMalla los datos originales del ramo y los usa
+        // se quita el ramo de la tabla y tambien si esta seleccionado, se actualiza ahi tambien
+        // si la categoria original esta borrada, se recrea
+    }
+
+    cleanSubject() {
+        // se borran todos los ramos y se restauran los que lo necesiten
     }
 
     saveSubjects() {
@@ -579,6 +592,16 @@ class MallaEditor {
         this.categories[category][1] = modal.querySelector("#cat-name").value
         this.updateCategory(category)
         this.saveCategories()
+    }
+
+    deleteCategory(category) {
+        // se recorren todos los ramos y si pertenecen a esa categoria se cambia a Custom
+        // luego se elimina la categoría
+    }
+
+    restoreCategories() {
+        // se eliminan los ramos no originales y se recrean lo originales borrados
+        // no se editan las categorias de los ramos
     }
 
     setUpCategoryModal(isEdit=false, category="Custom") {

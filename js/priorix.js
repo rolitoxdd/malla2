@@ -341,7 +341,8 @@ class Priorix extends SemesterManager {
                 cache.push(JSON.parse(oldFaeCache))
                 localStorage["priorixUserData" + this.malla.currentMalla] = JSON.stringify(cache)
                 needtoDelete = true
-            }
+            } else
+                return
         }
         this.saveEnabled = false
         console.log(cache)

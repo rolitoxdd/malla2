@@ -373,12 +373,14 @@ class Malla {
     // Auto explanatorio
     loadApproved() {
         if (this.saveEnabled) {
-            let cacheName = "approvedRamos_" + this.currentMalla;
-            let loadedData = JSON.parse(localStorage[cacheName])
-            loadedData.forEach(siglaRamo => {
-                this.ALLRAMOS[siglaRamo].approveRamo()
-            })
-            this.verifyPrer()
+            let cache = localStorage["approvedRamos_" + this.currentMalla]
+            if (cache) {
+                let loadedData = JSON.parse(cache)
+                loadedData.forEach(siglaRamo => {
+                    this.ALLRAMOS[siglaRamo].approveRamo()
+                })
+                this.verifyPrer()
+            }
         }
     }
 

@@ -154,7 +154,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" id="createAdvSubject" class="btn btn-primary">Agregar</button>
+          <button type="button" id="createAdvSubject" data-dismiss="modal" class="btn btn-primary">Agregar</button>
         </div>
       </div>
     </div>
@@ -210,12 +210,56 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" id="createSubject" class="btn btn-primary button-create-subject">Agregar</button>
+          <button type="button" id="createSubject" data-dismiss="modal" class="btn btn-primary button-create-subject">Agregar</button>
         </div>
       </div>
     </div>
   </div>
 <!-- fin ramo personalizado -->
+
+<!-- Instrucciones de uso -->
+  <div class="modal fade" id="instructions" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Instrucciones</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body ">
+          <h3>Como Usar la Generadora</h3>
+          <div class="text-center">
+            <svg><use href="#subjectExample" style="cursor: default"></use> </svg>
+          </div>
+          <p>Selecciona una asignatura de la malla para que quede registrada en el semestre indicado. Puedes pulsar el semestre en la malla para agregar todos los ramos de dicho semestre a la calculadora</p>
+          <p>Usa las flechas <span class="btn-card btn btn-secondary disabled"><i class="fas fa-arrow-left"></i></span> <span class="btn-card btn btn-secondary disabled"><i class="fas fa-arrow-right"></i></span>
+            para cambiar de semestre. Una vez que termines de configurar la malla, usa <span class="btn-card btn btn-primary disabled">Generar</span> para poder ver la malla resultante</p>
+          <p>Con el botón <span class="btn-card btn btn-secondary disabled">Editar</span> puedes cambiar información sobre la asignatura en cuestión.
+            Tome nota que si decide cambiar los créditos de la asignatura, al editar los créditos USM, se cambiaran también los SCT a menos que
+            estos tengan un valor individual. Esto no sucede en sentido contrario. La información nueva se mostrara en la generadora y en la tabla de Asignaturas,
+          pero no en la malla.</p>
+          <p>Las asignaturas que han sido editadas o no pertenecen a la malla se encuentran en la tabla de "Asignaturas fuera de la malla oficial / editados".
+          Ahí podrás seleccionarlos, editarlos, eliminarlos/restaurarlos y ver información de estos. Al crear un ramo, existen dos opciones,
+            <span class="btn-card btn btn-secondary disabled">Agregar Asignatura</span> y <span class="btn-card btn btn-secondary disabled">Agregar asignatura avanzada</span>.
+          usa la opción simple para crear asignaturas de manera rápida, llenando solamente el nombre, sigla y créditos. La opción avanzada te permite
+          ademas seleccionar su categoría y los prerrequisitos. Estas mismas opciones, a excepción de la sigla, se pueden modificar con el botón <span class="btn-card btn btn-secondary disabled">Editar</span>.
+          La opción de eliminar asignaturas solo esta disponible para los ramos no oficiales, para los oficiales esta la opción de restaurar. Esta opción permite
+            devolver la asignatura a su estado original, reagregando su categoría si esta se elimino en algún momento.</p>
+          <p>Por último, la tabla de categorías te permite agregar, quitar y cambiar categorías según se necesite. Para ello, solo se necesita pulsar en
+          <span class="list-group-item list-group-item-action">¡Agrega una categoría!</span> y llenar el nombre, abreviatura y seleccionar el color, para editar y quitar
+          la categoría, basta con hacer click en la misma categoría y cambiar los datos o pulsar el botón <span class="btn-card btn btn-danger disabled">Eliminar</span>.
+          Toma en cuenta que al eliminar una categoría, todas las asignaturas asociadas a esa categoría se les asignara la categoría "Fuera de la malla | editado" se mostraran
+          en la tabla de asignaturas</p>
+          <p class="text-muted">Mini truco: Su pulsas generar sin haber seleccionado ningún ramo o después de pulsar "Restablecer Malla", la malla generada es la malla oficial</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- fin instrucciones -->
 
   <!-- Sector Modal -->
   <div class="modal fade"
@@ -257,7 +301,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="sectorCancelButton" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" id="sectorDoneButton" class="btn btn-primary">Agregar</button>
+        <button type="button" id="sectorDoneButton" class="btn btn-primary" data-dismiss="modal">Agregar</button>
       </div>
     </div>
   </div>
@@ -291,17 +335,14 @@
 
   <!-- Main -->
   <section class="container-fluid flex-grow-1">
-    <div class="row justify-content-center align-items-center pt-3">
-      <!-- Inicio canvas -->
-      <div class="col-xl-7 ">
-        <div class='canvas' style="text-align:center;overflow-x:auto"></div>
-        <div class='color-description'
-          style="position:relative;display:flex;justify-content:center;flex-wrap:wrap;">
-        </div>
+    <!-- Canvas -->
+    <div class="row justify-content-center align-items-center">
+      <div class="col-xl-7 order-1">
+        <div class='canvas pt-3'></div>
       </div>
-      <!-- Fin canvas -->
-      <div class="col-sm-auto">
-      <!-- Inicio calculadora -->
+      <!-- Canvas END -->
+      <!-- Calculadora -->
+      <div class="col-sm-auto order-xl-2 order-4">
         <form id="priorix" class="d-flex flex-column">
         <div class="card flex-fill">
           <div class="card-header">
@@ -387,11 +428,14 @@
           <!-- Fin botones -->
         </div>
       </form>
-
-      </form>
-      <!-- Fin calculadora -->
-    </div>
-    </div>
+      </div>
+        <!-- Fin calculadora -->
+        <div class='col-12 col-xl-10 order-2 order-xl-3 color-description'></div>
+        <div class="col-12 my-3 order-xl-4 order-3 text-center">
+          <h5>Mostrando créditos <span id="credits-system"></span></h5>
+          <button id="credit-system" type="button" onclick="changeCreditsSystem()" class="btn btn-secondary"> Cambiar sistema de créditos </button>
+        </div>
+      </div>
     <div id="unoficialSubjects" class="row justify-content-center mt-5">
       <!-- Inicio Tabla fuera de malla -->
       <div class="col-lg-auto">
@@ -541,7 +585,18 @@
       }
     }
     handleOrientationChange(mediaQueryList);
-    mediaQueryList.addListener(handleOrientationChange)
+    try {
+      // Chrome & Firefox
+      mediaQueryList.addEventListener("change", handleOrientationChange)
+
+    } catch (e1) {
+      try {
+        // Safari
+        mediaQueryList.addListener(handleOrientationChange)
+      } catch (e2) {
+        console.error(e2);
+      }
+    }
   </script>
 </body>
 </html>

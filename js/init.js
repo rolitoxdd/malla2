@@ -16,6 +16,8 @@
     },
 });*/
 
+
+
 let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document
 document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -50,6 +52,19 @@ else if (personalizar)
 
 if (texts !== "Malla") {
     relaPath = '../'
+}
+
+if ('serviceWorker' in navigator) {
+    console.log("Service worker compatible")
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register(relaPath + 'serviceWorker.js').then(function(registration) {
+            // Registration was successful
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+            // registration failed :(
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    });
 }
 let params = new URLSearchParams(window.location.search)
 
@@ -162,6 +177,7 @@ function removePopUp() {
 
       } else if (personalizar && !mallaPersonal) {
           malla = new Malla(sct, SelectableRamo, 0.804, 1)
+          malla.enableCreditsSystem()
           document.getElementById("custom-credits-USM").addEventListener("input", function updateSCTPlaceholder() {
               document.getElementById("custom-creditsa-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
           })
