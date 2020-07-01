@@ -157,7 +157,7 @@
           se calcula de la siguiente forma:
         </p>
         <p style="overflow: auto">
-        $$\text{Prioridad} = 100\cdot\frac{\sum{\text{Nota Asignatura} \cdot \text{Créditos Asignatura}}}{14 \cdot \text{semestre}^{1.06}} \cdot \frac{\text{Créditos Aprobados}}{\text{Créditos Tomados Totales}}$$
+        $$\text{Prioridad} = 100\cdot\frac{\sum{\text{Nota Asignatura} \cdot \text{Créditos Asignatura}}}{14 \cdot \text{semestre}^{1.06}} \cdot \frac{\text{Créditos Aprobados}}{\text{Créditos Tomados Totales}} \cdot \text{FAE}$$
         </p>
         <p>
           Durante el segundo semestre de 2019 y principios del primero de 2020, la universidad empezó a trabajar con los créditos SCT
@@ -166,7 +166,7 @@
           <strong>linkeado en la mismísima página de inicio de sesión del SIGA</strong> La formula de abajo corresponde a una suposición propia.
         </p>
         <p style="overflow: auto">
-          $$\text{Prioridad Nueva} = 100\cdot\frac{\sum{\text{Nota Asignatura} \cdot \text{Créditos SCT Asignatura}}}{14 \cdot \frac{5}{3} \cdot \text{semestre}^{1.06}} \cdot \frac{\text{Créditos SCT Aprobados}}{\text{Créditos SCT Tomados Totales}}$$
+          $$\text{Prioridad Nueva} = 100\cdot\frac{\sum{\text{Nota Asignatura} \cdot \text{Créditos SCT Asignatura}}}{14 \cdot \frac{5}{3} \cdot \text{semestre}^{1.06}} \cdot \frac{\text{Créditos SCT Aprobados}}{\text{Créditos SCT Tomados Totales}} \cdot \text{FAE}$$
         </p>
         <p>Para efectos de la calculadora, si la malla no tiene información de los créditos SCT, este se calcula a partir de los créditos USM y luego se redondea</p>
         <p>$$ 1 \text{ crédito SCT} = 1 \text{ crédito USM} \cdot \frac{5}{3}$$</p>
@@ -288,7 +288,7 @@
             <!-- Botones para cambiar semestre y calcular prioridad -->
             <div class="row no-gutters align-items-center justify-content-between">
               <div class="col-2 text-left">
-                <button id="back" type="button" class="btn-card btn btn-secondary disabled">
+                <button id="back" type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
                   <i class="fas fa-arrow-left"></i>
                 </button>
               </div>
@@ -356,6 +356,13 @@
                   class="btn btn-primary btn-sm button-create-subject">
             Agregar Asignatura
           </button>
+          <button
+                  id="deleteSubjects"
+                  type="button"
+                  class="btn btn-danger btn-sm">
+            Limpiar Tabla
+          </button>
+
         </div>
       </div>
     </div>

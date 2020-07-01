@@ -81,8 +81,31 @@ hr {
     fill: white;
 }
 
+.sem {
+    transition: 0.3s;
+}
+@media(hover: hover) {
+
+    g.sem:hover rect {
+        fill: #c1c1c1;
+    }
+
+    g.year:hover rect.bars {
+        fill: #474747;
+    }
+
+    .subject:hover .non-approved {
+        opacity: 30%;
+        fill: #007bff;
+    }
+
+    .subject .non-approved {
+        transition: 0.3s
+    }
+}
 .bars {
     fill: grey;
+    transition: 0.3s;
 }
 .overlay {
     /*position: fixed; !* Sit on top of the parent content*!
@@ -151,7 +174,20 @@ sector:hover .text-white {
     g.sem text {
         fill: white;
     }
-   
+    @media(hover: hover) {
+        g.sem rect:hover {
+            fill: #a3a3a3;
+        }
+
+        g.year:hover rect.bars {
+            fill: #6f6f6f;
+        }
+
+        .subject:hover .non-approved {
+            opacity: 30%;
+            fill: #2A9FD6;
+        }
+    }
     .non-approved {
         fill: #000;
     }

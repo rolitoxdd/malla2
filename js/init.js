@@ -27,11 +27,6 @@ window.addEventListener('resize', () => {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 
-function contactar() {
-    window.location = "mailto:cpaulang@alumnos.inf.utfsm.cl?subject=Malla Interactiva";
-    $('#contacto').modal('hide')
-}
-
 function render(props) {
     return function(tok, i) {
         return (i % 2) ? props[tok] : tok;
@@ -42,6 +37,7 @@ let prioridad = document.URL.includes('prioridad')
 let personalizar = document.URL.includes('personalizar')
 let mallaPersonal = document.URL.includes("malla.")
 let contact = document.URL.includes("contact")
+let aportes = document.URL.includes("aportes")
 let texts = "Malla"
 if (mallaPersonal)
     texts = "Personal"
@@ -50,11 +46,11 @@ else if (prioridad)
 else if (personalizar)
     texts = "Generadora"
 
-if (texts !== "Malla") {
+if (texts !== "Malla" || contact || aportes) {
     relaPath = '../'
 }
-
-if ('serviceWorker' in navigator) {
+// Disabled due to safari bug
+/*if ('serviceWorker' in navigator) {
     console.log("Service worker compatible")
     window.addEventListener('load', function() {
         navigator.serviceWorker.register(relaPath + 'serviceWorker.js').then(function(registration) {
@@ -65,7 +61,8 @@ if ('serviceWorker' in navigator) {
             console.log('ServiceWorker registration failed: ', err);
         });
     });
-}
+}*/
+
 let params = new URLSearchParams(window.location.search)
 
 let carr =  params.get('m')
@@ -93,37 +90,38 @@ function loadViews() {
     promises.push(fetch(fileURL).then(response => response.json()))
     Promise.all(promises).then((datas) => {
         welcomeTexts = datas.pop()[texts]
-        if (mallaPersonal) {
-            d3.select('#goToGenerator').attr('href', './?m=' + carr);
-            d3.select("#contact").attr("href", relaPath + "contact.html")
-        } else if (!(prioridad|personalizar)) {
-            d3.select('#goToCalculator').attr('href', './prioridad/?m=' + carr);
-            d3.select('#goToGenerator').attr('href', './personalizar/?m=' + carr);
-            if (!contact)
-                d3.select("#contact").attr("href", relaPath + "contact.html")
+
+        let home = document.getElementById("goToHome")
+        let calculator = document.getElementById("goToCalculator")
+        let generator = document.getElementById("goToGenerator")
+        let goToContact = document.getElementById("contact")
+        let goToAportes = document.getElementById("goToAportes")
+        if (!mallaPersonal) {
+            if (!prioridad)
+                calculator.setAttribute("href", relaPath + 'prioridad/?m=' + carr)
+            else
+                calculator.classList.add("active")
+            if (!personalizar)
+                generator.setAttribute("href", relaPath + 'personalizar/?m=' + carr)
             else {
-                document.getElementById('contact').classList.add('active');
-                d3.select('#goToHome').attr('href', './?m=' + carr);
+                generator.classList.add("active")
+                document.getElementById("generate").setAttribute("href", "./malla.html?m=" + carr)
             }
-        } else if (prioridad) {
-            document.getElementById('goToCalculator').classList.add('active');
-            d3.select('#goToHome').attr('href', '../?m=' + carr);
-            d3.select('#goToGenerator').attr('href', '../personalizar/?m=' + carr);
-            d3.select("#contact").attr("href", relaPath + "contact.html")
-        } else {
-            document.getElementById('goToGenerator').classList.add('active');
-            d3.select('#goToHome').attr('href', '../?m=' + carr);
-            d3.select('#goToCalculator').attr('href', '../prioridad/?m=' + carr);
-            d3.select("#generate").attr("href", "./malla.html?m=" + carr)
-            d3.select("#contact").attr("href", relaPath + "contact.html")
-        }
-        d3.select("#contact").attr("href", relaPath + "contact.html")
+        } else
+            generator.setAttribute("href", relaPath + 'personalizar/?m=' + carr)
+        if (contact)
+            goToContact.classList.add("active")
+        else if (aportes)
+            goToAportes.classList.add("active")
+        goToAportes.setAttribute("href", relaPath + "aportes/")
+        goToContact.setAttribute("href", relaPath + "contact/")
+        home.setAttribute("href", relaPath + '?m=' + carr)
         return fetch(relaPath + '/data/carreras.json')
     }).then(response => response.json()).then((careers,) => {
         //if (!mallaPersonal) {
             let tabTpl1 = document.querySelector('script[data-template="tab-template1"]').text.split(/\${(.+?)}/g);
             let tabTpl2 = document.querySelector('script[data-template="tab-template2"]').text.split(/\${(.+?)}/g);
-            if (contact) {
+            if (contact || aportes) {
                 document.querySelectorAll(".carrers").forEach(element => element.remove())
             }
 
@@ -157,7 +155,7 @@ function removePopUp() {
 }
 
   $(function () {
-      if (contact)
+      if (contact || aportes)
           return
 
       if (sct) {
@@ -179,7 +177,7 @@ function removePopUp() {
           malla = new Malla(sct, SelectableRamo, 0.804, 1)
           malla.enableCreditsSystem()
           document.getElementById("custom-credits-USM").addEventListener("input", function updateSCTPlaceholder() {
-              document.getElementById("custom-creditsa-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
+              document.getElementById("custom-credits-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
           })
           document.getElementById("custom-creditsa-USM").addEventListener("input", function updateSCTPlaceholder() {
               document.getElementById("custom-creditsa-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())

@@ -3,20 +3,22 @@ class MallaEditor {
         // This constructor is bananas
         this.semesterManager = semesterManager
         this.customManager = document.querySelector(customSubjectLocation)
-        this.categories = Object.assign({}, this.semesterManager.malla.sectors)
+        this.categories = Object.assign({}, this.semesterManager.malla.categories)
         this.categoryList = {}
         this.subjectList = []
         this.tableList = {}
-        this.defaultSector = ["Custom", "#000000", "Fuera de la malla | editado"]
-        this.categories["Custom"] = ["#000000", "Fuera de la malla | editado"]
+        this.defaultSector = ["#000000", "Fuera de la malla | editado"]
+        this.categories["Custom"] = this.defaultSector
 
         if (categoryLocation) {
+            document.getElementById("deleteCategories").addEventListener("click", this.restoreCategories.bind(this))
             this.categoryManager = document.querySelector(categoryLocation)
             let showModalButton = document.querySelector("#showCatModal")
             showModalButton.addEventListener("click", this.setUpCategoryModal.bind(this, false, null))
             let categoryModalId = showModalButton.getAttribute("data-target")
             this.createCatEventListener = this.createCategory.bind(this)
             this.editCatEventListener = null
+            this.deleteCatEventListener = null
             this.categoryModal = $(categoryModalId)
             this.categoryModal.on("hidden.bs.modal", e => {
                 e.target.querySelector("#cat-name").value = ""
@@ -24,6 +26,8 @@ class MallaEditor {
                 e.target.querySelector("#small-cat-name").removeAttribute("disabled")
                 e.target.querySelector("#cat-color").value = ""
                 console.log("hidden")
+                e.target.querySelector("#sectorDeleteButton").classList.remove("d-none")
+                e.target.querySelector("#sectorDeleteButton").removeEventListener("click", this.deleteCatEventListener)
                 let doneButton = e.target.querySelector("#sectorDoneButton")
                 doneButton.removeEventListener("click", this.createCatEventListener)
                 doneButton.removeEventListener("click", this.editCatEventListener)
@@ -57,6 +61,8 @@ class MallaEditor {
                 this.createSubject(modal)
             })
 
+        document.getElementById("deleteSubjects").addEventListener("click", this.cleanSubjects.bind(this))
+
         let advanced =this.customManager.getElementsByClassName("button-advanced-subject")
 
         if (advanced.length !== 0) {
@@ -74,7 +80,7 @@ class MallaEditor {
                 sigla.removeAttribute("disabled")
                 e.target.querySelector("#custom-creditsa-USM").value = ""
                 e.target.querySelector("#custom-creditsa-SCT").value = ""
-                e.target.querySelector("#custom-creditsa-SCT").placeholder = 0
+                e.target.querySelector("#custom-creditsa-SCT").placeholder = 2
                 let sectorC = e.target.querySelector("#sectorChooser")
                 sectorC.textContent = ""
                 let defaultSector = document.createElement("option")
@@ -114,15 +120,15 @@ class MallaEditor {
                 sectorChooser.append(option)
             }
         })
-        if (this.categories[this.defaultSector[0]])
-            sectorChooser.firstElementChild.textContent = this.categories[this.defaultSector[0]][1]
+        if (this.categories["Custom"])
+            sectorChooser.firstElementChild.textContent = this.categories["Custom"][1]
         else
-            sectorChooser.firstElementChild.textContent = this.defaultSector[2]
+            sectorChooser.firstElementChild.textContent = this.defaultSector[1]
         let prerChooser = modal.querySelector("#prerChooser")
-        Object.keys(this.semesterManager.malla.ALLRAMOS).forEach(sigla => {
+        Object.keys(this.semesterManager.malla.ALLSUBJECTS).forEach(sigla => {
             let option = document.createElement("option")
             option.value = sigla
-            option.textContent = this.semesterManager.malla.ALLRAMOS[sigla].name + " | " + sigla
+            option.textContent = this.semesterManager.malla.ALLSUBJECTS[sigla].name + " | " + sigla
             prerChooser.append(option)
         })
         this.subjectModalPrer = new Set()
@@ -134,7 +140,7 @@ class MallaEditor {
             modal.querySelector("#custom-creditsa-USM").value = subject.getUSMCredits()
             if (Math.round(subject.getUSMCredits() * 5 / 3) !== subject.getSCTCredits())
                 modal.querySelector("#custom-creditsa-SCT").value = subject.getSCTCredits()
-            sectorChooser.value = subject.sector
+            sectorChooser.value = subject.category
             subject.prer.forEach(sigla => {
                 prerChooser.value = sigla
                 this.addPrerToModal(null, prerChooser)
@@ -231,6 +237,13 @@ class MallaEditor {
             deleteButton.textContent = "Eliminar"
             deleteButton.addEventListener("click", e => {this.deleteSubject(subject)})
             actions.appendChild(deleteButton)
+        } else {
+            let restoreButton = document.createElement("button")
+            restoreButton.setAttribute("id", "restore-" + subject.sigla)
+            restoreButton.classList.add("btn", "btn-danger")
+            restoreButton.textContent = "Restaurar"
+            restoreButton.addEventListener("click", e => {this.restoreSubject(subject)})
+            actions.appendChild(restoreButton)
         }
         actionsCol.append(actions)
 
@@ -254,6 +267,7 @@ class MallaEditor {
     // Elimina la asignatura de la tabla
     unDisplaySubject(subject) {
         this.subjectTable.querySelector("#custom-" + subject.sigla).remove()
+        delete this.tableList[subject.sigla]
     }
 
     // Actualiza la asignatura en la tabla con nuevos datos
@@ -320,10 +334,14 @@ class MallaEditor {
 
     }
 
+    updateAllStates() {
+        this.subjectList.forEach(subject => this.updateState(subject))
+    }
+
     // Como actuar cuando se cambia de semestre
     semesterChange() {
-        this.subjectList.forEach(sigla => {
-            this.updateState(this.semesterManager.malla.getSubject(sigla))
+        this.subjectList.forEach(subject => {
+            this.updateState(subject)
         })
     }
 
@@ -338,10 +356,10 @@ class MallaEditor {
         let prer = []
 
 
-        let sectorName = this.defaultSector[0]
+        let sectorName = "Custom"
 
-        let subject = new SelectableRamo(name, sigla, creditsUSM, sectorName, prer, this.semesterManager.malla.RAMOID++, this.semesterManager.malla, creditsSCT ,true)
-        this.subjectList.push(subject.sigla)
+        let subject = new SelectableRamo(name, sigla, creditsUSM, sectorName, prer, this.semesterManager.malla.SUBJECTID++, this.semesterManager.malla, creditsSCT ,true)
+        this.subjectList.push(subject)
         this.semesterManager.malla.addSubject(subject)
         this.displaySubject(subject)
         this.saveSubjects()
@@ -363,8 +381,8 @@ class MallaEditor {
         modal.querySelector("#prerList").querySelectorAll("li").forEach(item => {
             prer.push(item.getAttribute("id").slice(4))
         })
-        let subject = new SelectableRamo(name, sigla, creditsUSM, sectorName, prer, this.semesterManager.malla.RAMOID++, this.semesterManager.malla, creditsSCT ,true)
-        this.subjectList.push(subject.sigla)
+        let subject = new SelectableRamo(name, sigla, creditsUSM, sectorName, prer, this.semesterManager.malla.SUBJECTID++, this.semesterManager.malla, creditsSCT ,true)
+        this.subjectList.push(subject)
         this.semesterManager.malla.addSubject(subject)
         this.createAdvancedSubjectModal.modal("hide")
         this.displaySubject(subject)
@@ -385,7 +403,7 @@ class MallaEditor {
         subject.updateCredits(creditsUSM, creditsSCT)
         subject.verifyPrer()
         if (!subject.beenEdited)
-            this.subjectList.push(subject.sigla)
+            this.subjectList.push(subject)
         subject.beenEdited = true
         this.updateState(subject)
         this.semesterManager.updateDisplayedSubject(subject)
@@ -401,7 +419,7 @@ class MallaEditor {
         this.unDisplaySubject(subject)
 
 
-        let i = this.subjectList.indexOf(subject.sigla)
+        let i = this.subjectList.indexOf(subject)
         if (i > -1) {
             this.subjectList.splice(i, 1);
             this.semesterManager.malla.delSubjects(subject)
@@ -412,22 +430,47 @@ class MallaEditor {
 
     restoreSubject(subject) {
         // revisa en malla.rawMalla los datos originales del ramo y los usa
-        // se quita el ramo de la tabla y tambien si esta seleccionado, se actualiza ahi tambien
-        // si la categoria original esta borrada, se recrea
+        // se quita el ramo de la tabla y también si esta seleccionado, se actualiza ahi también
+        // si la categoría original esta borrada, se recrea
+        Object.values(this.semesterManager.malla.rawMalla).forEach(subjectList => {
+            for(let rawSubject of subjectList) {
+                if (rawSubject[1] === subject.sigla) {
+                    subject.name = rawSubject[0]
+                    subject.updateCredits(rawSubject[2], rawSubject[3])
+                    subject.sector = rawSubject[4]
+                    subject.prer = new Set(rawSubject[5])
+
+                    if (subject.selected)
+                        this.semesterManager.updateDisplayedSubject(subject)
+
+                    if (JSON.stringify(this.categories[rawSubject[4]]) !== JSON.stringify(this.semesterManager.malla.categories[rawSubject[4]])) {
+                        this.restoreCategory(rawSubject[4])
+                    }
+                    this.unDisplaySubject(subject)
+                    let i = this.subjectList.indexOf(subject)
+                    if (i > -1)
+                        this.subjectList.splice(i, 1);
+                    this.saveSubjects()
+                }
+            }
+        })
     }
 
-    cleanSubject() {
+    cleanSubjects() {
+        let listToClean = [...this.subjectList]
+        listToClean.forEach(subject => {
+            if (subject.isCustom)
+                this.deleteSubject(subject)
+            else
+                this.restoreSubject(subject)
+        })
         // se borran todos los ramos y se restauran los que lo necesiten
     }
 
     saveSubjects() {
-        let subjects = []
         let cache = {}
-        this.subjectList.forEach(sigla => {
-            subjects.push(this.semesterManager.malla.ALLRAMOS[sigla])
-        })
-        subjects.forEach(subject => {
-            cache[subject.sigla] = [subject.name, subject.getUSMCredits(), subject.sector, [...subject.prer]]
+        this.subjectList.forEach(subject => {
+            cache[subject.sigla] = [subject.name, subject.getUSMCredits(), subject.category, [...subject.prer]]
             if (subject.USMtoSCT)
                 cache[subject.sigla].push(0)
             else
@@ -456,19 +499,20 @@ class MallaEditor {
         //console.log(cache)
         Object.keys(cache).forEach(sigla => {
             let data = cache[sigla]
-            if (this.semesterManager.malla.ALLRAMOS[sigla] === undefined) {
+            if (this.semesterManager.malla.ALLSUBJECTS[sigla] === undefined) {
                 let subject = new SelectableRamo(data[0], sigla, data[1], data[2], data[3],
-                    this.semesterManager.malla.RAMOID++, this.semesterManager.malla, data[4], true)
+                    this.semesterManager.malla.SUBJECTID++, this.semesterManager.malla, data[4], true)
                 this.semesterManager.malla.addSubject(subject)
-                this.subjectList.push(subject.sigla)
+                this.subjectList.push(subject)
                 this.displaySubject(subject)
             } else {
-                let subject = this.semesterManager.malla.ALLRAMOS[sigla]
+                let subject = this.semesterManager.malla.ALLSUBJECTS[sigla]
                 subject.name = data[0]
                 subject.updateCredits(data[1], data[4])
                 subject.sector = data[2]
                 subject.prer = new Set(data[3])
                 subject.beenEdited = true
+                this.subjectList.push(subject)
                 this.updateState(subject)
             }
         })
@@ -490,14 +534,14 @@ class MallaEditor {
                     } else if (!(data[4] != [])) {
                         prer = data[4]
                     }
-                    if (this.semesterManager.malla.ALLRAMOS[sigla] === undefined) {
-                        let subject = new this.semesterManager.malla.ramoType(data[0], data[1], data[2], data[3], prer,
-                            this.semesterManager.malla.RAMOID++, this.semesterManager.malla, 0, true);
+                    if (this.semesterManager.malla.ALLSUBJECTS[sigla] === undefined) {
+                        let subject = new this.semesterManager.malla.subjectType(data[0], data[1], data[2], data[3], prer,
+                            this.semesterManager.malla.SUBJECTID++, this.semesterManager.malla, 0, true);
                         this.semesterManager.malla.addSubject(subject)
-                        this.subjectList.push(subject.sigla)
+                        this.subjectList.push(subject)
                         this.displaySubject(subject)
                     } else {
-                        let subject = this.semesterManager.malla.ALLRAMOS[sigla]
+                        let subject = this.semesterManager.malla.ALLSUBJECTS[sigla]
                         subject.name = data[0]
                         subject.updateCredits(data[2])
                         subject.sector = data[3]
@@ -516,11 +560,11 @@ class MallaEditor {
                 for (let sigla in cache) {
                     // inicializar ramos fuera de malla
                     let customSubject = cache[sigla];
-                    let subject = new this.semesterManager.malla.ramoType(customSubject[0],customSubject[1],
-                        customSubject[2],customSubject[3],[],this.semesterManager.malla.RAMOID++,
+                    let subject = new this.semesterManager.malla.subjectType(customSubject[0],customSubject[1],
+                        customSubject[2],customSubject[3],[],this.semesterManager.malla.SUBJECTID++,
                         this.semesterManager.malla, 0,true);
                     this.semesterManager.malla.addSubject(subject)
-                    this.subjectList.push(subject.sigla)
+                    this.subjectList.push(subject)
                     this.displaySubject(subject)
                 }
             }
@@ -574,34 +618,85 @@ class MallaEditor {
     }
 
     // Se explica solo
-    createCategory() {
-        let modal = this.categoryModal.get(0)
-        let name = modal.querySelector("#cat-name").value
-        let shortName = modal.querySelector("#small-cat-name").value
-        let color = modal.querySelector("#cat-color").value
-        this.categories[shortName] = [color, name]
-        this.categoryModal.modal("hide")
-        this.displayCategory(shortName)
+    createCategory(catData = null) {
+        let categorySN, name, color
+        if (catData) {
+            name = catData['name']
+            categorySN = catData['categorySN']
+            color = catData["color"]
+        } else {
+            let modal = this.categoryModal.get(0)
+            name = modal.querySelector("#cat-name").value
+            categorySN = modal.querySelector("#small-cat-name").value
+            color = modal.querySelector("#cat-color").value
+            this.categoryModal.modal("hide")
+        }
+        this.categories[categorySN] = [color, name]
+        this.displayCategory(categorySN)
         this.saveCategories()
     }
 
     // Se explica solo
-    editCategory(category) {
-        let modal = this.categoryModal.get(0)
-        this.categories[category][0] = modal.querySelector("#cat-color").value
-        this.categories[category][1] = modal.querySelector("#cat-name").value
+    editCategory(category, catData = null) {
+        if (catData) {
+            this.categories[category][0] = catData["color"]
+            this.categories[category][1] = catData["name"]
+
+        } else {
+            let modal = this.categoryModal.get(0)
+            this.categories[category][0] = modal.querySelector("#cat-color").value
+            this.categories[category][1] = modal.querySelector("#cat-name").value
+        }
         this.updateCategory(category)
         this.saveCategories()
     }
 
-    deleteCategory(category) {
+    deleteCategory(categorySN) {
         // se recorren todos los ramos y si pertenecen a esa categoria se cambia a Custom
         // luego se elimina la categoría
+        this.categoryList[categorySN].remove()
+        delete this.categoryList[categorySN]
+        delete this.categories[categorySN]
+        Object.values(this.semesterManager.malla.ALLSUBJECTS).forEach(subject => {
+            if (subject.sector === categorySN) {
+                subject.category = "Custom"
+                subject.beenEdited = true
+                this.subjectList.push(subject)
+                this.updateState(subject)
+            }
+        })
+        this.saveSubjects()
+        this.saveCategories()
+    }
+
+    restoreCategory(categorySN = "Custom", a=null) {
+        let data = {"categorySN" : categorySN}
+        if (categorySN === "Custom") {
+            data["name"] = this.defaultSector[1]
+            data["color"] = this.defaultSector[0]
+        } else {
+            data["name"] = this.semesterManager.malla.categories[categorySN][1]
+            data["color"] = this.semesterManager.malla.categories[categorySN][0]
+        }
+        if (this.categories[categorySN] === undefined)
+            this.createCategory(data)
+        else
+            this.editCategory(categorySN, data)
     }
 
     restoreCategories() {
         // se eliminan los ramos no originales y se recrean lo originales borrados
-        // no se editan las categorias de los ramos
+        // no se editan las categorías de los ramos
+        let categories =  this.semesterManager.malla.categories
+        Object.keys(this.categories).forEach(category =>{
+            if (categories[category] === undefined)
+                this.deleteCategory(category)
+        })
+        Object.keys(categories).forEach(category => {
+            this.restoreCategory(category)
+        })
+        this.restoreCategory("Custom")
+
     }
 
     setUpCategoryModal(isEdit=false, category="Custom") {
@@ -612,7 +707,14 @@ class MallaEditor {
             categorySN.value = category
             categorySN.setAttribute("disabled", true)
             modal.querySelector("#cat-color").value = this.categories[category][0]
-            this.editCatEventListener = this.editCategory.bind(this, category)
+            this.editCatEventListener = this.editCategory.bind(this, category, null)
+            this.deleteCatEventListener = this.deleteCategory.bind(this, category)
+            if (category === "Custom") {
+                modal.querySelector("#sectorDeleteButton").classList.add("d-none")
+            } else {
+                modal.querySelector("#sectorDeleteButton")
+                    .addEventListener("click", this.deleteCatEventListener)
+            }
             modal.querySelector("#sectorDoneButton")
                 .addEventListener("click", this.editCatEventListener)
             modal.querySelector("#catTitle").textContent = "Editar"
@@ -620,6 +722,7 @@ class MallaEditor {
 
             this.categoryModal.modal("show")
         } else {
+            this.categoryModal.get(0).querySelector("#sectorDeleteButton").classList.add("d-none")
             this.categoryModal.get(0).querySelector("#sectorDoneButton")
                 .addEventListener("click", this.createCatEventListener)
         }
@@ -645,10 +748,14 @@ class MallaEditor {
         this.categoryList[categorySN] = category
     }
 
-    // Actualiza la categoría segun la edición del usuario
+    // Actualiza la categoría según la edición del usuario
     updateCategory(categorySN) {
         let category = this.categoryList[categorySN]
         category.style.backgroundColor = this.categories[categorySN][0]
+        if (this.needsWhiteText(this.categories[categorySN][0]))
+            category.classList.add("text-white")
+        else
+            category.classList.remove("text-white")
         category.textContent = this.categories[categorySN][1]
     }
 
@@ -661,10 +768,11 @@ class MallaEditor {
         if (cache) {
             cache = JSON.parse(cache)
             //console.log(this.categoryManager.children)
-            let addCatButton = this.categoryManager.firstChild
-            this.categoryManager.append(addCatButton)
-            Object.keys(cache).forEach(categorySN => {
-                this.categories[categorySN] = cache[categorySN]
+            Object.keys(this.categories).forEach(category => {
+                if (cache[category] === undefined)
+                    delete this.categories[category]
+                else
+                    this.categories[category] = cache[category]
             })
         } else {
             this.loadOldCategories()
@@ -677,8 +785,6 @@ class MallaEditor {
         if (cache) {
             cache = JSON.parse(cache)
             //console.log(this.categoryManager.children)
-            let addCatButton = this.categoryManager.firstChild
-            this.categoryManager.append(addCatButton)
             Object.keys(cache).forEach(categorySN => {
                 this.categories[categorySN] = cache[categorySN]
             })

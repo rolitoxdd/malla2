@@ -66,10 +66,11 @@ class Generator extends SemesterManager {
 
     prevSemester() {
         super.prevSemester();
+        // indica que hay que actualizar la tabla de asignaturas no oficiales
         if (this.mallaEditor)
-            // indica que hay que actualizar la tabla de asignaturas no oficiales
             this.mallaEditor.semesterChange()
     }
+
     cleanAll() {
         super.cleanAll();
         delete localStorage["generatorUserData" + this.malla.currentMalla]
@@ -105,13 +106,13 @@ class Generator extends SemesterManager {
             this.saveEnabled = false
             let firstSemester = cache[1]
             firstSemester.forEach(sigla => {
-                this.malla.ALLRAMOS[sigla].selectRamo()
+                this.malla.ALLSUBJECTS[sigla].selectRamo()
             })
             let i = 1
             for (i; i < Object.keys(cache).length; i++) {
                 this.selectedPerSemester[i + 1] = []
                 cache[i + 1].forEach(sigla => {
-                    this.selectedPerSemester[i + 1].push(this.malla.ALLRAMOS[sigla])
+                    this.selectedPerSemester[i + 1].push(this.malla.ALLSUBJECTS[sigla])
                 })
                 this.nextSemester()
             }

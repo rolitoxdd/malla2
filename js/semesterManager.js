@@ -1,6 +1,7 @@
 class SemesterManager {
     constructor(malla, card, mallaEditor = false) {
-        this.selectedPerSemester = {}
+        // Propiedades
+        this.selectedPerSemester = {1: []}
         this.semester = 1;
         this.saveEnabled = false
         this.subjectsInManySemesters = false
@@ -15,7 +16,7 @@ class SemesterManager {
             this.mallaEditor = null
 
 
-        //
+        // se vincula la interfaz con metodos
         this.semesterIndicator = this.card.select("#semester")
         this.card.select("#reset").on("click", () => this.cleanSemester())
         this.card.select("#resetc").on("click", () => this.cleanAll())
@@ -92,8 +93,10 @@ class SemesterManager {
         this.selectedPerSemester[this.semester] = backup
         this.selectedPerSemester[this.semester].forEach(subject => subject.approveRamo())
         this.semester++
-        if (this.semester === 2)
+        if (this.semester === 2) {
             this.backButton.classed("disabled", false)
+            this.backButton.attr("disabled", null)
+        }
         this.updateSemesterIndicator()
         if (this.selectedPerSemester[this.semester] !== undefined) {
             backup = [...this.selectedPerSemester[this.semester]]
@@ -123,6 +126,7 @@ class SemesterManager {
             this.semester--
         if (this.semester === 1) {
             this.backButton.classed("disabled", true)
+            this.backButton.attr("disabled", "disabled")
         }
             this.updateSemesterIndicator()
         backup = [... this.selectedPerSemester[this.semester]]
@@ -161,6 +165,7 @@ class SemesterManager {
         this.updateSemesterIndicator()
         this.selectedPerSemester = {}
         this.backButton.classed("disabled", true)
+        this.backButton.attr("disabled", "disabled")
         this.malla.cleanSubjects()
         this.saveEnabled = true
         this.saveSemesters()

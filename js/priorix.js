@@ -158,11 +158,14 @@ class Priorix extends SemesterManager {
             }
             subjectsToUpdate.push(subject)
         })
+        let subjectaNotAprroved = this.selectedPerSemester[this.semester]
         this.selectedPerSemester[this.semester] = backup
         this.semester++
-        if (this.semester === 2)
+        if (this.semester === 2) {
             this.backButton.classed("disabled", false)
-        this.updateSemesterIndicator()
+            this.backButton.attr("disabled", null)
+        }
+            this.updateSemesterIndicator()
         if (this.selectedPerSemester[this.semester]) {
             backup = [...this.selectedPerSemester[this.semester]]
             backup.forEach(subject => {
@@ -172,7 +175,7 @@ class Priorix extends SemesterManager {
             });
             this.selectedPerSemester[this.semester] = backup
         } else {
-            this.selectedPerSemester[this.semester] = []
+            this.selectedPerSemester[this.semester] = subjectaNotAprroved
         }
         this.calculationsEnabled = true
         this.calculate()
@@ -208,6 +211,7 @@ class Priorix extends SemesterManager {
         this.semester--
         if (this.semester === 1) {
             this.backButton.classed("disabled", true)
+            this.backButton.attr("disabled", 'disabled')
         }
         prevSelected.forEach(subject => {
             if (!subject.selected) {
@@ -228,6 +232,107 @@ class Priorix extends SemesterManager {
         //super.prevSemester();
     }
 
+    cleanSemester() {
+        super.cleanSemester();
+        this.faes[this.semester] = 1
+        this.card.select(".fae").node().value = 1
+        this.calculate()
+
+    }
+
+    cleanAll() {
+        this.calculationsEnabled = false
+        super.cleanAll();
+        this.faes = {
+            1: 1
+        }
+        this.prevSemesterSums = {
+            'USM': {},
+            'SCT': {}
+        }
+        this.currentSemesterSum = {
+            'USM': 0,
+            'SCT': 0
+        }
+        this.totalCredits = {
+            'USM': 0,
+            'SCT': 0
+        }
+        this.totalApprovedCredits = {
+            'USM': {},
+            'SCT': {}
+        }
+        this.subjectGrades = {}
+        this.card.select(".fae").node().value = 1
+        this.selectedPerSemester[1] = []
+        this.calculationsEnabled = true
+        this.calculate()
+        delete localStorage["priorixUserData" + this.malla.currentMalla]
+        this.mallaEditor.updateAllStates()
+        this.backButton.classed("disabled", true)
+        this.backButton.attr("disabled", 'disabled')
+    }
+
+    saveSemesters() {
+        if (this.saveEnabled) {
+            let cache = JSON.stringify([this.subjectGrades, this.faes])
+            localStorage["priorixUserData" + this.malla.currentMalla] = cache
+
+        }
+    }
+
+    loadSemesters() {
+        let needtoDelete = false
+        let cache = localStorage["priorixUserData" + this.malla.currentMalla]
+        if (cache) {
+            cache = JSON.parse(cache)
+
+        } else {
+            let oldSemesterCache = localStorage["prioridad-" + this.malla.currentMalla + "_SEMESTRES"]
+            let oldFaeCache = localStorage["prioridad-" + this.malla.currentMalla + "_SEMESTRES"]
+            if (oldFaeCache && oldSemesterCache) {
+                cache = []
+                cache.push(JSON.parse(oldSemesterCache))
+                cache.push(JSON.parse(oldFaeCache))
+                localStorage["priorixUserData" + this.malla.currentMalla] = JSON.stringify(cache)
+                needtoDelete = true
+            } else
+                return
+        }
+        this.saveEnabled = false
+        console.log(cache)
+        this.subjectGrades = Object.assign({}, cache[0])
+        this.faes = cache[1]
+        let i = 1
+        let firstSemester = this.subjectGrades[1]
+        this.selectedPerSemester[1] = []
+        Object.keys(firstSemester).forEach(sigla => {
+            this.malla.ALLSUBJECTS[sigla].selectRamo()
+            this.displayedSubjects[sigla][1].property("value", cache[0][1][sigla])
+
+        })
+        this.calculate()
+        console.log(this.selectedPerSemester)
+        for (i; i < Object.keys(this.subjectGrades).length; i++) {
+            this.selectedPerSemester[i+1] = []
+            Object.keys(this.subjectGrades[i+1]).forEach(sigla => {
+                this.selectedPerSemester[i+1].push(this.malla.ALLSUBJECTS[sigla])
+            })
+            console.log(this.selectedPerSemester)
+            this.nextSemester()
+
+        }
+        this.saveEnabled = true
+        if (needtoDelete) {
+            this.saveSemesters()
+            delete localStorage["prioridad-" + this.malla.currentMalla + "_SEMESTRES"]
+            delete localStorage["prioridad-" + this.malla.currentMalla + "_SEMESTRES"]
+        }
+
+
+    }
+
+    // NEW!!
     // Calcula la prioridad y actualiza el resultado mostrado
     calculate() {
         if (this.calculationsEnabled) {
@@ -278,102 +383,5 @@ class Priorix extends SemesterManager {
             //console.log(this.totalApprovedCredits, this.totalCredits, this.prevSemesterSums, this.currentSemesterSum, this.subjectGrades)
             this.saveSemesters()
         }
-    }
-
-    cleanSemester() {
-        super.cleanSemester();
-        this.faes[this.semester] = 1
-        this.card.select(".fae").node().value = 1
-        this.calculate()
-
-    }
-
-    cleanAll() {
-        this.calculationsEnabled = false
-        super.cleanAll();
-        this.faes = {
-            1: 1
-        }
-        this.prevSemesterSums = {
-            'USM': {},
-            'SCT': {}
-        }
-        this.currentSemesterSum = {
-            'USM': 0,
-            'SCT': 0
-        }
-        this.totalCredits = {
-            'USM': 0,
-            'SCT': 0
-        }
-        this.totalApprovedCredits = {
-            'USM': {},
-            'SCT': {}
-        }
-        this.subjectGrades = {}
-        this.card.select(".fae").node().value = 1
-        this.selectedPerSemester[1] = []
-        this.calculationsEnabled = true
-        this.calculate()
-        delete localStorage["priorixUserData" + this.malla.currentMalla]
-    }
-
-    saveSemesters() {
-        if (this.saveEnabled) {
-            let cache = JSON.stringify([this.subjectGrades, this.faes])
-            localStorage["priorixUserData" + this.malla.currentMalla] = cache
-
-        }
-    }
-
-    loadSemesters() {
-        let needtoDelete = false
-        let cache = localStorage["priorixUserData" + this.malla.currentMalla]
-        if (cache) {
-            cache = JSON.parse(cache)
-
-        } else {
-            let oldSemesterCache = localStorage["prioridad-" + this.malla.currentMalla + "_SEMESTRES"]
-            let oldFaeCache = localStorage["prioridad-" + this.malla.currentMalla + "_SEMESTRES"]
-            if (oldFaeCache && oldSemesterCache) {
-                cache = []
-                cache.push(JSON.parse(oldSemesterCache))
-                cache.push(JSON.parse(oldFaeCache))
-                localStorage["priorixUserData" + this.malla.currentMalla] = JSON.stringify(cache)
-                needtoDelete = true
-            } else
-                return
-        }
-        this.saveEnabled = false
-        console.log(cache)
-        this.subjectGrades = Object.assign({}, cache[0])
-        this.faes = cache[1]
-        let i = 1
-        let firstSemester = this.subjectGrades[1]
-        this.selectedPerSemester[1] = []
-        Object.keys(firstSemester).forEach(sigla => {
-            this.malla.ALLRAMOS[sigla].selectRamo()
-            this.displayedSubjects[sigla][1].property("value", cache[0][1][sigla])
-
-        })
-        this.calculate()
-        console.log(this.selectedPerSemester)
-        for (i; i < Object.keys(this.subjectGrades).length; i++) {
-            this.selectedPerSemester[i+1] = []
-            Object.keys(this.subjectGrades[i+1]).forEach(sigla => {
-                this.selectedPerSemester[i+1].push(this.malla.ALLRAMOS[sigla])
-            })
-            console.log(this.selectedPerSemester)
-            this.nextSemester()
-
-        }
-        this.saveEnabled = true
-        if (needtoDelete) {
-            this.saveSemesters()
-            delete localStorage["prioridad-" + this.malla.currentMalla + "_SEMESTRES"]
-            delete localStorage["prioridad-" + this.malla.currentMalla + "_SEMESTRES"]
-        }
-
-
     }
 }

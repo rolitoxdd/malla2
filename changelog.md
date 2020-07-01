@@ -1,15 +1,13 @@
 # Changelog
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
-# [1.4.0] Unreleased
+# [1.4.0]
 
--[x] Se corrigió un problema donde las carreras no se mostraban al cargar la página sin cache
--[ ] Gran parte del código ahora está basado en OOP
--[ ] El código ha sido refactorizado y ahora sigue el estándar ECMAScript 6
-    - [x] Malla
-    - [x] Prioridad
-    - [x] Generadora
--[ ] ajustes de interfaz 
+- Se corrigió un problema donde las carreras no se mostraban al cargar la página sin cache
+- Gran parte del código ahora está basado en OOP
+- El código ha sido refactorizado y ahora sigue el estándar ECMAScript 6
+
+- Ajustes de interfaz 
 - La malla ahora tiene un identificador de año para una mejor lectura visual
 - Pulsar el indicador de semestre o año selecciona todos los ramos de dicho semestre o año
 
@@ -20,10 +18,12 @@ Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 - Existe una nueva "Pantalla de bienvenida" que cubre la ventana completa
 - Ahora se pueden eliminar asignaturas sin importar si están asignadas a algún semestre
 - Ahora se pueden editar asignaturas desde la tabla de asignaturas
+- Ahora se pueden restaurar asignaturas de la malla as sus valores originales
+- Ahora se pueden eliminar y restaurar categorías
 - El formato de las mallas ha sido cambiado (compatibilidad para futuras funciones)
-- [ ] Contacto ahora tiene una página dedicada
-- [ ] Se agregaron instrucciones a la generadora y a la calculadora
-- [ ] serviceWorker
+- Contacto ahora tiene una página dedicada
+- Se agregaron instrucciones a la generadora y a la calculadora
+
 
 # [1.3.5]
 

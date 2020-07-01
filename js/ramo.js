@@ -19,12 +19,12 @@ class Ramo {
     }
 
 
-    constructor(name, sigla, credits, sector, prer = [], id, malla, creditsSCT = 0, isCustom = false) {
+    constructor(name, sigla, credits, category, prer = [], id, malla, creditsSCT = 0, isCustom = false) {
         // Propiedades del ramo
         this.name = name;
         this.sigla = sigla;
         this.credits = credits;
-        this.sector = sector;
+        this.category = category;
         this.prer = new Set(prer);
         if (creditsSCT){
             this.creditsSCT = creditsSCT
@@ -41,7 +41,7 @@ class Ramo {
         this.id = id;
         this.ramo = null;
         this.approved = false;
-        //console.log(this.sector)
+        //console.log(this.category)
     }
 
     // Auto explanatorio
@@ -76,13 +76,16 @@ class Ramo {
     draw(canvas, posX, posY, scaleX, scaleY) {
         this.ramo = canvas.append('g')
             .attr("cursor", "pointer")
+            .classed("subject", true)
             .attr('id', this.sigla);
-
+        // Se establecen tamaños
         let sizeX = this.constructor.getDisplayWidth(scaleX),
             sizeY = this.constructor.getDisplayHeight(scaleY);
         let graybar = sizeY / 5;
         let credits = this.getDisplayCredits(this.credits);
-        let color = this.malla.sectors[this.sector][0]
+        let color = this.malla.categories[this.category][0]
+
+
         this.ramo.append("rect")
             .attr("x", posX)
             .attr("y", posY)
@@ -116,7 +119,7 @@ class Ramo {
             .attr("height", graybar)
             .attr("fill", 'white');
 
-
+        // texto créditos
         this.ramo.append("text")
             .attr("x", posX + sizeX  - 22 * scaleX + 20 * scaleX / 2)
             .attr("y", posY + sizeY - graybar / 2)
@@ -127,7 +130,7 @@ class Ramo {
             .attr("text-anchor", "middle")
             .attr("font-size", 12 * scaleY);
 
-
+        // Nombre ramo
         this.ramo.append("text")
             .attr("x", posX + sizeX  / 2)
             .attr("y", posY + sizeY / 2)
@@ -185,7 +188,7 @@ class Ramo {
                 variantX = 1;
                 variantY--;
             }
-            let prerColor = this.malla.sectors[this.malla.ALLRAMOS[p].sector][0]
+            let prerColor = this.malla.categories[this.malla.ALLSUBJECTS[p].category][0]
             this.ramo.append("circle")
                 .attr('cx', posX + r + c_x + variantX)
                 .attr('cy', posY + sizeY - graybar / 2)
@@ -195,7 +198,7 @@ class Ramo {
             this.ramo.append('text')
                 .attr('x', posX + r + c_x + variantX)
                 .attr('y', posY + sizeY - graybar / 2)
-                .text(this.malla.ALLRAMOS[p].id)
+                .text(this.malla.ALLSUBJECTS[p].id)
                 .attr("dominant-baseline", "central")
                 .attr("text-anchor", "middle")
                 .attr("font-size", fontsize)
@@ -285,7 +288,7 @@ class Ramo {
         this.ramo.select(".non-approved").transition().delay(20).attr("opacity", "0.0");
     }
 
-    // funcion para encuadrar texto
+    // función para encuadrar texto
     wrap(sizeX,sizeY) {
         let text = this.ramo.select(".ramo-label");
         // let emEquivalent = convertEm(1, text.node());

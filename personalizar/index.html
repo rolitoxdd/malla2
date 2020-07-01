@@ -295,11 +295,12 @@
           <label for="cat-color">Color de categoría</label>
           <input type="color" class="form-control" id="cat-color" placeholder="#888">
           <small class="form-text text-muted">
-            Busca en google "color picker", elige el color y copia y pega el HEX
+            Selecciona el color que quieres para esta categoría
           </small>
         </div>
       </div>
       <div class="modal-footer">
+        <button type="button" id="sectorDeleteButton" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
         <button type="button" id="sectorCancelButton" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" id="sectorDoneButton" class="btn btn-primary" data-dismiss="modal">Agregar</button>
       </div>
@@ -394,7 +395,7 @@
             <!-- Botones para cambiar semestre y calcular prioridad -->
             <div class="row no-gutters align-items-center justify-content-between">
               <div class="col-2 text-left">
-                <button id="back" type="button" class="btn-card btn btn-secondary disabled">
+                <button id="back" type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
                   <i class="fas fa-arrow-left"></i>
                 </button>
               </div>
@@ -472,8 +473,14 @@
               type="button" 
               data-toggle="modal" 
               data-target="#modalAdvancedSubject"
-              class="btn btn-warning btn-sm button-advanced-subject">
+              class="btn btn-primary btn-sm button-advanced-subject">
               Agregar asignatura avanzada
+            </button>
+            <button
+              id="deleteSubjects"
+              type="button"
+              class="btn btn-danger btn-sm">
+              Limpiar Tabla
             </button>
           </div>
         </div>
@@ -488,7 +495,7 @@
             </h3>
           </div>
           <div class="card-body">
-            <div id="sectors" class="list-group">
+            <div id="sectors" class="list-group text-center">
               <button type="button" id="showCatModal" data-toggle="modal" data-target="#createSectorModal" class="list-group-item list-group-item-action">¡Agrega una categoría!</button>
               <!-- Aqui van los sectores -->
             </div>
@@ -496,6 +503,13 @@
           <div class="card-footer py-1">
 
             <div class="small text-muted">Has click en una de las categorías para editarla</div>
+            <button
+                    id="deleteCategories"
+                    type="button"
+                    class="btn align-self-center btn-danger my-2">
+              Limpiar categorías
+            </button>
+
           </div>
         </div>
       </div>

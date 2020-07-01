@@ -2,26 +2,26 @@
 
 class Malla {
 
-    constructor(sct = false, ramoType = Ramo, scaleX = 1, scaleY = 1) {
+    constructor(sct = false, subjectType = Ramo, scaleX = 1, scaleY = 1) {
 
         // Propiedades antes del render
         this.scaleX = scaleX;
         this.scaleY = scaleY;
-        this.ramoType = ramoType;
+        this.subjectType = subjectType;
         this.rawMalla = {};
-        this.sectors = {};
+        this.categories = {};
         this.malla = {};
         this.sct = sct;
         this.longestSemester = 0;
         this.totalCredits = 0;
-        this.totalRamos = 0;
+        this.totalSubjects = 0;
         this.semesterManager = null
         this.currentMalla = null;
 
         // Propiedades despues del render
         this.APPROVED = [];
-        this.RAMOID = 1;
-        this.ALLRAMOS = {};
+        this.SUBJECTID = 1;
+        this.ALLSUBJECTS = {};
         this.checkPrer = false;
         this.saveEnabled = false;
         this.isMallaSet = false;
@@ -29,16 +29,16 @@ class Malla {
         this.showCreditStats = false
 
         this.totalCredits = 0;
-        this.totalRamos = 0;
+        this.totalSubjects = 0;
 
     }
 
-    // Auto explanatorio
+    // Se explica solo
     enableCreditsStats() {
         this.showCreditStats = true
     }
 
-    // Auto explanatorio
+    // Se explica solo
     enableCreditsSystem() {
         this.showCreditSystem = true
     }
@@ -48,53 +48,56 @@ class Malla {
         this.saveEnabled = true
     }
 
-    // Obtiene los datos de la carrera y prepara para definirlas
+    // Obtiene los datos de la carrera y retorna una promesa para cuando los datos se hayan conseguido y
+    // las propiedades estén listas
     setCareer(carr, relaPath) {
         this.currentMalla = carr;
         let promises = [];
 
         promises.push(d3.json( relaPath + "data/data_" + this.currentMalla + ".json"));
         promises.push(d3.json( relaPath + "data/colors_" + this.currentMalla + ".json"));
-        return Promise.all(promises).then(values => {this.setMallaAndSectors(values[0], values[1])})
+        return Promise.all(promises).then(values => {this.setMallaAndCategories(values[0], values[1])})
     }
 
     // Define los datos de la malla y propiedades
-    setMallaAndSectors(malla, sectors) {
+    setMallaAndCategories(malla, categories) {
         let semester;
         let longest_semester = 0;
         let totalCredits = 0;
         let totalRamos = 0;
 
         this.rawMalla = malla;
-        this.sectors = sectors;
+        this.categories = categories;
 
         for (semester in this.rawMalla) {
             this.malla[semester] = {};
 
             if (malla[semester].length > longest_semester)
                 longest_semester = malla[semester].length;
-            malla[semester].forEach(ramo => {
+            malla[semester].forEach(subject => {
+                // Se instancia el ramo y se agrega a la malla en su semestre
                 totalRamos += 1;
                 // Agregado de ramos por semestre
-                if (ramo.length === 7) {
+                if (subject.length === 7) {
                     // Nuevo formato con ramos SCT
-                    this.malla[semester][ramo[1]] = new this.ramoType(ramo[0], ramo[1], ramo[2], ramo[4], ramo[5],this.RAMOID++, this, ramo[3])
+                    this.malla[semester][subject[1]] = new this.subjectType(subject[0], subject[1], subject[2], subject[4], subject[5],this.SUBJECTID++, this, subject[3])
                 } else {
                     // Formato antiguo
-                    this.malla[semester][ramo[1]] = new this.ramoType(ramo[0], ramo[1], ramo[2], ramo[3], (function hasPrer() {
-                        if (ramo.length > 4) {
-                            return ramo[4];
+                    this.malla[semester][subject[1]] = new this.subjectType(subject[0], subject[1], subject[2], subject[3], (function hasPrer() {
+                        if (subject.length > 4) {
+                            return subject[4];
                         }
                         return [];
-                    })(), this.RAMOID++, this);
+                    })(), this.SUBJECTID++, this);
                 }
-                this.ALLRAMOS[ramo[1]] = this.malla[semester][ramo[1]];
-                totalCredits += this.malla[semester][ramo[1]].getDisplayCredits()
+                // Se agrega el ramo a la lista de asignaturas
+                this.ALLSUBJECTS[subject[1]] = this.malla[semester][subject[1]];
+                totalCredits += this.malla[semester][subject[1]].getDisplayCredits()
             });
         }
         this.longestSemester = longest_semester;
         this.totalCredits = totalCredits;
-        this.totalRamos = totalRamos;
+        this.totalSubjects = totalRamos;
         this.isMallaSet = true;
     }
 
@@ -105,32 +108,33 @@ class Malla {
 
     // Agrega ramos a la malla
     addSubject(subject) {
-        this.ALLRAMOS[subject.sigla] = subject
+        this.ALLSUBJECTS[subject.sigla] = subject
     }
 
     // Elimina ramos de la malla y todo rastro de ellos
     delSubjects(subject) {
-        Object.values(this.ALLRAMOS).forEach(otherSubject => {
+        Object.values(this.ALLSUBJECTS).forEach(otherSubject => {
             // Elimina el ramo como prerrequisito de otros
             if (otherSubject.prer.has(subject.sigla)){
                 otherSubject.prer.delete(subject.sigla)
                 otherSubject.verifyPrer()
             }
         })
-        delete this.ALLRAMOS[subject.sigla]
+        delete this.ALLSUBJECTS[subject.sigla]
     }
 
     // Renderiza la malla. canvasId puede ser una clase o una id
     drawMalla(canvasId) {
+
         if (!this.isMallaSet)
             return;
 
         let separator = 10;
         let semesterIndicatorHeight = 30 * this.scaleY;
-
-        let width = (this.ramoType.getDisplayWidth(this.scaleX) * Object.keys(this.malla).length) +
+        // Se define el tamaño
+        let width = (this.subjectType.getDisplayWidth(this.scaleX) * Object.keys(this.malla).length) +
             separator * (Object.keys(this.malla).length - 1);
-        let height = (this.ramoType.getDisplayHeight(this.scaleY) + separator) * this.longestSemester +
+        let height = (this.subjectType.getDisplayHeight(this.scaleY) + separator) * this.longestSemester +
             semesterIndicatorHeight * 2 + separator;
         let canvasWidth = width + separator; // for full show svg
         let canvasHeight = height + separator/2
@@ -152,20 +156,22 @@ class Malla {
             globalY = 0;
             // Barra indicadora de años
             if (semestersPassed === 0) {
+                // se crea la barra en caso de semestre impar
                 yearIndicator = drawer.append("g")
-                    .attr("cursor", "pointer");
-
+                    .attr("cursor", "pointer")
+                    .classed("year", true);
+                // rectangulo de la barra
                 currentYearIndicator = yearIndicator.append("rect")
                     .attr("x", globalX)
                     .attr("y", globalY)
-                    .attr("width", this.ramoType.getDisplayWidth(this.scaleX))
+                    .attr("width", this.subjectType.getDisplayWidth(this.scaleX))
                     .attr("height", semesterIndicatorHeight)
                     .attr("fill", 'gray')
                     .classed('bars', true);
                 semestersPassed++;
-
+                // texto de la barra
                 currentYearIndicatorText = yearIndicator.append("text")
-                    .attr('x', globalX + this.ramoType.getDisplayWidth(this.scaleX) / 2.0)
+                    .attr('x', globalX + this.subjectType.getDisplayWidth(this.scaleX) / 2.0)
                     .attr('y', globalY + semesterIndicatorHeight / 2)
                     .text("Año " + currentYear++ + " 1/2")
                     // .attr("font-family", "sans-serif")
@@ -173,12 +179,12 @@ class Malla {
                     .attr("fill", "white")
                     .attr("dominant-baseline", "central")
                     .attr('text-anchor', 'middle');
-                let localYearIndicator = yearIndicator
+                // Evento en caso de hacer click en el
                 yearIndicator.on("click", () => {
                     let bar = d3.select(d3.event.currentTarget)
                     let number = parseInt(bar.select("text").text().substr(4));
                     let ramosToSelect;
-                if (bar.node().getBBox().width <= this.ramoType.getDisplayWidth(this.scaleX) * 2 - this.ramoType.getDisplayWidth(this.scaleX) / 2) {
+                if (bar.node().getBBox().width <= this.subjectType.getDisplayWidth(this.scaleX) * 2 - this.subjectType.getDisplayWidth(this.scaleX) / 2) {
                     d3.select("#sem" + (number * 2 + 1)).dispatch('click')
                 } else {
                     d3.select("#sem" + number * 2).dispatch('click');
@@ -188,7 +194,8 @@ class Malla {
 
                 });
             } else {
-                currentYearIndicator.attr("width", this.ramoType.getDisplayWidth(this.scaleX) * 2 + separator);
+                // si es par, la actual se expande
+                currentYearIndicator.attr("width", this.subjectType.getDisplayWidth(this.scaleX) * 2 + separator);
                 currentYearIndicatorText.text("Año " + (currentYear));
                 currentYearIndicatorText.attr("x", globalX - separator / 2);
                 semestersPassed = 0;
@@ -198,6 +205,7 @@ class Malla {
 
             // Barra gigante de semestres
             if (!isBigBarRendered) {
+                // Se crea la barra
                 drawer.append("rect")
                     .attr("x", globalX)
                     .attr("y", globalY)
@@ -208,17 +216,19 @@ class Malla {
                 isBigBarRendered = true;
             }
 
-            isBigBarRendered = true;
+            // Pequeño seteo de variables en caso de que semestre sea "S1" o 1 por ejemplo
             let intToRomanize = semester
             if (intToRomanize[0] === "s") {
                 intToRomanize = parseInt(intToRomanize.substr(1))
             } else {
                 intToRomanize = parseInt(intToRomanize)
             }
+
+            // barra de semestres individuales
             let semesterIndicator = drawer.append("g")
                 .attr("id", "sem" + intToRomanize)
                 .attr("cursor", "pointer")
-                .attr("width", this.ramoType.getDisplayWidth(this.scaleX))
+                .attr("width", this.subjectType.getDisplayWidth(this.scaleX))
                 .attr("height", semesterIndicatorHeight)
                 .classed("sem", true);
 
@@ -226,23 +236,23 @@ class Malla {
 
 
 
-            // barra de semestres individuales
             semesterIndicator.append("rect")
                 .attr("cursor", "pointer")
                 .attr("x", globalX)
                 .attr("y", globalY)
-                .attr("width", this.ramoType.getDisplayWidth(this.scaleX))
+                .attr("width", this.subjectType.getDisplayWidth(this.scaleX))
                 .attr("height", semesterIndicatorHeight)
+                .classed("sem", true)
                 .attr("fill", '#EEE');
 
 
             semesterIndicator.append("text")
-                .attr('x', globalX + this.ramoType.getDisplayWidth(this.scaleX) / 2.0)
+                .attr('x', globalX + this.subjectType.getDisplayWidth(this.scaleX) / 2.0)
                 .attr('y', globalY + semesterIndicatorHeight / 2)
                 .text(this.romanize(intToRomanize))
                 .attr("dominant-baseline", "central")
                 .attr('text-anchor', 'middle');
-
+            // evento en caso de clickear la barra del semestre
             semesterIndicator.on("click", () => {
                 let bar = d3.select(d3.event.currentTarget)
                 let semNumber = this.deRomanize(bar.select("text").text());
@@ -256,24 +266,20 @@ class Malla {
 
             globalY += semesterIndicatorHeight + separator;
 
+            // Se renderizan los ramos del semestre
             Object.keys(this.malla[semester]).forEach(subject => {
                 this.malla[semester][subject].draw(drawer, globalX, globalY, this.scaleX, this.scaleY);
-                globalY += this.ramoType.getDisplayHeight(this.scaleY) + separator;
+                globalY += this.subjectType.getDisplayHeight(this.scaleY) + separator;
             })
 
 
-            globalX += this.ramoType.getDisplayWidth(this.scaleX) + separator;
+            globalX += this.subjectType.getDisplayWidth(this.scaleX) + separator;
         })
-
-
-
-        // Funciones solo para dibujar mallas
-
     }
 
     // Renderiza las descripciones de las categorías
-    showColorDescriptions(locationId) {
-        Object.keys(this.sectors).forEach(key => {
+    showColorDescriptions() {
+        Object.keys(this.categories).forEach(key => {
             let color_description = d3.select(".color-description").append("div")
                 .attr("style", "display:flex;vertical-align:middle;margin-right:15px;");
             let circle_color = color_description.append("svg")
@@ -283,9 +289,9 @@ class Malla {
                 .attr("r", 10)
                 .attr("cx", 12)
                 .attr("cy", 12)
-                .attr("fill", this.sectors[key][0]);
+                .attr("fill", this.categories[key][0]);
 
-            color_description.append("span").text(this.sectors[key][1]);
+            color_description.append("span").text(this.categories[key][1]);
 
         });
     }
@@ -299,7 +305,7 @@ class Malla {
     // Revisa que ramos cumplen prerrequisitos y "oculta" los que no los cumplen
     verifyPrer() {
         if (this.checkPrer) {
-            Object.values(this.ALLRAMOS).forEach(ramo => {
+            Object.values(this.ALLSUBJECTS).forEach(ramo => {
                 ramo.verifyPrer();
             });
             this.saveApproved()
@@ -324,7 +330,7 @@ class Malla {
             currentRamos += 1
         })
         let creditPercentage = currentCredits/this.totalCredits * 100;
-        let careerAdvance = currentRamos/this.totalRamos * 100;
+        let careerAdvance = currentRamos/this.totalSubjects * 100;
         d3.select("#credits").text(parseInt(currentCredits))
         d3.select("#credPercentage").text(parseInt(creditPercentage))
         d3.select("#ramoPercentage").text(parseInt(careerAdvance))
@@ -355,7 +361,7 @@ class Malla {
     }
 
     getSubject(sigla) {
-        return this.ALLRAMOS[sigla]
+        return this.ALLSUBJECTS[sigla]
     }
 
     // Auto explanatorio
@@ -377,7 +383,7 @@ class Malla {
             if (cache) {
                 let loadedData = JSON.parse(cache)
                 loadedData.forEach(siglaRamo => {
-                    this.ALLRAMOS[siglaRamo].approveRamo()
+                    this.ALLSUBJECTS[siglaRamo].approveRamo()
                 })
                 this.verifyPrer()
             }
@@ -491,10 +497,12 @@ class Malla {
         return a_nums;
     }
 
+    // Genera código de la malla generada para poder actualizar o agregar carreras
     generateCode() {
         let data = {}
-        let expresion1 = /("s[0-9]+":)+|(\[(?:,?[^\[\]])+(?:,\[[^\]]*\])(?:,?[^\]]*)+\])+/g
+        let expresion1 = /("s[0-9]+":)+|(\[(?:,?[^\[\]])+(?:,\[[^\]]*])(?:,?[^\]]*)+])+/g
 
+        // Se crea la data a guardar según el formato de la malla
         Object.keys(this.malla).forEach(semester => {
             let key
             if (semester.includes("s"))
@@ -504,7 +512,7 @@ class Malla {
             data[key] = []
 
             Object.keys(this.malla[semester]).forEach(sigla => {
-                let subject = this.ALLRAMOS[sigla]
+                let subject = this.ALLSUBJECTS[sigla]
                 let subjectData = []
 
                 subjectData.push(subject.name)
@@ -515,15 +523,15 @@ class Malla {
                 else
                     subjectData.push(subject.getSCTCredits())
 
-                subjectData.push(subject.sector)
+                subjectData.push(subject.category)
                 subjectData.push([...subject.prer])
                 subjectData.push("")
                 data[key].push(subjectData)
 
             })
-            // for (siglaRamoindex in customMalla[semester]) {
-            // }
         })
+
+        // Luego se crea el string de la data y se le da el formato
         let mallaResult = JSON.stringify(data).match(expresion1);
 
         let s = "{\n"
@@ -545,15 +553,16 @@ class Malla {
                 s += ",\n" + "        " + item
         })
         s += "\n" + "    " + "]\n" + "}"
-        let expresion2 = /("[^\]]+\],?)/g
-        let colorResult = JSON.stringify(this.sectors).match(expresion2)
-        let c = "{"
 
+        // Se repite el proceso con las categorías
+        let expresion2 = /("[^\]]+\],?)/g
+        let colorResult = JSON.stringify(this.categories).match(expresion2)
+        let c = "{"
         colorResult.forEach(color => {
             c += "\n" + "    " + color
         })
         c += "\n}"
-
+        // Si existe el lugar para mostrarlo, se muestra
         if (document.getElementById('mallaCode')) {
             new ClipboardJS('.btn');
             document.getElementById('mallaCode').textContent = s;
@@ -575,6 +584,7 @@ class Malla {
             downloadLink2.setAttribute("href", URL.createObjectURL(file2))
             downloadLink2.setAttribute("download", "colors_" + this.currentMalla + '.json')
         } else {
+            // Si no, se imprime en la consola
             console.log(s)
             console.log(c)
         }
