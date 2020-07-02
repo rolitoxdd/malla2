@@ -160,7 +160,8 @@ function removePopUp() {
 
       if (sct) {
           document.getElementById("creditsExample").textContent = "Créditos SCT";
-          document.getElementById("creditsNumberExample").textContent = "2";
+          let credit = parseInt(document.getElementById("creditsNumberExample").textContent);
+          document.getElementById("creditsNumberExample").textContent = (Math.round(credit * 5 / 3)).toString()
       }
 
 
