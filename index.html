@@ -2,7 +2,7 @@
 <html lang="es-cl">
 <head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140369062-1"></script>
+<script async rel="preconnect" src="https://www.googletagmanager.com/gtag/js?id=UA-140369062-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -38,9 +38,8 @@
   <meta property="twitter:card" content="summary_large_image">
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./css/darkMode.css">
+  <link rel="stylesheet" href="./css/darkMode.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="./css/styles.css">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
@@ -62,71 +61,51 @@
 </head>
 <body class="d-flex flex-column">
 
-  <!-- Contact Modal -->
-  <div class="modal fade bg-danger"
-    id="contacto" 
-    tabindex="-1" 
-    role="dialog" 
-    aria-labelledby="contacto" 
-    aria-hidden="true">
 
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-light">
-          <h5 class="modal-title" ><i class="fas fa-exclamation-triangle"></i> Antes de contactar</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Si deseas <strong> agregar o cambiar </strong> una <strong> malla</strong>, primero te invito a mirar el codigo fuente. ¡Allí podras encontrar toda la informacion que necesitas! <br>
-          Si encontraste un <strong> error/bug </strong> en la pagina puedes reportarlo desde el codigo fuente vía "Issues". De todas formas puedes contactarme.
-        </div>
-        <div class="modal-footer bg-light">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <a href="http://github.com/CsarMan/Mallas" class="btn btn-primary"><i class="fas fa-code-branch"></i> Codigo fuente</a>
-          <button type="button" id="contactar" onclick="contactar()" class="btn btn-danger"><i class="fas fa-envelope"></i> Contactar</button>
+  <div id="overlay" class="overlay" onclick="removePopUp()">
+    <div class="overlay-content" onclick="removePopUp()">
+      <div class="container-fluid align-middle py-5">
+        <div class="row justify-content-center  align-items-center">
+          <div class="col col-md-8 col-xl-6 text-center">
+            <h3>¡Bienvenido!</h3>
+            <svg  class="py-3 py-md-5" style="min-height: 100px" >
+              <use href="#subjectExample"></use>
+            </svg>
+            <h5 style="max-width: 500px" class="mx-auto">Si alcanzas a leer este texto, seguramente la malla aún esta cargando u ocurrió un problema y tienes que refrescar la página...</h5>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Contact Modal END -->
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+<div id="content" class="blur d-flex flex-column flex-grow-1">
   <!-- Header -->
   <header data-include="header"></header>
       
 
 
- 
   <!-- Main -->
-  <section class="container-fluid flex-grow-1">
+  <section class="container-fluid">
     <div class="row justify-content-center no-gutters">
       <div class="col">
-        <div class='canvas text-center' style="overflow-x:auto"></div>		
-        <div class='color-description' style="position:relative;display:flex;justify-content:center;flex-wrap:wrap;"></div>
+        <div class='canvas pt-3 text-center' style="overflow-x:auto"></div>
       </div>
+    </div>
+  </section>
+  <section class="container-xl flex-grow-1">
+    <div class="row">
+      <div class='col color-description' style="position:relative;display:flex;justify-content:center;flex-wrap:wrap;"></div>
     </div>
     <div class="info row">
       <div class="col text-center center-block">
-        <h5>Mostrando créditos <span id="credits-system"></span><br>Créditos aprobados: <span id='creditos'></span></h5>
-        <button type="button" onclick="limpiarRamos()" class="mt-2 btn btn-info">Limpiar ramos aprobados</button>
-        <button id="credit-system" type="button" onclick="changeCreditsSystem()" class="mt-2 btn btn-secondary"> Cambiar sistema de créditos </button>
+        <h5>Mostrando créditos <span id="credits-system"></span><br>Créditos aprobados: <span id='credits'></span>
+          (<span id="credPercentage"></span>%), Total ramos: <span id="ramoPercentage"></span>%</h5>
+        <button type="button" id="cleanApprovedButton" class="mt-2 btn btn-secondary">Limpiar ramos aprobados</button>
+        <button id="credit-system" type="button" onclick="changeCreditsSystem()" class="mt-2 btn btn-info"> Cambiar sistema de créditos </button>
       </div>
     </div>
   </section>
@@ -134,17 +113,44 @@
   
   
   <!-- Footer -->
-  <footer data-include="footer"  class="container-fluid text-center mt-3">         
+  <footer data-include="footer"  class="container-fluid text-center mt-3">
   </footer>
+</div>
   <!-- Footer END -->
 
+  <!-- svg ramo -->
+  <div class="d-none">
+    <svg id="subjectExample" xmlns="http://www.w3.org/2000/svg" width="300" height="100"   font-family="  -apple-system,   BlinkMacSystemFont,   &quot;Segoe UI&quot;,   &quot;Roboto&quot;,   &quot;Helvetica Neue&quot;, Arial, sans-serif,   &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;">
+      <style type="text/css">
+        .bars {
+          fill: grey;
+        }
+        .text {
+          fill: black;
+        }
+        .line {
+          stroke: black;
+        }
+        @media(prefers-color-scheme: dark) {
+          .bars {
+            fill: #404040;
+          }
+          .text {
+            fill: white;
+          }
+          .line {
+            stroke: white;
+          }
+        }
+      </style><style><![CDATA[.D{dominant-baseline:middle}.E{font-size:12px}.F{text-anchor:middle}]]></style><path fill="#2e58a7" d="M100 0h100v100H100z"/><path d="M100 0h100v20H100zm0 80h100v20H100z" class="bars" fill="gray"/><circle cx="190" cy="10" r="8" fill="#fff" fill-rule="evenodd"/><circle cy="90" cx="115" r="9" fill="#00838f" stroke="#fff"/><path d="M178 80h20v20h-20z" fill="#fff"/><text xml:space="preserve" x="190" y="10" writing-mode="lr-tb" direction="ltr" class="D E F"><tspan x="190" y="10" class="D">1</tspan></text><text xml:space="preserve" x="188" y="90" class="D E F"><tspan id="creditsNumberExample" x="187.639" y="90" class="D">1</tspan></text><text xml:space="preserve" x="115" y="90" fill="#fff" class="D E F"><tspan x="114.979" y="90.391" class="D">0</tspan></text><text xml:space="preserve" x="105" y="10" font-weight="bold" letter-spacing="0" fill="#fff" class="D E"><tspan x="105" y="10" class="D">INF-101</tspan></text><text xml:space="preserve" x="150" y="40" fill="#fff" class="E F"><tspan x="150" y="40" class="D">Introducción</tspan><tspan x="150" y="53.2" class="D">a la Malla</tspan><tspan x="150" y="66.4" class="D">Interactiva</tspan></text><text xml:space="preserve" x="92.465" y="11.742" text-anchor="end" class="E text"><tspan x="92.465" y="11.742">Sigla</tspan><tspan x="92.465" y="26.742">Asignatura</tspan></text><text xml:space="preserve" x="209.197" y="16.86" class="E text"><tspan x="209.197" y="16.86">Número</tspan><tspan x="209.197" y="31.86">asignatura</tspan></text><text xml:space="preserve" x="209.326" y="89.117" class="E text"><tspan id="creditsExample" x="209.326" y="89.117">Créditos USM</tspan></text><text xml:space="preserve" x="47.622" y="93.323" class="E F text"><tspan x="47.622" y="93.323">Prerrequisitos</tspan></text><path d="M94 9.4h9m91 2.6h14m-17 75h17m-100 3H92" class="line" stroke="#000"/></svg>
+  </div>
+  <!-- fin svg ramo -->
 
     <!-- scripts -->
 
-  </script>
-  <script src='./js/d3.js'></script>
-  <script src='./js/ramos.js'></script>
-  <script src='./js/canvas.js'></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src='./js/ramo.js'></script>
+  <script src='./js/malla.js'></script>
   <script src="./js/init.js"></script>
   <script src="https://kit.fontawesome.com/bf671ef02a.js"></script>
   <script type="text/template" data-template="tab-template1">

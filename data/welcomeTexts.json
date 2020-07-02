@@ -1,0 +1,18 @@
+{
+  "Malla": {
+    "welcomeTitle": "¡Bienvenido a la Malla Interactiva de CARRERA!",
+    "welcomeDesc": "Puedes tachar tus ramos aprobados haciendo click sobre ellos. A medida que vas aprobando ramos, se van liberando los que tienen prerrequisitos. Haz click en cualquier lado para comenzar."
+  },
+  "Prioridad": {
+    "welcomeTitle": "¡Bienvenido a la calculadora de prioridad CARRERA!",
+    "welcomeDesc": "¡Selecciona los ramos por semestre e ingresa tus notas para calcular tu prioridad! A medida que avances de semestre, los ramos aprobados se tacharán automaticamente. Si has cursado un ramo que no esta en la malla, crealo en la tabla de abajo."
+  },
+  "Generadora": {
+    "welcomeTitle": "¡Bienvenido a la generadora de mallas!",
+    "welcomeDesc": "¡Selecciona los ramos por semestre y genera una malla a tu gusto! Si quieres un ramo que no esta en la malla, crealo en la tabla de abajo."
+  },
+  "Personal": {
+    "welcomeTitle": "¡Bienvenido a tu propia malla!",
+    "welcomeDesc": "Puedes tachar tus ramos aprobados haciendo click sobre ellos. A medida que vas aprobando ramos, se van liberando los que tienen prerrequisitos. Haz click en cualquier lado para comenzar."
+  }
+}

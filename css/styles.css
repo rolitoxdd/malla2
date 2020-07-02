@@ -6,66 +6,211 @@ input[type=number]::-webkit-outer-spin-button {
 }
 /* Exclusivo para la "card" de prioridad y personalizar */
 /* Aqui ocurre el quiebre de la fila */
-@media (max-width: 1214.99px) {
+@media (max-width: 1199.95px) {
     /* Por alguna razon ocurre antes */
     #priorix {
-        height: auto;
+        width: initial;
     }
 
+    .subjectContainer {
+        height: initial;
+        overflow: initial;
+    }
 }
-@media (min-width: 1215px) {
+@media (min-width: 1200px) {
     #priorix {
-    
-    height: 42rem;
+        width: 450px;
+    }
+
+    .subjectContainer {
+        height: 360px;
+        overflow: auto;
+
     }
 }
 
 /* General */
-body { min-height: 100vh; }
+body {
+    min-height: 100vh;
+/*
+    overflow: hidden;*/
+}
+
+hr {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.card-sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+}
+
+.card-sticky-bottom {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+}
+
+.priorix-result {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+}
+
+.canvas {
+    text-align:center;
+    overflow-x:auto;
+}
+
+.color-description {
+    position:relative;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
 
 .non-approved {
     fill: white;
 }
 
+.sem {
+    transition: 0.3s;
+}
+@media(hover: hover) {
+
+    g.sem:hover rect {
+        fill: #c1c1c1;
+    }
+
+    g.year:hover rect.bars {
+        fill: #474747;
+    }
+
+    .subject:hover .non-approved {
+        opacity: 30%;
+        fill: #007bff;
+    }
+
+    .subject .non-approved {
+        transition: 0.3s
+    }
+}
 .bars {
     fill: grey;
+    transition: 0.3s;
 }
-#overlay {
-    position: absolute; /* Sit on top of the parent content*/
-    /* display: none; Hidden by default */
-    width: 100%;  /*Full width (cover the whole page)*/
-    height: 100%; /*Full height /*(cover the whole page)*/
-    align-self: stretch;
-    justify-self: stretch;
-    top: 0; 
+.overlay {
+    /*position: fixed; !* Sit on top of the parent content*!
+    !* display: none; Hidden by default *!
+    width: 100%;  !*Full width (cover the whole page)*!
+    min-height: 100vh; !*Full height !*(cover the whole page)*!
+    top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0;
-    filter: opacity(90%);
-    /* background-color: rgba(255,255,255,0.9); Black background with opacity */
-    z-index: 200; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
+    filter: opacity(20%);
+    z-index: 1;*/
+    position: fixed;
+    min-height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    -webkit-backdrop-filter: blur(50px) contrast(120%);
+    backdrop-filter: blur(50px) contrast(120%);
+    background-color: rgba(255,255,255,0.2); /* Black background with opacity */
+    transition: 0.5s;
 }
 
-/* .sector:hover {
-      filter: brightness(85%);
-} */
-
-/* 
-#t1 {
-    background-color: aqua;
+.overlay-content {
+    width: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    z-index: 6; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+    overflow-y: auto;
 }
-#t1:hover {
-    background-color: aquamarine;
-} */
 
+.overlay-content h3, .overlay-content h5 {
+    opacity: .6;
+}
+
+.sector {
+    filter: brightness(100%);
+    color: black;
+    transition: 0.2s;
+}
+
+.sector:hover {
+    filter: brightness(85%);
+    color: black;
+
+}
+
+sector:hover .text-white {
+    filter: brightness(85%);
+}
+@supports not ((backdrop-filter: none) or (-webkit-backdrop-filter: none) ){
+    .overlay, .card-sticky-top, .card-sticky-bottom {
+        background: #ffffffdd;
+    }
+    .overlay-content h3, .overlay-content h5 {
+        opacity: initial;
+    }
+}
+
+/* Dark Mode */
 @media(prefers-color-scheme: dark) {
-   
+
+    rect.sem, g.sem rect {
+        fill: #777777;
+    }
+    g.sem text {
+        fill: white;
+    }
+    @media(hover: hover) {
+        g.sem rect:hover {
+            fill: #a3a3a3;
+        }
+
+        g.year:hover rect.bars {
+            fill: #6f6f6f;
+        }
+
+        .subject:hover .non-approved {
+            opacity: 30%;
+            fill: #2A9FD6;
+        }
+    }
     .non-approved {
         fill: #000;
     }
     .bars {
         fill: #404040;
+    }
+
+    .overlay {
+        background: #000000aa;
+        -webkit-backdrop-filter: blur(50px) contrast(120%);
+        backdrop-filter: blur(50px) contrast(120%);
+    }
+
+    .overlay-content h3, .overlay-content h5 {
+        opacity: .4;
+    }
+
+    @supports not ((backdrop-filter: none) or (-webkit-backdrop-filter: none) ) {
+        .overlay, .card-sticky-top, .card-sticky-bottom {
+            background: #272727dd;
+        }
+        .overlay-content h3, .overlay-content h5 {
+            opacity: initial;
+        }
     }
 }

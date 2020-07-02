@@ -11,34 +11,29 @@ visualizar los ramos aprobados.
 6. [Agradecimientos](#Gracias)    
 # ¡Novedades!
 - Ahora se pueden agregar y cambiar los pre-requisitos de los ramos!
-![Imgur](https://i.imgur.com/b92qXHk.png)
-- Se pueden visualizar los creditos según el Sistema USM o según el Sistema de creditos transferibles (SCT).
-- ***Dark Mode*** automatico segun las preferencias del SO.
-![Imgur](https://i.imgur.com/lDTKZol.png)
+- Se pueden visualizar los créditos según el Sistema USM o según el Sistema de creditos transferibles (SCT).
+- ***Dark Mode*** automático según las preferencias del SO.
 
-# Caracteristicas de la malla
+# Características de la malla
 
-- Calcular tu prioridad
+- Selecciona asignaturas para aprobarlas, a medida que vayas aprobando más ramos, podrás ver que ramos
+se desbloquean.
+- Calcular tu prioridad  
 ![Gif demo de calculo de prioridad](https://media.giphy.com/media/9FZo5ua3aCmXij4xZ5/giphy.gif)
 - Crear una malla personal que se adecue a tu desdicha recorrida en la Universidad
 ![Gif demo de la malla personalidada](https://media.giphy.com/media/QK448lB7juUF0ftL7g/giphy.gif)  
-(Tal desdicha tiene que ser menor a *20* semestres) (Si se necesitan mas semestres puedes contactarme. @CsarMan)
 
 - Agregar ramos que no se encuentren en la malla oficial pero que hayas cursado.
-![Imagen de ventana para agregar un Ramo](https://i.imgur.com/NnCAaP2.png)
-![Imagen de tabla de ramos que están fuera de la malla](https://i.imgur.com/li2TRD7.png)
 
 # TODO
-* [x] Almacenar los ramos aprobados en caché
-* [x] Generalizar el `JSON`, en lo posible agregar compatibilidad con `CSV`
-* [ ] **Comentar código, limpiarlo.**
+* [ ] **Comentar código, limpiarlo.** (Ahora hay más comentarios, pero falta aún)
 * [ ] Fix bugs
-* [X] Hacer pagina más usable en moviles
+* [X] Hacer página más usable en moviles
     * [X] Prioridad
 	* [X] Malla personal
 	* [X] Malla interactiva
-* [ ] Facilitar creacion y modificación de mallas oficiales
-* [ ] **Refactorisar codigo**
+* [X] Facilitar creación y modificación de mallas oficiales
+* [X] **Refactorizar código**
 
 ## Agregar o cambiar una malla
 
@@ -56,7 +51,7 @@ Primero que todo creamos una malla usando la [generadora de mallas](https://csar
 Primero que todo creamos una malla usando la [generadora de mallas](https://csarman.github.io/malla-interactiva/prioridad). Luego, en el fondo de la página hacer click en "Agregar/Actualizar malla". La página les mostrará dos estructuras en `.json`. ([Explicación de estas aqui](#A-mano))  
 Una vez llegado aquí necesitas tener una cuenta en github para seguir. Si ya la tienes, te logeas y en la página del codigo haces click en "fork", esperas unos segundos y ya tienes una versión propia de la malla. Ahora te diriges a la carpeta data y ahí puedes hacer dos cosas:  
 - Subir archivos listos
-- copiar y pegar codigo sobrescribiendo archivos antiguos.
+- copiar y pegar código sobrescribiendo archivos antiguos.
 
 Mostrare el primero...  
 Has click en *Upload Files* y en la ventana que te aparece carga los archivos descargados de la malla interactiva. Por último, checkea la opcion que mencione el pull request abajo y sube los archivos. Ahora solo espera a que revise la malla cambiada o agregada y estará pronto en la malla interactiva lista para calcular la prioridad! ~~(Esto puede no ser instantaneo y tome su tiempo)~~
@@ -71,32 +66,41 @@ una carrera a la malla interactiva.
 Un ejemplo de un semestre en `data_CARR.json` sería:
 
 ```json
-"s2": [["Química y Sociedad", "QUI-010", 3, "PC"],
-		["Matemáticas II", "MAT-022", 5, "PC", ["MAT-021"]],
-		["Física General I", "FIS-110", 3, "PC", ["MAT-021", "FIS-100"]],
-		["Introducción a la Ingeniería", "IWG-101", 2, "TIN"],
-		["Humanístico II", "HRW-133", 1, "HUM"],
-		["Educación Física II", "DEW-101", 1, "HUM", ["DEW-100"]]
+{
+	"s2": [
+		["Química y Sociedad","QUI-010",3,0,"PC",[],""],
+		["Matemáticas II","MAT-022",5,0,"PC",["MAT-021"],""],
+		["Física General I","FIS-110",5,0,"PC",["MAT-021","FIS-100"],""],
+		["Introducción a la Ingeniería","IWG-101",2,0,"TIN",[],""],
+		["Humanístico II","HRW-133",2,0,"HUM",[],""],
+		["Educación Física II","DEW-101",1,0,"HUM",["DEW-100"],""]
 	]
+}
 ```
 Para modificar el JSON se debe saber lo siguiente:
 
-`s2` Corresponde al semestre, en este caso, Semestre II. Es una lista con 5 objetos:
+`s2` Corresponde al semestre, en este caso, Semestre II. Es una lista donde cada ramo tiene 7 items:
 1. *Ramo*: El nombre completo del ramo.
 2. *Sigla*: Sigla del ramo. Este campo es importante, ya que con éstos se calculan los prerrequisitos.
-3. *Créditos*: Entero, la cantidad de créditos.
-4. *Sector*: Sector del ramo al que pertenece (por ejemplo, *PC*: Plan Común), se deben agregar ó editar en el json `colors_CARR.json`.
-5. *Prerrequisitos*: Una lista de strings que contiene los prerrequisitos del ramo. Es **importante**
+3. *Créditos USM*: Entero, la cantidad de créditos USM.
+4. *Créditos SCT*: Entero, la cantidad de créditos SCT. Si su valor es `0`, se calcula
+basándonos en los créditos USM
+5. *Categoría*: Categoría del ramo al que pertenece (por ejemplo, *PC*: Plan Común), se deben agregar ó editar en el json `colors_CARR.json`.
+6. *Prerrequisitos*: Una lista de strings que contiene los prerrequisitos del ramo. Es **importante**
 que la sigla ya exista, de lo contrario podría fallar. Esta lista es opcional.
+7. *Indicador Par o Impar*: Puede tener el valor de `"P"`, `"I"`, `"A"` o `""`. Indica
+si el ramo se dicta en un semestre **P**ar, **I**mpar, o en **A**mbos. `""`  es para cuando no esta definido
+
+
 
 El json `colors_CARR.json` debe tener el formato
 
 ```json
 {
-	"SIGLA": ["COLOR", "pequeña descripcion"],
+	"SIGLA": ["COLOR", "pequeña descripcion"]
 }
 ```
-
+Para elegir un buen color, puedes buscar Color Picker en [Google](https://www.google.com/search?client=safari&rls=en&q=Color+Picker&ie=UTF-8&oe=UTF-8)  
 Ejemplo:
 
 ```json
@@ -107,7 +111,7 @@ Ejemplo:
 ```
 
 ## Probar malla
-Para probar la malla, existen tres metodos:
+Para probar la malla, existen tres métodos:
 
 ### Usando python (preferido)
 Lo ideal sería probarlo usando python, ya que permite levantar un mini servidor http lo que facilita la carga
@@ -117,7 +121,7 @@ y ejecutar lo siguiente:
 * Si tiene Python 2 (el usado en la universidad hasta hace poco): `python -m SimpleHTTPServer`
 * Si tiene Python 3 (el actual): `python -m http.server`
 
-Independiente de la version, una vez ejecutado la linea, despues se debe abrir un navegador
+Independiente de la version, una vez ejecutado la línea, después se debe abrir un navegador
 e ir a la dirección http://localhost:8000 y ahí debería ver la malla.
 Dependiendo de la malla a probar, deberá navegar agregando al final de la url `?m=CARR`. Por ejemplo, 
 para abrir `data_INF.json` debería quedar algo como `http://localhost:8000/index.html?m=INF`.
@@ -130,9 +134,13 @@ para abrir `data_INF.json` debería quedar algo como `index.html?m=INF`.
 Se aceptan Pull Requests para agregar carreras.
 
 ### Usando Browser-sync
-Con *NPM* instalado en el equipo, ejecute desde una terminal `npm install -g browser-sync` si no lo tiene instalado. Completado el paso anterior, ejecute `browser-sync -w` desde la carpeta raíz del repositorio y tendrá en su explorador favorito una versión local de la página. La direccion por defecto es `http://localhost:3000`
+Con *NPM* instalado en el equipo, ejecute desde una terminal 
+`npm install -g browser-sync` si no lo tiene instalado.
+ Completado el paso anterior, ejecute `browser-sync -w` desde
+  la carpeta raíz del repositorio y tendrá en su explorador favorito una
+   versión local de la página. La dirección por defecto es `http://localhost:3000`
 
-Con esto la pagina se actualizará cada vez que guarde un archivo. Si su explorador tiene problemas, abra *Firefox* y copie y pegue la dirección de la página.
+Con esto la página se actualizará cada vez que guarde un archivo. Si su explorador tiene problemas, abra *Firefox* y copie y pegue la dirección de la página.
 
 ---
 # Gracias
