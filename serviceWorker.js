@@ -105,7 +105,7 @@ if (workbox) {
         new workbox.strategies.StaleWhileRevalidate(),
     );
     workbox.routing.registerRoute(
-        'https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js'
+        'https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js',
     new workbox.strategies.StaleWhileRevalidate(),
 );
 } else {

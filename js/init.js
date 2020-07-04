@@ -72,9 +72,11 @@ let sct = false
 if (params.get('SCT') === "true")
     sct = true
 
-document.addEventListener("DOMContentLoaded",() => loadViews())
-
-function loadViews() {
+// document.addEventListener("DOMContentLoaded", loadViews)
+//
+// window.addEventListener("load", function () {console.log("load")})
+// function loadViews() {
+    console.log("dom")
     // obtener vistas
     let includes = document.querySelectorAll('[data-include]')
     let promises = []
@@ -142,7 +144,7 @@ function loadViews() {
             document.querySelector(".overlay-content h5").textContent = welcomeTexts["welcomeDesc"]
         }
     })
-}
+// }
 
 function removePopUp() {
     d3.select("body").style("overflow", "initial")

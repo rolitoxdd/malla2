@@ -42,8 +42,8 @@
   <link rel="stylesheet" href="../css/darkMode.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="../css/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
   <script
           defer
           src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
@@ -62,6 +62,10 @@
   <meta name="msapplication-TileColor" content="#2f58a7">
   <meta name="theme-color" content="#f8f9fa">
 
+<!--  Preload-->
+  <link rel="preload" href="../js/min2.js" as="script">
+  <link rel="preload" href="../data/carreras.json" as="fetch">
+  <link rel="preconnect" href="https://kit-free.fontawesome.com/">
 </head>
 <body class="d-flex flex-column">
 <!-- En verdad, lamento la cantidad horrorosa de divs -->
@@ -403,16 +407,12 @@
 <!-- fin svg ramo -->
 
 <script src='https://d3js.org/d3.v5.min.js'></script>
-<script src='../js/ramo.js'></script>
-<script src='../js/selectableRamo.js'></script>
-<script src="../js/semesterManager.js"></script>
-<script src="../js/priorix.js"></script>
-<script src='../js/malla.js'></script>
-<script src="../js/mallaEditor.js"></script>
+<script defer src='../js/min2.js'></script>
+
 <!-- Smooth scroll -->
 <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
-<script src="../js/init.js"></script>
+
 
 <script type="text/template" data-template="tab-template1">
   <li><a class="nav-item nav-link" href="?m=${Link}"><span class="d-md-none">Malla </span>${Nombre}</a></li>

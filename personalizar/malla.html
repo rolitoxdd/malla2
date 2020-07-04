@@ -37,13 +37,13 @@
 
   <!-- CSS, Fonts and some scripts -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/darkMode.css">
+  <link rel="stylesheet" href="../css/darkMode.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="../css/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>
+<script async src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>
 <link rel="stylesheet" type="text/css" href="../css/prettify.css">
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">   
@@ -60,6 +60,9 @@
   <meta name="theme-color" content="#f8f9fa">
 </head>
 
+<!--  Preload-->
+<link rel="preload" href="../js/min4.js" as="script">
+<link rel="preconnect" href="https://kit-free.fontawesome.com/">
 
 <!-- En verdad, lamento la cantidad horrorosa de divs -->
 <body class="d-flex flex-column"></body>
@@ -244,9 +247,7 @@
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
-<script src='../js/ramo.js'></script>
-<script src='../js/malla.js'></script>
-<script src='../js/customMalla.js'></script><script src="../js/init.js"></script>
+<script defer src='../js/min4.js'></script>
 <script src="https://kit.fontawesome.com/bf671ef02a.js"></script>
 <script type="text/template" data-template="tab-template1">
   <li><a class="nav-item nav-link" href="?m=${Link}"><span class="d-md-none">Malla </span>${Nombre}</a></li>

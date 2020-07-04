@@ -37,11 +37,11 @@
 
   <!-- CSS, Fonts and some scripts -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/darkMode.css">
+  <link rel="stylesheet" href="../css/darkMode.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="../css/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
   <script 
     defer
     src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
@@ -59,6 +59,11 @@
   <meta name="application-name" content="Malla Interactiva">
   <meta name="msapplication-TileColor" content="#2f58a7">
   <meta name="theme-color" content="#f8f9fa">
+
+  <!--  Preload-->
+  <link rel="preload" href="../js/min3.js" as="script">
+  <link rel="preload" href="../data/carreras.json" as="fetch">
+  <link rel="preconnect" href="https://kit-free.fontawesome.com/">
 
 </head>
 <body class="d-flex flex-column">
@@ -553,13 +558,8 @@
 
 
   <script src='https://d3js.org/d3.v5.min.js'></script>
-  <script src='../js/ramo.js'></script>
-  <script src='../js/selectableRamo.js'></script>
-  <script src="../js/semesterManager.js"></script>
-  <script src="../js/generator.js"></script>
-  <script src='../js/malla.js'></script>
-  <script src="../js/mallaEditor.js"></script>
-  <script src="../js/init.js"></script>
+  <script defer src='../js/min3.js'></script>
+
   <!-- Smooth scroll --> 
   <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
   <script type="text/template" data-template="tab-template1">
