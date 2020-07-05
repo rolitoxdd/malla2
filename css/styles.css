@@ -68,6 +68,7 @@ hr {
 .canvas {
     text-align:center;
     overflow-x:auto;
+    min-height: 735px;
 }
 
 .color-description {
