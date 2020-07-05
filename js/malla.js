@@ -141,8 +141,13 @@ class Malla {
 
         const canvas = d3.select(canvasId).append("svg")
             .attr("width", canvasWidth)
-            .attr("height", canvasHeight);
-        const drawer = canvas.append('g');
+            .attr("height", canvasHeight)
+            .attr("role", "group");
+
+        canvas.append("title")
+            .text("Malla")
+
+        const drawer = canvas;
         let globalX = separator / 2,
             globalY = 0;
         let isBigBarRendered = false;

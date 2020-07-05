@@ -76,7 +76,9 @@ class Ramo {
     draw(canvas, posX, posY, scaleX, scaleY) {
         this.ramo = canvas.append('g')
             .attr("cursor", "pointer")
+            // .attr("role", "img")
             .classed("subject", true)
+            // .attr("alt", "Texto de prueba")
             .attr('id', this.sigla);
         // Se establecen tamaños
         let sizeX = this.constructor.getDisplayWidth(scaleX),

@@ -64,11 +64,14 @@ hr {
     position: sticky;
     bottom: 0;
 }
+header {
+    min-height: 56px;
+}
 
 .canvas {
     text-align:center;
     overflow-x:auto;
-    min-height: 735px;
+    min-height: 751px;
 }
 
 .color-description {
@@ -76,6 +79,7 @@ hr {
     display:flex;
     justify-content:center;
     flex-wrap:wrap;
+    min-height: 25px;
 }
 
 .non-approved {
