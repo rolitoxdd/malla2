@@ -81,6 +81,7 @@ class MallaEditor {
                 e.target.querySelector("#custom-creditsa-USM").value = ""
                 e.target.querySelector("#custom-creditsa-SCT").value = ""
                 e.target.querySelector("#custom-creditsa-SCT").placeholder = 2
+                e.target.querySelector("#dictatesIn").value = ""
                 let sectorC = e.target.querySelector("#sectorChooser")
                 sectorC.textContent = ""
                 let defaultSector = document.createElement("option")
@@ -145,6 +146,7 @@ class MallaEditor {
                 prerChooser.value = sigla
                 this.addPrerToModal(null, prerChooser)
             })
+            modal.querySelector("#dictatesIn").value = subject.dictatesIn
             if (this.tableList[subject.sigla])
                 this.editSubEvent = this.tableList[subject.sigla][1]
             else
@@ -377,11 +379,12 @@ class MallaEditor {
         let creditsUSM = parseInt(modal.querySelector("#custom-creditsa-USM").value)
         let creditsSCT = parseInt(modal.querySelector("#custom-creditsa-SCT").value)
         let sectorName = modal.querySelector('#sectorChooser').value;
+        let dictatesIn = modal.querySelector('#dictatesIn').value;
         let prer = []
         modal.querySelector("#prerList").querySelectorAll("li").forEach(item => {
             prer.push(item.getAttribute("id").slice(4))
         })
-        let subject = new SelectableRamo(name, sigla, creditsUSM, sectorName, prer, this.semesterManager.malla.SUBJECTID++, this.semesterManager.malla, creditsSCT ,true)
+        let subject = new SelectableRamo(name, sigla, creditsUSM, sectorName, prer, this.semesterManager.malla.SUBJECTID++, this.semesterManager.malla, creditsSCT ,true, dictatesIn)
         this.subjectList.push(subject)
         this.semesterManager.malla.addSubject(subject)
         this.createAdvancedSubjectModal.modal("hide")
@@ -396,6 +399,8 @@ class MallaEditor {
         subject.name = modal.querySelector("#custom-namea").value
         subject.sector = modal.querySelector("#sectorChooser").value
         subject.prer = new Set(this.subjectModalPrer)
+        subject.dictatesIn = modal.querySelector('#dictatesIn').value;
+
         let creditsUSM = modal.querySelector("#custom-creditsa-USM").value
         let creditsSCT = modal.querySelector("#custom-creditsa-SCT").value
         if (creditsSCT.length === 0)
@@ -439,6 +444,7 @@ class MallaEditor {
                     subject.updateCredits(rawSubject[2], rawSubject[3])
                     subject.sector = rawSubject[4]
                     subject.prer = new Set(rawSubject[5])
+                    subject.dictatesIn = rawSubject[6]
 
                     if (subject.selected)
                         this.semesterManager.updateDisplayedSubject(subject)
@@ -475,6 +481,7 @@ class MallaEditor {
                 cache[subject.sigla].push(0)
             else
                 cache[subject.sigla].push(subject.getSCTCredits())
+            cache[subject.sigla].push(subject.dictatesIn)
         })
         cache = JSON.stringify(cache)
         if (this.advanced) {
@@ -492,6 +499,7 @@ class MallaEditor {
             cache = localStorage["priorixUserSubjects" + this.semesterManager.malla.currentMalla]
         }
         if (cache === undefined) {
+            // Si no encuentra nuevo cache, se busca el cache antiguo
             this.loadOldSubjects()
             return
         }
@@ -501,7 +509,7 @@ class MallaEditor {
             let data = cache[sigla]
             if (this.semesterManager.malla.ALLSUBJECTS[sigla] === undefined) {
                 let subject = new SelectableRamo(data[0], sigla, data[1], data[2], data[3],
-                    this.semesterManager.malla.SUBJECTID++, this.semesterManager.malla, data[4], true)
+                    this.semesterManager.malla.SUBJECTID++, this.semesterManager.malla, data[4], true, 6 === data.length ? data[5] : "")
                 this.semesterManager.malla.addSubject(subject)
                 this.subjectList.push(subject)
                 this.displaySubject(subject)
@@ -550,6 +558,7 @@ class MallaEditor {
                         this.updateState(subject)
                     }
                 }
+                delete localStorage["Custom-" + this.semesterManager.malla.currentMalla + "_CUSTOM"]
             }
         } else {
             // prioridad
@@ -567,10 +576,10 @@ class MallaEditor {
                     this.subjectList.push(subject)
                     this.displaySubject(subject)
                 }
+                delete localStorage["prioridad-" + this.semesterManager.malla.currentMalla + "_CUSTOM"]
             }
         }
         this.saveSubjects()
-        delete  localStorage["Custom-" + this.semesterManager.malla.currentMalla + "_CUSTOM"]
     }
 
     addPrerToModal(e, prerChooser = null){

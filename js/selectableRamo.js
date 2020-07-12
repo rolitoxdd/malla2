@@ -1,8 +1,8 @@
 
 class SelectableRamo extends Ramo {
 
-    constructor(name, sigla, credits, sector, prer, id, malla, creditsSCT = 0, isCustom=false) {
-        super(name, sigla, credits, sector, prer, id, malla, creditsSCT, isCustom);
+    constructor(name, sigla, credits, sector, prer, id, malla, creditsSCT = 0, isCustom=false, dictatesIn = "") {
+        super(name, sigla, credits, sector, prer, id, malla, creditsSCT, isCustom, dictatesIn);
         this.isCustom = isCustom;
         this.selected = false;
     }

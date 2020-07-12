@@ -38,6 +38,7 @@ let personalizar = document.URL.includes('personalizar')
 let mallaPersonal = document.URL.includes("malla.")
 let contact = document.URL.includes("contact")
 let aportes = document.URL.includes("aportes")
+let fullCareerName = ""
 let texts = "Malla"
 if (mallaPersonal)
     texts = "Personal"
@@ -127,10 +128,20 @@ if (params.get('SCT') === "true")
                 document.querySelectorAll(".carrers").forEach(element => element.remove())
             }
 
-            careers.forEach(careers => {
-                if (careers['Link'] === carr) {
-                    welcomeTexts["welcomeTitle"] = welcomeTexts["welcomeTitle"].replace("CARRERA", careers['Nombre'])
-                    $('.carrera').text(careers['Nombre'])
+            careers.forEach(career => {
+                if (career['Link'] === carr) {
+                    fullCareerName = career["Nombre"]
+                    welcomeTexts["welcomeTitle"] = welcomeTexts["welcomeTitle"].replace("CARRERA", career['Nombre'])
+                    $('.carrera').text(career['Nombre'])
+                    if (mallaPersonal) {
+                     let title = document.title
+                     document.title = title + " basada en " + career['Nombre']
+                    } else {
+                        let title = document.title.slice(0, 17)
+                        title += " " + career['Nombre']
+                        title += document.title.slice(17)
+                        document.title = title
+                    }
                 }
             });
             $('#carreras1-nav').append(careers.map(function (values) {
@@ -139,8 +150,8 @@ if (params.get('SCT') === "true")
             $('#carreras2-nav').append(careers.map(function (values) {
                 return tabTpl2.map(render(values)).join('');
             }));
-            if ( document.querySelector(".overlay-content h3")){
-            document.querySelector(".overlay-content h3").textContent = welcomeTexts["welcomeTitle"]
+            if ( document.querySelector(".overlay-content h1")){
+            document.querySelector(".overlay-content h1").textContent = welcomeTexts["welcomeTitle"]
             document.querySelector(".overlay-content h5").textContent = welcomeTexts["welcomeDesc"]
         }
     })
@@ -203,7 +214,7 @@ function removePopUp() {
 
       }
 
-      let drawnMalla = malla.setCareer(carr, relaPath).then((val) => {
+      let drawnMalla = malla.setCareer(carr, fullCareerName, relaPath).then((val) => {
           return malla.drawMalla(".canvas")
       });
       drawnMalla.then(() => {

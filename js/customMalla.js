@@ -63,7 +63,7 @@ class CustomMalla extends Malla {
                                     if (!subjectsList.has(prer))
                                         subject[5].splice(subject[5].indexOf(prer),1)
                                 })
-                                this.malla[semester][sigla] = new this.subjectType(subject[0], subject[1], subject[2], subject[4], subject[5],this.SUBJECTID++, this, subject[3])
+                                this.malla[semester][sigla] = new this.subjectType(subject[0], subject[1], subject[2], subject[4], subject[5],this.SUBJECTID++, this, subject[3],false ,subject[6])
                             } else {
                                 // Formato viejo
                                 categoriesToUse.add(subject[3])

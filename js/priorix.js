@@ -97,9 +97,18 @@ class Priorix extends SemesterManager {
         subjectInfo.attr('class', 'form-group mb-2');
         subjectInfo.attr('style', 'opacity:0.001');
         subjectInfo.append('label')
-            .attr('class', 'text-left mb-1')
+            .attr('class', 'text-left mb-0')
             .attr('for', 'nota-' + subject.sigla)
             .text(subject.name);
+        let isOdd = Boolean(this.semester % 2)
+        if (isOdd && subject.dictatesIn === "P")
+            subjectInfo.append("small")
+                .classed("form-text bg-light rounded text-center mt-0 mb-1 text-danger", true)
+                .text("Esta asignatura normalmente solo se dicta en semestres pares");
+        else if (!isOdd && subject.dictatesIn === "I")
+            subjectInfo.append("small")
+                .classed("form-text bg-light rounded text-center mt-0 mb-1 text-danger", true)
+                .text("Esta asignatura normalmente solo se dicta en semestres Impares");
         let subjectGrade = subjectInfo.append('div');
         subjectGrade.attr('class','input-group');
         subjectGrade.append('div')
@@ -125,6 +134,10 @@ class Priorix extends SemesterManager {
             .append('span')
             .attr('class','input-group-text')
             .text('x ' + subject.getUSMCredits() + ' USM | ' + subject.getSCTCredits() + ' SCT');
+
+
+
+
         subjectInfo.transition().duration(300).style("opacity", "1");
 
         this.displayedSubjects[subject.sigla] = [subjectInfo, gradeInput]

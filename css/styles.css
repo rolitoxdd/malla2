@@ -142,7 +142,7 @@ header {
     overflow-y: auto;
 }
 
-.overlay-content h3, .overlay-content h5 {
+.overlay-content h1, .overlay-content h5 {
     opacity: .6;
 }
 

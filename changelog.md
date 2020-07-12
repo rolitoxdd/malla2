@@ -1,6 +1,13 @@
 # Changelog
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
+# [1.4.1]
+
+- La interfaz ahora no cambia mucho al cargar la malla
+- Se redujeron los bloqueos de renderizado
+- Ahora la malla muestra que ramos se dictan en que semestres si existe la información.
+- Malla informática actualizada con información de los semestres en que se dictan ramos
+
 # [1.4.0]
 
 - Se corrigió un problema donde las carreras no se mostraban al cargar la página sin cache

@@ -50,8 +50,9 @@ class Malla {
 
     // Obtiene los datos de la carrera y retorna una promesa para cuando los datos se hayan conseguido y
     // las propiedades estén listas
-    setCareer(carr, relaPath) {
+    setCareer(carr, fullCareerName, relaPath) {
         this.currentMalla = carr;
+        this.fullCareerName = fullCareerName
         let promises = [];
 
         promises.push(d3.json( relaPath + "data/data_" + this.currentMalla + ".json"));
@@ -80,7 +81,7 @@ class Malla {
                 // Agregado de ramos por semestre
                 if (subject.length === 7) {
                     // Nuevo formato con ramos SCT
-                    this.malla[semester][subject[1]] = new this.subjectType(subject[0], subject[1], subject[2], subject[4], subject[5],this.SUBJECTID++, this, subject[3])
+                    this.malla[semester][subject[1]] = new this.subjectType(subject[0], subject[1], subject[2], subject[4], subject[5],this.SUBJECTID++, this, subject[3], false ,subject[6])
                 } else {
                     // Formato antiguo
                     this.malla[semester][subject[1]] = new this.subjectType(subject[0], subject[1], subject[2], subject[3], (function hasPrer() {
@@ -142,10 +143,10 @@ class Malla {
         const canvas = d3.select(canvasId).append("svg")
             .attr("width", canvasWidth)
             .attr("height", canvasHeight)
-            .attr("role", "group");
+            .attr("role", "figure");
 
         canvas.append("title")
-            .text("Malla")
+            .text("Malla " + this.fullCareerName)
 
         const drawer = canvas;
         let globalX = separator / 2,
@@ -161,10 +162,13 @@ class Malla {
             globalY = 0;
             // Barra indicadora de años
             if (semestersPassed === 0) {
-                // se crea la barra en caso de semestre impar
                 yearIndicator = drawer.append("g")
                     .attr("cursor", "pointer")
+                    .attr("role", "heading")
+                    .attr("aria-level", "5")
                     .classed("year", true);
+                // se crea la barra en caso de semestre impar
+                let desc = yearIndicator.append("title")
                 // rectangulo de la barra
                 currentYearIndicator = yearIndicator.append("rect")
                     .attr("x", globalX)
@@ -184,6 +188,7 @@ class Malla {
                     .attr("fill", "white")
                     .attr("dominant-baseline", "central")
                     .attr('text-anchor', 'middle');
+                desc.text("Año " + currentYear++ + " 1/2")
                 // Evento en caso de hacer click en el
                 yearIndicator.on("click", () => {
                     let bar = d3.select(d3.event.currentTarget)
@@ -204,6 +209,7 @@ class Malla {
                 currentYearIndicatorText.text("Año " + (currentYear));
                 currentYearIndicatorText.attr("x", globalX - separator / 2);
                 semestersPassed = 0;
+                yearIndicator.select("title").text("Año "+ (currentYear))
             }
 
             globalY += semesterIndicatorHeight + separator;
@@ -235,9 +241,11 @@ class Malla {
                 .attr("cursor", "pointer")
                 .attr("width", this.subjectType.getDisplayWidth(this.scaleX))
                 .attr("height", semesterIndicatorHeight)
+                .attr("role", "heading")
+                .attr("aria-level", "6")
                 .classed("sem", true);
 
-
+            semesterIndicator.append("title").text("Semestre " + intToRomanize)
 
 
 

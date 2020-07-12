@@ -21,7 +21,20 @@ class Generator extends SemesterManager {
             left.classed('flex-grow-1', true)
                 .classed('mr-3', true)
                 .classed('py-2', true)
+
+            left.append("p")
+                .classed("my-0", true)
                 .text(subject.name);
+            let isOdd = Boolean(this.semester % 2)
+            if (isOdd && subject.dictatesIn === "P")
+                left.append("p").attr("id","dictatesIn-" + subject.sigla).style("line-height", 1).classed("my-0", true).append("small")
+                    .classed("text-center my-0 text-danger", true)
+                    .text("Esta asignatura normalmente solo se dicta en semestres pares");
+            else if (!isOdd && subject.dictatesIn === "I")
+                left.append("p").attr("id","dictatesIn-" + subject.sigla).style("line-height", 1).classed("my-0", true).append("small")
+                    .classed("text-center text-danger", true)
+                    .text("Esta asignatura normalmente solo se dicta en semestres Impares");
+
             let right = subjectInfo.append("button")
             right.classed("btn btn-secondary", true)
                 .attr("type", "button")
@@ -45,8 +58,22 @@ class Generator extends SemesterManager {
     updateDisplayedSubject(subject) {
         super.updateDisplayedSubject(subject)
         let subjectInfo = this.displayedSubjects[subject.sigla]
-        if (subjectInfo)
+        if (subjectInfo) {
             subjectInfo.select("div").text(subject.name)
+            let dictates = subjectInfo.select("#dictatesIn-" + subject.sigla)
+            if (dictates)
+                dictates.remove()
+
+            let isOdd = Boolean(this.semester % 2)
+            if (isOdd && subject.dictatesIn === "P")
+                subjectInfo.select("div").append("p").attr("id","dictatesIn-" + subject.sigla).style("line-height", 1).classed("my-0", true).append("small")
+                    .classed("text-center my-0 text-danger", true)
+                    .text("Esta asignatura normalmente solo se dicta en semestres pares");
+            else if (!isOdd && subject.dictatesIn === "I")
+                subjectInfo.select("div").append("p").attr("id","dictatesIn-" + subject.sigla).style("line-height", 1).classed("my-0", true).append("small")
+                    .classed("text-center text-danger", true)
+                    .text("Esta asignatura normalmente solo se dicta en semestres impares");
+        }
     }
 
     unDisplaySubject(subject) {

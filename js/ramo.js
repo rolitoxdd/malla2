@@ -19,7 +19,7 @@ class Ramo {
     }
 
 
-    constructor(name, sigla, credits, category, prer = [], id, malla, creditsSCT = 0, isCustom = false) {
+    constructor(name, sigla, credits, category, prer = [], id, malla, creditsSCT = 0, isCustom = false, dictatesIn="") {
         // Propiedades del ramo
         this.name = name;
         this.sigla = sigla;
@@ -33,6 +33,7 @@ class Ramo {
             this.creditsSCT = Math.round(credits * 5 / 3)
             this.USMtoSCT = true
         }
+        this.dictatesIn = dictatesIn
 
         // Propiedades para renderizado e interacciones
         this.malla = malla
@@ -76,7 +77,7 @@ class Ramo {
     draw(canvas, posX, posY, scaleX, scaleY) {
         this.ramo = canvas.append('g')
             .attr("cursor", "pointer")
-            // .attr("role", "img")
+            .attr("role", "img")
             .classed("subject", true)
             // .attr("alt", "Texto de prueba")
             .attr('id', this.sigla);
@@ -87,6 +88,23 @@ class Ramo {
         let credits = this.getDisplayCredits(this.credits);
         let color = this.malla.categories[this.category][0]
 
+        let dictatesIn = {"":"¿ambos semestres?", "P": "semestres pares", "I": "semestres impares", "A": "ambos semestres"}
+        let prers = ""
+        let prerSize = this.prer.size - 1
+        let counter = 0
+        this.prer.forEach(prer => {
+            if (counter === 0)
+                prers += prer
+            else if (counter === prerSize)
+                prers += " y " + prer
+            else
+                prers += ", " + prer
+            counter +=1
+        })
+        this.ramo.append("title").text(
+            "Ramo " + this.sigla+ ", " + this.name+ ". Este ramo tiene " + this.getUSMCredits() + " créditos USM y " +
+            this.getSCTCredits() + " créditos SCT. Se dicta en " + dictatesIn[this.dictatesIn] + " y "
+            + (this.prer.size ? " tiene como prerrequisitos a " + prers : "no tiene prerrequisitos") + ".")
 
         this.ramo.append("rect")
             .attr("x", posX)
@@ -151,16 +169,28 @@ class Ramo {
         // Sigla
         this.ramo.append("text")
             .attr("x", posX + 2)
-            .attr("y", posY + sizeY / 7)
+            .attr("y", posY + 10)
+            .attr("dominant-baseline", "central")
             .text(this.sigla)
             .attr("font-weight", "bold")
             .attr("fill", "white")
-            .attr("font-size", function() {
-                if (scaleX < 0.71)
-                    return 9;
-                return 12;
-            });
+            .attr("font-size", scaleX < 0.85 ? 11 : 12);
+
+        // Indicador the semestres
+        if (this.dictatesIn === "P" || this.dictatesIn === "I") {
+            this.ramo.append("text")
+                .attr("x", posX + sizeX - (scaleX < 0.85 ? 25 : 30))
+                .attr("y", posY + 10)
+
+                .attr("dominant-baseline", "central")
+                .attr("text-anchor", "middle")
+                .text(this.dictatesIn)
+                .attr("font-weight", "bold")
+                .attr("fill", "yellow")
+                .attr("font-size", scaleX < 0.85 ? 11 : 12);
+        }
         this.drawActions(posX, posY, sizeX, sizeY);
+
 
         // id
         this.ramo.append("circle")
