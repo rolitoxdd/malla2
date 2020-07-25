@@ -7,7 +7,7 @@ class CustomMalla extends Malla {
     }
 
     // Hace los mismo que el originar, solo que ademas obtiene primero los datos guardados de la generadora
-    setCareer(carr, relaPath) {
+    setCareer(carr, fullCareerName, relaPath) {
         let customSectors = localStorage["generatorUserCategory" + carr]
         let customSubjects = localStorage["generatorUserSubjects" + carr]
         let customMalla = localStorage["generatorUserData" + carr]
@@ -18,7 +18,7 @@ class CustomMalla extends Malla {
         if (customMalla !== undefined)
             this.customMalla = JSON.parse(customMalla)
 
-        return super.setCareer(carr, relaPath);
+        return super.setCareer(carr, fullCareerName, relaPath);
     }
 
     setMallaAndCategories(malla, sectors) {
