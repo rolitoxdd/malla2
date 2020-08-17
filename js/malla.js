@@ -188,7 +188,7 @@ class Malla {
                     .attr("fill", "white")
                     .attr("dominant-baseline", "central")
                     .attr('text-anchor', 'middle');
-                desc.text("Año " + currentYear++ + " 1/2")
+                desc.text("Año " + currentYear + " 1/2")
                 // Evento en caso de hacer click en el
                 yearIndicator.on("click", () => {
                     let bar = d3.select(d3.event.currentTarget)
