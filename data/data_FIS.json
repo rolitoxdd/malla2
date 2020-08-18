@@ -1,29 +1,29 @@
 {
 	"s1": [
 		["Química y Sociedad","QUI-010",3,0,"PC",[],""],
-		["Matemáticas I","MAT-021",5,0,"MAT",[],""],
-		["Introducción a la Física","FIS-100",3,0,"FIS",[],""],
+		["Matemáticas I","MAT-021",5,8,"MAT",[],"A"],
+		["Introducción a la Física","FIS-100",3,6,"FIS",[],"A"],
 		["Introducción a la Física Contemporánea","FIS-104",2,0,"LIC",[],""],
 		["Educación Física I","DEW-100",1,0,"HUM",[],""]
 	],
 	"s2": [
 		["Programación","IWI-131",3,0,"PC",[],""],
-		["Matemáticas II","MAT-022",5,0,"MAT",["MAT-021"],""],
-		["Física General I","FIS-110",5,0,"FIS",["MAT-021","FIS-100"],""],
+		["Matemáticas II","MAT-022",5,7,"MAT",["MAT-021"],"A"],
+		["Física General I","FIS-110",5,8,"FIS",["MAT-021","FIS-100"],"A"],
 		["Vision Trascendente","HRW-101",2,0,"HUM",[],""],
 		["Educación Física II","DEW-101",1,0,"HUM",["DEW-100"],""]
 	],
 	"s3": [
-		["Matemáticas III","MAT-023",4,0,"MAT",["MAT-022"],""],
-		["Física General II","FIS-120",4,0,"FIS",["MAT-022","FIS-110"],""],
-		["Física General III","FIS-130",4,0,"FIS",["MAT-022","FIS-110"],""],
+		["Matemáticas III","MAT-023",4,7,"MAT",["MAT-022"],"A"],
+		["Física General II","FIS-120",4,8,"FIS",["MAT-022","FIS-110"],"A"],
+		["Física General III","FIS-130",4,8,"FIS",["MAT-022","FIS-110"],"A"],
 		["Inglés I","HCW-100",2,0,"IN",[],""],
 		["Deportes","DEW-0",1,0,"HUM",["DEW-101"],""],
 		["Vision Inmanente","HRW-102",2,0,"HUM",[],""]
 	],
 	"s4": [
-		["Matemáticas IV","MAT-024",4,0,"MAT",["MAT-023"],""],
-		["Física General IV","FIS-140",4,0,"FIS",["FIS-120","FIS-130"],""],
+		["Matemáticas IV","MAT-024",4,6,"MAT",["MAT-023"],"A"],
+		["Física General IV","FIS-140",4,8,"FIS",["FIS-130","FIS-120"],"A"],
 		["Electivo I","FIS-1",4,0,"LIC",[],""],
 		["Inglés II","HCW-101",2,0,"IN",["HCW-100"],""],
 		["Mecánica Intermedia I","FIS-210",4,0,"LIC",["MAT-023","FIS-110"],""]

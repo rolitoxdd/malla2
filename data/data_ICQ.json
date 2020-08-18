@@ -1,28 +1,28 @@
 {
     "s1": [
-        ["Matemática I","MAT021",5,0,"MAT",[],""],
+        ["Matemáticas I","MAT021",5,8,"MAT",[],"A"],
         ["Introducción a la Física","FIS100",3,0,"FIS",[],""],
         ["Química y Sociedad","QUI010",3,0,"QUI",[],""],
         ["Introducción a la Ingeniería","IWG101",2,0,"PC",[],""],
         ["Educación Física I","EFI100",1,0,"HUM",[],""]
     ],
     "s2": [
-        ["Matemática II","MAT022",5,0,"MAT",["MAT021"],""],
-        ["Física General I","FIS110",5,0,"FIS",["MAT021","FIS100"],""],
+        ["Matemáticas II","MAT022",5,7,"MAT",["MAT021"],"A"],
+        ["Física General I","FIS110",5,8,"FIS",["MAT021","FIS100"],"A"],
         ["Programación","IWI131",3,0,"PC",[],""],
         ["Humanístico I","HRW1",2,0,"HUM",[],""],
         ["Educación Física II","EFI101",1,0,"HUM",["EFI100"],""]
     ],
     "s3": [
-        ["Matemática III","MAT023",4,0,"MAT",["MAT022"],""],
-        ["Física General II","FIS120",4,0,"FIS",["MAT022","FIS110"],""],
+        ["Matemáticas III","MAT023",4,7,"MAT",["MAT022"],"A"],
+        ["Física General II","FIS120",4,8,"FIS",["MAT022","FIS110"],"A"],
         ["Química Básica","QUI026",4,0,"QUI",["QUI010"],""],
         ["Humanístico II","HRW2",2,0,"HUM",[],""],
         ["Inglés I","HCW100",2,0,"HUM",[],""],
         ["Taller de Ingeniería Química I","IQA010",1,0,"ICQ",[],""]
     ],
     "s4": [
-        ["Matemática IV","MAT024",4,0,"MAT",["MAT023"],""],
+        ["Matemáticas IV","MAT024",4,6,"MAT",["MAT023"],"A"],
         ["Balance de Materia","IQA126",4,0,"OPU",["MAT021","QUI026"],""],
         ["Química Inorgánica","QUI027",4,0,"QUI",["QUI026"],""],
         ["Economía I-A","ICS733",3,0,"IND",["MAT023"],""],
@@ -54,7 +54,7 @@
     "s8": [
         ["Fundamentos de Control Industrial","IQA350",4,0,"ICQ",["IQA224"],""],
         ["Ingeniería de Reactores","IQA261",4,0,"ICQ",["IQA224"],""],
-        ["Física General IV","FIS140",4,0,"FIS",["FIS120"],""],
+        ["Física General IV","FIS140",4,8,"FIS",["FIS120"],"A"],
         ["Elementos del Diseño Mecánico","IWQ180",3,0,"PC",["IWM179"],""],
         ["Taller de Ingeniería Química IV","IQA040",2,0,"ICQ",["IQA030"],""]
     ],

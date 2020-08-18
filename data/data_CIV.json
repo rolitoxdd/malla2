@@ -1,29 +1,29 @@
 {
 	"s1": [
-		["Matemáticas I","MAT-021",5,0,"PC",[],""],
-		["Introducción a la Física","FIS-100",3,0,"PC",[],""],
+		["Matemáticas I","MAT-021",5,8,"PC",[],"A"],
+		["Introducción a la Física","FIS-100",3,6,"PC",[],"A"],
 		["Programación","IWI-131",3,0,"PC",[],""],
 		["Educación Física I","DEW-100",1,0,"HUM",[],""],
 		["Introducción a la Ingeniería","IWG-101",2,0,"FI",[],""]
 	],
 	"s2": [
-		["Matemáticas II","MAT-022",5,0,"PC",["MAT-021"],""],
-		["Física General I","FIS-110",3,0,"PC",["MAT-021","FIS-100"],""],
+		["Matemáticas II","MAT-022",5,7,"PC",["MAT-021"],"A"],
+		["Física General I","FIS-110",5,8,"PC",["MAT-021","FIS-100"],"A"],
 		["Química y Sociedad","QUI-010",3,0,"PC",[],""],
 		["Educación Física II","DEW-101",1,0,"HUM",["DEW-100"],""],
 		["Humanístico I","HXW-001",2,0,"HUM",[],""]
 	],
 	"s3": [
-		["Matemáticas III","MAT-023",4,0,"PC",["MAT-022"],""],
-		["Física General II","FIS-120",4,0,"PC",["MAT-022","FIS-110"],""],
+		["Matemáticas III","MAT-023",4,7,"PC",["MAT-022"],"A"],
+		["Física General II","FIS-120",4,8,"PC",["MAT-022","FIS-110"],"A"],
 		["Estática De Estructuras","CIV-131",4,0,"ES",["MAT-022","FIS-110"],""],
 		["Dibujo En Ingeniería Civil","CIV-103",3,0,"FI",["IWI-131"],""],
 		["Humanístico II","HXW-002",2,0,"HUM",[],""],
 		["Deportes","DEW-0",1,0,"HUM",["DEW-101"],""]
 	],
 	"s4": [
-		["Matemáticas IV","MAT-024",4,0,"PC",["MAT-023"],""],
-		["Física General III","FIS-130",4,0,"PC",["MAT-022","FIS-110"],""],
+		["Matemáticas IV","MAT-024",4,6,"PC",["MAT-023"],"A"],
+		["Física General III","FIS-130",4,8,"PC",["MAT-022","FIS-110"],"A"],
 		["Mecánica De Materiales","CIV-133",4,0,"ES",["CIV-131","MAT-023"],""],
 		["Topografía","CIV-206",4,0,"FI",["CIV-103"],""],
 		["Humanístico III","HXW-003",2,0,"HUM",[],""]

@@ -1,23 +1,23 @@
 {
 	"s1": [
-		["Matemáticas I","MAT-021",5,0,"CSC",[],""],
+		["Matemáticas I","MAT-021",5,8,"CSC",[],"A"],
 		["Iniciación a la Programación","TEL-101",3,0,"SW",[],""],
-		["Introducción a la Física","FIS-100",3,0,"FIS",[],""],
+		["Introducción a la Física","FIS-100",3,6,"FIS",[],"A"],
 		["Introducción a la Ingeniería","IWG-101",2,0,"TIN",[],""],
 		["Humanístico I","HRW-101",2,0,"FG",[],""],
 		["Educación Física I","DEW-100",1,0,"DEW",[],""]
 	],
 	"s2": [
-		["Matemáticas II","MAT-022",5,0,"CSC",["MAT-021"],""],
-		["Física General I","FIS-110",5,0,"FIS",["MAT-021","FIS-100"],""],
+		["Matemáticas II","MAT-022",5,7,"CSC",["MAT-021"],"A"],
+		["Física General I","FIS-110",5,8,"FIS",["MAT-021","FIS-100"],"A"],
 		["Seminario de Programación","TEL-102",3,0,"SW",["TEL-101"],""],
 		["Expresión Oral y Escrita","HFW-144",2,0,"FG",[],""],
 		["Humanístico II","HRW-102",2,0,"FG",[],""],
 		["Educación Física II","DEW-101",1,0,"DEW",["DEW-100"],""]
 	],
 	"s3": [
-		["Matemáticas III","MAT-023",4,0,"CSC",["MAT-022"],""],
-		["Física General II","FIS-120",4,0,"FIS",["MAT-022","FIS-110"],""],
+		["Matemáticas III","MAT-023",4,7,"CSC",["MAT-022"],"A"],
+		["Física General II","FIS-120",4,8,"FIS",["MAT-022","FIS-110"],"A"],
 		["Estructura de Datos y Algoritmos","ELO-320",3,0,"SW",["TEL-102"],""],
 		["Redes de Computadores","ELO-322",3,0,"REDES",["TEL-101"],""],
 		["Inglés 1","HCW-100",2,0,"ENG",[],""],
@@ -32,7 +32,7 @@
 		["Inglés 2","HCW-101",2,0,"ENG",["HCW-100"],""]
 	],
 	"s5": [
-		["Física General III","FIS-130",4,0,"FIS",["MAT-022","FIS-110"],""],
+		["Física General III","FIS-130",4,8,"FIS",["MAT-022","FIS-110"],"A"],
 		["Fundamentos de Transmisión de Señales","TEL-222",3,0,"TELECO",["MAT-023","FIS-120"],""],
 		["Diseño y Program. Orientada a Objetos","ELO-329",3,0,"SW",["TEL-101"],""],
 		["Análisis y Diseño de Software","INF-236",3,0,"SW",["INF-239"],""],
@@ -40,7 +40,7 @@
 		["Inglés 3","HCW-102",2,0,"ENG",["HCW-101"],""]
 	],
 	"s6": [
-		["Matemáticas IV","MAT-024",4,0,"CSC",["MAT-023"],""],
+		["Matemáticas IV","MAT-024",4,6,"CSC",["MAT-023"],"A"],
 		["Sistemas de Telecomunicaciones","TEL-231",3,0,"TELECO",["TEL-222"],""],
 		["Laboratorio de Comunicaciones","ELO-241",3,0,"TELECO",["TEL-222","MAT-023"],""],
 		["Teoría de Sistemas Operativos","ELO-321",3,0,"SW",["TEL-102"],""],
@@ -56,7 +56,7 @@
 		["Inglés 5","HCW-201",2,0,"ENG",["HCW-200"],""]
 	],
 	"s8": [
-		["Física General IV","FIS-140",4,0,"FIS",["FIS-130","FIS-120"],""],
+		["Física General IV","FIS-140",4,8,"FIS",["FIS-130","FIS-120"],"A"],
 		["Teoría de Comunicaciones Digitales","ELO-341",3,0,"TELECO",["ELO-204","TEL-231"],""],
 		["Criptografía y Seguridad de la Información","TEL-252",3,0,"SW",["ELO-204","TEL-131","TEL-102"],""],
 		["Diseño de Aplicaciones Web y Móviles","TEL-335",3,0,"SW",["ELO-329","INF-239"],""],

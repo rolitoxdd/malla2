@@ -2,7 +2,7 @@
 	"s1": [
 		["Taller Introducción a la Arquitectura","ARQ101",10,0,"TAL",[],""],
 		["Matemáticas I","MAT050",4,0,"MAT",[],""],
-		["Introducción a la Física","FIS100",3,0,"FIS",[],""],
+		["Introducción a la Física","FIS100",3,6,"FIS",[],"A"],
 		["Educación Física I","DEW100",1,0,"HUM",[],""]
 	],
 	"s2": [

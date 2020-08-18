@@ -1,31 +1,31 @@
 {
 	"s1": [
 		["Programación","IWI131",3,0,"ROS",[],""],
-		["Matemáticas I","MAT021",5,0,"CEL",[],""],
-		["Introducción a la Física","FIS100",3,0,"FI",[],""],
+		["Matemáticas I","MAT021",5,8,"CEL",[],"A"],
+		["Introducción a la Física","FIS100",3,6,"FI",[],"A"],
 		["Educación Física I","DEW100",1,0,"HUM",[],""],
 		["Introducción a la Ingeniería Mecánica","MEC101",3,0,"VER",[],""]
 	],
 	"s2": [
 		["Química y Sociedad","QUI010",3,0,"ROS",[],""],
-		["Matemáticas II","MAT022",5,0,"CEL",["MAT021"],""],
-		["Física General I","FIS110",5,0,"FI",["MAT021","FIS100"],""],
+		["Matemáticas II","MAT022",5,7,"CEL",["MAT021"],"A"],
+		["Física General I","FIS110",5,8,"FI",["MAT021","FIS100"],"A"],
 		["Inglés I","HCW100",2,0,"ING",[],""],
 		["Educación Física II","DEW101",1,0,"HUM",["DEW100"],""],
 		["Gráfica en Ingeniería Mecánica","MEC141",3,0,"VER",["FIS100"],""]
 	],
 	"s3": [
 		["Estática","MEC151",3,0,"VER",["MAT022","FIS110"],""],
-		["Matemáticas III","MAT023",4,0,"CEL",["MAT022"],""],
-		["Física General II","FIS120",4,0,"FI",["MAT022","FIS110"],""],
+		["Matemáticas III","MAT023",4,7,"CEL",["MAT022"],"A"],
+		["Física General II","FIS120",4,8,"FI",["MAT022","FIS110"],"A"],
 		["Gráfica de Sistemas Mecánicos","MEC142",4,0,"VER",["MEC141"],""],
 		["Inglés II","HCW101",2,0,"ING",["HCW100"],""],
 		["Materiales Para Ingeniería","MET203",3,0,"ROS",["QUI010"],""]
 	],
 	"s4": [
 		["Dinámica","MEC252",4,0,"VER",["MAT023","MEC151"],""],
-		["Matemáticas IV","MAT024",4,0,"CEL",["MAT023"],""],
-		["Física General IV","FIS140",4,0,"FI",["FIS120"],""],
+		["Matemáticas IV","MAT024",4,6,"CEL",["MAT023"],"A"],
+		["Física General IV","FIS140",4,8,"FI",["FIS120"],"A"],
 		["Inglés III","HCW102",2,0,"ING",["HCW101"],""],
 		["Tecnología de Taller","MEC160",4,0,"VER",["MEC141","MET203","MEC151"],""]
 	],
@@ -56,6 +56,7 @@
 		["Mediciones Mecánicas","MEC260",3,0,"VER",["MEC160"],""],
 		["Regulación y Contaminación Ambiental","MEC346",3,0,"VER",["MEC120","MEC230"],""],
 		["Fundamentos de Electrotecnia","ELI270",4,0,"MO",["MAT022","FIS120"],""],
+		["Diseño mecánico", "ICM-381", 3, 5, "MO", [], ""],
 		["Electivo 1","MEC1",3,0,"AMA",[],""]
 	],
 	"s9": [

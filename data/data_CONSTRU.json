@@ -2,7 +2,7 @@
 	"s1": [
 		["Programación","IWI-131",3,0,"PC",[],""],
 		["Matemáticas I","MAT-011",5,0,"MF",[],""],
-		["Introducción a la Física","FIS-100",3,0,"MF",[],""],
+		["Introducción a la Física","FIS-100",3,6,"MF",[],"A"],
 		["Introducción a la Ingeniería","IWG-101",2,0,"PC",[],""],
 		["Educación Física I","DEW-100",1,0,"PC",[],""]
 	],

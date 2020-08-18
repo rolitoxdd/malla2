@@ -1,30 +1,30 @@
 {
 	"s1": [
 		["Química y Sociedad","QUI010",3,0,"QUI",[],""],
-		["Matemáticas I","MAT021",5,0,"MAT",[],""],
-		["Introducción a la Física","FIS100",3,0,"FIS",[],""],
+		["Matemáticas I","MAT021",5,8,"MAT",[],"A"],
+		["Introducción a la Física","FIS100",3,6,"FIS",[],"A"],
 		["Introducción a la Ingeniería","IWG101",2,0,"IQA",[],""],
 		["Educación Física I","DEW100",1,0,"HUM",[],""]
 	],
 	"s2": [
 		["Programación","IWI131",3,0,"INF",[],""],
-		["Matemáticas II","MAT022",5,0,"MAT",["MAT021"],""],
-		["Física General I","FIS110",5,0,"FIS",["MAT021","FIS100"],""],
+		["Matemáticas II","MAT022",5,7,"MAT",["MAT021"],"A"],
+		["Física General I","FIS110",5,8,"FIS",["MAT021","FIS100"],"A"],
 		["Humanístico I","HRW1",2,0,"HUM",[],""],
 		["Educación Física II","DEW101",1,0,"HUM",["DEW100"],""]
 	],
 	"s3": [
 		["Biología","IMQ010",3,0,"IQA",["QUI010"],""],
-		["Matemáticas 3","MAT023",4,0,"MAT",["MAT022"],""],
-		["Física General II","FIS120",4,0,"FIS",["MAT022","FIS110"],""],
+		["Matemáticas III","MAT023",4,7,"MAT",["MAT022"],"A"],
+		["Física General II","FIS120",4,8,"FIS",["MAT022","FIS110"],"A"],
 		["Química Básica","QUI021",3,0,"QUI",["QUI010"],""],
 		["Laboratorio de Química Básica","QUI103",3,0,"QUI",[],""],
 		["Deportes","DEW0",1,0,"HUM",["DEW101"],""]
 	],
 	"s4": [
 		["Introducción a la Microbiología","IWQ261",3,0,"IQA",["QUI010"],""],
-		["Matemáticas IV","MAT024",4,0,"MAT",["MAT023"],""],
-		["Física General III","FIS130",4,0,"FIS",["FIS110","MAT022"],""],
+		["Matemáticas IV","MAT024",4,6,"MAT",["MAT023"],"A"],
+		["Física General III","FIS130",4,8,"FIS",["MAT022","FIS110"],"A"],
 		["Química de Procesos","QUI024",3,0,"QUI",["QUI021"],""],
 		["Química Orgánica","QUI134",4,0,"QUI",["QUI021"],""]
 	],

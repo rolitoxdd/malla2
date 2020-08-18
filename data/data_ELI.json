@@ -1,30 +1,30 @@
 {
 	"s1": [
 		["Química y Sociedad","QUI010",3,0,"ROS",[],""],
-		["Matemáticas I","MAT021",5,0,"MAT",[],""],
-		["Introducción a la Física","FIS100",3,0,"FI",[],""],
+		["Matemáticas I","MAT021",5,8,"MAT",[],"A"],
+		["Introducción a la Física","FIS100",3,6,"FI",[],"A"],
 		["Educación Física I","DEW100",1,0,"HUM",[],""],
 		["Introducción a la Ingeniería","IWG101",2,0,"FI",[],""]
 	],
 	"s2": [
 		["Programación","IWI131",3,0,"ROS",[],""],
-		["Matemáticas II","MAT022",5,0,"MAT",["MAT021"],""],
-		["Física General I","FIS110",5,0,"FI",["MAT021","FIS100"],""],
+		["Matemáticas II","MAT022",5,7,"MAT",["MAT021"],"A"],
+		["Física General I","FIS110",5,8,"FI",["MAT021","FIS100"],"A"],
 		["Visión Trascendente","HRW1",2,0,"HUM",[],""],
 		["Educación Física II","DEW101",1,0,"HUM",["DEW100"],""]
 	],
 	"s3": [
 		["Visión Inmanente","HWR102",2,0,"HUM",[],""],
-		["Física General II","FIS120",4,0,"FI",["MAT022","FIS110"],""],
-		["Matemática 3","MAT023",4,0,"MAT",["MAT022"],""],
+		["Física General II","FIS120",4,8,"FI",["MAT022","FIS110"],"A"],
+		["Matemáticas III","MAT023",4,7,"MAT",["MAT022"],"A"],
 		["Deportes","DEW0",1,0,"HUM",["DEW101"],""],
 		["Inglés I","HCW100",2,0,"HUM",[],""],
 		["Materiales para la ingeniería","IWC203",3,0,"MEC",["FIS110","QUI010"],""]
 	],
 	"s4": [
 		["Introducción a la electrotécnia","ELI110",4,0,"ELI",["MAT022","FIS120"],""],
-		["Matemática IV","MAT024",4,0,"MAT",["MAT023"],""],
-		["Física General III","FIS130",4,0,"FI",["FIS110","MAT022"],""],
+		["Matemáticas IV","MAT024",4,6,"MAT",["MAT023"],"A"],
+		["Física General III","FIS130",4,8,"FI",["MAT022","FIS110"],"A"],
 		["Mecánica General","IWM151",4,0,"MEC",["FIS110"],""],
 		["Visión Estética","HWR103",2,0,"HUM",[],""],
 		["Crecimiento y Desarrollo","HWR104",2,0,"HUM",[],""]
@@ -52,7 +52,7 @@
 		["Electrónica General II","ELI217",4,0,"ELI",["ELI216"],""]
 	],
 	"s8": [
-		["Física General IV","FIS140",4,0,"FI",["FIS120","FIS130"],""],
+		["Física General IV","FIS140",4,8,"FI",["FIS130","FIS120"],"A"],
 		["Economía I","ILN270",3,0,"IND",["MAT023"],""],
 		["Lab. Conversión Electromecánica de Energía","ELI221",3,0,"ELI",["ELI214","ELI212"],""],
 		["Mecánica de Fluidos General","IWM220",4,0,"MEC",["MAT024","IWM210"],""],

@@ -1,23 +1,23 @@
 {
     "s1": [
-        ["Matemáticas I","MAT-021",5,0,"PC",[],""],
+        ["Matemáticas I","MAT-021",5,8,"PC",[],"A"],
         ["Programación","IWI-131",3,0,"CI",[],""],
-        ["Introducción a la Física","FIS-100",3,0,"PC",[],""],
+        ["Introducción a la Física","FIS-100",3,6,"PC",[],"A"],
         ["Introducción a la Ingeniería","IWG-101",2,0,"IAA",[],""],
         ["Humanístico I","HRW-101",2,0,"FC",[],""],
         ["Educación Física I","DEW-100",1,0,"DEW",[],""]
     ],
     "s2": [
-        ["Matemáticas II","MAT-022",5,0,"PC",["MAT-021"],""],
-        ["Física General I","FIS-110",3,0,"PC",["MAT-021","FIS-100"],""],
+        ["Matemáticas II","MAT-022",5,7,"PC",["MAT-021"],"A"],
+        ["Física General I","FIS-110",5,8,"PC",["MAT-021","FIS-100"],"A"],
         ["Química y Sociedad","QUI-010",3,0,"PC",[],""],
         ["Humanístico II","HRW-102",2,0,"FC",[],""],
         ["Inglés 1","HCW-100",2,0,"ENG",[],""],
         ["Educación Física II","DEW-101",1,0,"DEW",["DEW-100"],""]
     ],
     "s3": [
-        ["Matemáticas III","MAT-023",4,0,"PC",["MAT-022"],""],
-        ["Física General II","FIS-120",4,0,"PC",["MAT-022","FIS-110"],""],
+        ["Matemáticas III","MAT-023",4,7,"PC",["MAT-022"],"A"],
+        ["Física General II","FIS-120",4,8,"PC",["MAT-022","FIS-110"],"A"],
         ["Estructura de Datos y Algoritmos","ELO-320",3,0,"CI",["IWI-131"],""],
         ["Inglés 2","HCW-101",2,0,"ENG",["HCW-100"],""],
         ["Álgebra Lineal I","MAT-210",4,0,"ICMATB",["MAT-022"],""]
@@ -25,14 +25,14 @@
     "s4": [
         ["Introducción a la Matemática Avanzada","MAT-125",4,0,"ICMATB",["MAT-022"],""],
         ["Probabilidades y Estadística","MAT-041",4,0,"CI",["MAT-023"],""],
-        ["Matemáticas IV","MAT-024",4,0,"PC",["MAT-023"],""],
-        ["Física General III","FIS-130",4,0,"PC",["MAT-022","FIS-110"],""],
+        ["Matemáticas IV","MAT-024",4,6,"PC",["MAT-023"],"A"],
+        ["Física General III","FIS-130",4,8,"PC",["MAT-022","FIS-110"],"A"],
         ["Inglés 3","HCW-102",2,0,"ENG",["HCW-101"],""]
     ],
     "s5": [
         ["Análisis I","MAT-225",4,0,"ICMATB",["MAT-125","MAT-023"],""],
         ["Estructuras Algebraicas","MAT-214",4,0,"ICMATB",["MAT-210"],""],
-        ["Física General IV","FIS-140",4,0,"PC",["FIS-120","FIS-130"],""],
+        ["Física General IV","FIS-140",4,8,"PC",["FIS-130","FIS-120"],"A"],
         ["Análisis Numérico I","MAT-270",4,0,"CI",["MAT-024","IWI-131"],""],
         ["Inglés 4","HCW-103",2,0,"ENG",["HCW-102"],""]
     ],

@@ -1,22 +1,22 @@
 {
 	"s1": [
 		["Química y Sociedad","QUI010",3,0,"ROS",[],""],
-		["Matemáticas I","MAT021",5,0,"CEL",[],""],
-		["Introducción a la Física","FIS100",3,0,"FI",[],""],
+		["Matemáticas I","MAT021",5,8,"CEL",[],"A"],
+		["Introducción a la Física","FIS100",3,6,"FI",[],"A"],
 		["Educación Física I","DEW100",1,0,"HUM",[],""],
 		["Introducción a la Ingeniería","IWG101",2,0,"FI",[],""]
 	],
 	"s2": [
 		["Programación","IWI131",3,0,"ROS",[],""],
-		["Matemáticas II","MAT022",5,0,"CEL",["MAT021"],""],
-		["Física General I","FIS110",5,0,"FI",["MAT021","FIS100"],""],
+		["Matemáticas II","MAT022",5,7,"CEL",["MAT021"],"A"],
+		["Física General I","FIS110",5,8,"FI",["MAT021","FIS100"],"A"],
 		["Humanístico I","HRW1",2,0,"HUM",[],""],
 		["Educación Física II","DEW101",1,0,"HUM",["DEW100"],""]
 	],
 	"s3": [
 		["Teoría de Redes Eléctricas I","ELO102",4,0,"VER",["MAT022","FIS110"],""],
-		["Matemáticas III","MAT023",4,0,"CEL",["MAT022"],""],
-		["Física General II","FIS120",4,0,"FI",["MAT022","FIS110"],""],
+		["Matemáticas III","MAT023",4,7,"CEL",["MAT022"],"A"],
+		["Física General II","FIS120",4,8,"FI",["MAT022","FIS110"],"A"],
 		["Humanístico II","HRW2",2,0,"HUM",[],""],
 		["Humanístico III","HRW3",2,0,"HUM",[],""],
 		["Deportes","DEW0",1,0,"HUM",["DEW101"],""]
@@ -24,13 +24,13 @@
 	"s4": [
 		["Teoría de Redes Eléctricas II","ELO103",3,0,"VER",["ELO102"],""],
 		["Análisis de Sistemas Lineales","ELO104",4,0,"VER",["MAT023","ELO102"],""],
-		["Física General III","FIS130",4,0,"FI",["MAT022","FIS110"],""],
+		["Física General III","FIS130",4,8,"FI",["MAT022","FIS110"],"A"],
 		["Electronica A","ELO106",4,0,"VER",["ELO102"],""],
 		["Laboratorio Electronica A","ELO107",3,0,"RO",["ELO102"],""]
 	],
 	"s5": [
 		["Electronica B","ELO108",4,0,"VER",["ELO106"],""],
-		["Matemáticas IV","MAT024",4,0,"CEL",["MAT023"],""],
+		["Matemáticas IV","MAT024",4,6,"CEL",["MAT023"],"A"],
 		["Laboratorio Electronica B","ELO109",3,0,"RO",["ELO107","ELO106"],""],
 		["Sistemas Digitales","ELO211",3,0,"VER",["ELO102"],""],
 		["Laboratorio de Sistemas Digitales","ELO212",3,0,"RO",["ELO102"],""],
@@ -54,7 +54,7 @@
 	"s8": [
 		["Administración General","IWN261",3,0,"IND",[],""],
 		["Gestión de Investigación de Operaciones","ILN250",4,0,"VER",["ELO204"],""],
-		["Física General IV","FIS140",4,0,"FI",["FIS130","FIS120"],""],
+		["Física General IV","FIS140",4,8,"FI",["FIS130","FIS120"],"A"],
 		["1A. Asignatura de la Mención","ELO1",3,0,"AMA",[],""],
 		["2A. Asignatura de la Mención","ELO2",3,0,"AMA",[],""]
 	],
