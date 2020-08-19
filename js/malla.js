@@ -538,7 +538,7 @@ class Malla {
 
                 subjectData.push(subject.category)
                 subjectData.push([...subject.prer])
-                subjectData.push("")
+                subjectData.push(subject.dictatesIn)
                 data[key].push(subjectData)
 
             })

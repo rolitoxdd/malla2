@@ -505,9 +505,20 @@ class MallaEditor {
         }
         cache = JSON.parse(cache)
         //console.log(cache)
+        let prersNotFound = {}
         Object.keys(cache).forEach(sigla => {
             let data = cache[sigla]
             if (this.semesterManager.malla.ALLSUBJECTS[sigla] === undefined) {
+                data[3] = data[3].filter(prer => {
+                    if (this.semesterManager.malla.ALLSUBJECTS[prer] === undefined) {
+                        if (prersNotFound[prer] === undefined) {
+                            prersNotFound[prer] = []
+                        }
+                        prersNotFound[prer].push(sigla)
+                        return false
+                    }
+                    return true
+                })
                 let subject = new SelectableRamo(data[0], sigla, data[1], data[2], data[3],
                     this.semesterManager.malla.SUBJECTID++, this.semesterManager.malla, data[4], true, 6 === data.length ? data[5] : "")
                 this.semesterManager.malla.addSubject(subject)
@@ -524,6 +535,19 @@ class MallaEditor {
                 this.updateState(subject)
             }
         })
+        if (Object.keys(prersNotFound).length !== 0){
+            let toast = $('.toast')
+            toast.toast('show')
+            let list = d3.select('#deletedSubjects').append('ul')
+            Object.keys(prersNotFound).forEach(prer => {
+                let nestedList = list.append('li').text(`Ramos que tenían a ${prer} como prerrequisito`).append('ul')
+                prersNotFound[prer].forEach(subject => {
+                    nestedList.append('li').text(subject)
+                })
+            })
+            d3.select('#deletedCard').classed('d-none', false)
+        }
+
     }
 
     loadOldSubjects() {
@@ -531,6 +555,8 @@ class MallaEditor {
         if (this.advanced){
             cache = localStorage["Custom-" + this.semesterManager.malla.currentMalla + "_CUSTOM"]
             if (cache) {
+                let prersNotFound = {}
+
                 let customSubjects = JSON.parse(cache);
 
                 for (let sigla in customSubjects) {
@@ -542,6 +568,18 @@ class MallaEditor {
                     } else if (!(data[4] != [])) {
                         prer = data[4]
                     }
+                    prer = prer.filter(prer => {
+                        if (this.semesterManager.malla.ALLSUBJECTS[prer] === undefined) {
+                            if (prersNotFound[prer] === undefined) {
+                                prersNotFound[prer] = []
+                            }
+                            prersNotFound[prer].push(sigla)
+                            return false
+                        }
+                        return true
+                    })
+
+
                     if (this.semesterManager.malla.ALLSUBJECTS[sigla] === undefined) {
                         let subject = new this.semesterManager.malla.subjectType(data[0], data[1], data[2], data[3], prer,
                             this.semesterManager.malla.SUBJECTID++, this.semesterManager.malla, 0, true);
@@ -559,6 +597,19 @@ class MallaEditor {
                     }
                 }
                 delete localStorage["Custom-" + this.semesterManager.malla.currentMalla + "_CUSTOM"]
+                if (Object.keys(prersNotFound).length !== 0){
+                    let toast = $('.toast')
+                    toast.toast('show')
+                    let list = d3.select('#deletedSubjects').append('ul')
+                    Object.keys(prersNotFound).forEach(prer => {
+                        let nestedList = list.append('li').text(`Ramos que tenían a ${prer} como prerrequisito`).append('ul')
+                        prersNotFound[prer].forEach(subject => {
+                            nestedList.append('li').text(subject)
+                        })
+                    })
+                    d3.select('#deletedCard').classed('d-none', false)
+                }
+
             }
         } else {
             // prioridad

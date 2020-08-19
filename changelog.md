@@ -1,6 +1,14 @@
 # Changelog
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
+# [1.4.2]
+
+- En caso de cambios importantes en la malla, se avisa al usuario de las asignaturas no encontradas
+- se corrigieron errores al generar el código de la malla personal
+- Ahora es posible clickear ramos creados fuera de la malla en la malla personal
+- La malla ahora muestra los años correctos
+- cambios en el footer y en la barra de navegación
+
 # [1.4.1]
 
 - La interfaz ahora no cambia mucho al cargar la malla

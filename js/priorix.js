@@ -313,27 +313,50 @@ class Priorix extends SemesterManager {
                 return
         }
         this.saveEnabled = false
-        console.log(cache)
         this.subjectGrades = Object.assign({}, cache[0])
         this.faes = cache[1]
         let i = 1
         let firstSemester = this.subjectGrades[1]
         this.selectedPerSemester[1] = []
+        let subjectsNotFound = {}
         Object.keys(firstSemester).forEach(sigla => {
-            this.malla.ALLSUBJECTS[sigla].selectRamo()
-            this.displayedSubjects[sigla][1].property("value", cache[0][1][sigla])
-
+            if (this.malla.ALLSUBJECTS[sigla] !== undefined) {
+                this.malla.ALLSUBJECTS[sigla].selectRamo()
+                this.displayedSubjects[sigla][1].property("value", cache[0][1][sigla])
+            } else {
+                if (subjectsNotFound[1] === undefined) {
+                    subjectsNotFound[1] = []
+                }
+                subjectsNotFound[1].push([sigla + ': ' + this.subjectGrades[1][sigla]])
+                delete this.subjectGrades[1][sigla]
+            }
         })
         this.calculate()
-        console.log(this.selectedPerSemester)
         for (i; i < Object.keys(this.subjectGrades).length; i++) {
             this.selectedPerSemester[i+1] = []
             Object.keys(this.subjectGrades[i+1]).forEach(sigla => {
-                this.selectedPerSemester[i+1].push(this.malla.ALLSUBJECTS[sigla])
+                if (this.malla.ALLSUBJECTS[sigla] !== undefined)
+                    this.selectedPerSemester[i+1].push(this.malla.ALLSUBJECTS[sigla])
+                else {
+                    if (subjectsNotFound[i+1] === undefined)
+                        subjectsNotFound[i+1] = []
+                    subjectsNotFound[i+1].push([sigla + ': ' + this.subjectGrades[i+1][sigla]])
+                    delete this.subjectGrades[i+1][sigla]
+                }
             })
-            console.log(this.selectedPerSemester)
             this.nextSemester()
-
+        }
+        if (Object.keys(subjectsNotFound).length !== 0){
+            let toast = $('.toast')
+            toast.toast('show')
+            let list = d3.select('#deletedSubjects').append('ul')
+            Object.keys(subjectsNotFound).forEach(sem => {
+                let nestedList = list.append('li').text(`Semestre ${sem}`).append('ul')
+                subjectsNotFound[sem].forEach(subject => {
+                    nestedList.append('li').text(subject)
+                })
+            })
+            d3.select('#deletedCard').classed('d-none', false)
         }
         this.saveEnabled = true
         if (needtoDelete) {
@@ -341,7 +364,6 @@ class Priorix extends SemesterManager {
             delete localStorage["prioridad-" + this.malla.currentMalla + "_SEMESTRES"]
             delete localStorage["prioridad-" + this.malla.currentMalla + "_SEMESTRES"]
         }
-
 
     }
 

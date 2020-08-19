@@ -77,6 +77,18 @@
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<div role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 3" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+  <div class="toast-header">
+    <strong class="mr-auto">Algunos ramos ya no existen en la malla</strong>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Debido a un cambio reciente en la malla, algunos ramos no se pudieron encontrar... Se ha creado una lista con los ramos sin encontrar y sus notas al final de la página
+  </div>
+</div>
+
 
 <!-- Agregar ramo personalizado -->
 <div class="modal fade"
@@ -219,7 +231,6 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-
 
 <!-- Main  -->
 <section class="container-fluid flex-grow-1">
@@ -373,6 +384,22 @@
       </div>
     </div>
   </div>
+  <div id="deletedCard" class="row justify-content-center mt-5 d-none">
+    <div class="col-sm-5 col-lg-3">
+        <div class="card">
+          <div  class="card-header">
+            <h3 class="card-title">Asignaturas Eliminadas</h3>
+          </div>
+          <div id="deletedSubjects" class="card-body">
+            <small class="text-muted">
+              Nota: Guarda esta lista en otro lugar si quieres tener un respaldo, si haces un cambio en la calculadora, es posible que no puedas volver a ver esta lista
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
 <!-- Main END -->
 <!-- Footer -->
@@ -409,7 +436,14 @@
 <!-- fin svg ramo -->
 
 <script src='https://d3js.org/d3.v5.min.js'></script>
-<script defer src='../js/min2.js'></script>
+<!--<script defer src='../js/min2.js'></script>-->
+<script src="../js/malla.js"></script>
+<script src="../js/ramo.js"></script>
+<script src="../js/selectableRamo.js"></script>
+<script src="../js/semesterManager.js"></script>
+<script src="../js/priorix.js"></script>
+<script src="../js/mallaEditor.js"></script>
+<script defer src="../js/init.js"></script>
 
 <!-- Smooth scroll -->
 <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>

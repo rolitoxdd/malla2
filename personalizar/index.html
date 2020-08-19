@@ -77,6 +77,17 @@
   <!-- End Google Tag Manager (noscript) -->
 
 
+  <div role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 3" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+      <strong class="mr-auto">Algunos ramos ya no existen en la malla</strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      Debido a un cambio reciente en la malla, algunos ramos no se pudieron encontrar... Se ha creado una lista con los ramos sin encontrar al final de la página
+    </div>
+  </div>
 
 
 
@@ -526,6 +537,21 @@
           </div>
         </div>
       </div>
+    </div>
+    <div id="deletedCard" class="row justify-content-center mt-5 d-none">
+      <div class="col-sm-5 col-lg-3">
+        <div class="card">
+          <div  class="card-header">
+            <h3 class="card-title">Asignaturas Eliminadas</h3>
+          </div>
+          <div id="deletedSubjects" class="card-body">
+            <small class="text-muted">
+              Nota: Guarda esta lista en otro lugar si quieres tener un respaldo, es posible que no puedas volver a ver esta lista o algunos de los contenidos
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
 
   </section>

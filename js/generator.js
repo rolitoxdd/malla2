@@ -131,18 +131,46 @@ class Generator extends SemesterManager {
         if (cache) {
             cache = JSON.parse(cache)
             this.saveEnabled = false
+            let subjectsNotFound = {}
             let firstSemester = cache[1]
             firstSemester.forEach(sigla => {
-                this.malla.ALLSUBJECTS[sigla].selectRamo()
+                if (this.malla.ALLSUBJECTS[sigla] !== undefined) {
+                    this.malla.ALLSUBJECTS[sigla].selectRamo()
+                } else {
+                    if (subjectsNotFound[1] === undefined) {
+                        subjectsNotFound[1] = []
+                    }
+                    subjectsNotFound[1].push(sigla)
+                }
             })
             let i = 1
             for (i; i < Object.keys(cache).length; i++) {
                 this.selectedPerSemester[i + 1] = []
                 cache[i + 1].forEach(sigla => {
-                    this.selectedPerSemester[i + 1].push(this.malla.ALLSUBJECTS[sigla])
+                    if (this.malla.ALLSUBJECTS[sigla] !== undefined)
+                        this.selectedPerSemester[i+1].push(this.malla.ALLSUBJECTS[sigla])
+                    else {
+                        if (subjectsNotFound[i+1] === undefined)
+                            subjectsNotFound[i+1] = []
+                        subjectsNotFound[i+1].push(sigla)
+                    }
                 })
                 this.nextSemester()
             }
+            if (Object.keys(subjectsNotFound).length !== 0) {
+                console.log(subjectsNotFound)
+                let toast = $('.toast')
+                toast.toast('show')
+                let list = d3.select('#deletedSubjects').append('ul')
+                Object.keys(subjectsNotFound).forEach(sem => {
+                    let nestedList = list.append('li').text(`Semestre ${sem}`).append('ul')
+                    subjectsNotFound[sem].forEach(subject => {
+                        nestedList.append('li').text(subject)
+                    })
+                })
+                d3.select('#deletedCard').classed('d-none', false)
+            }
+
             this.saveEnabled = true
             if (needToDelete) {
                 this.saveSemesters()

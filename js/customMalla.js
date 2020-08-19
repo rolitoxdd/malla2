@@ -96,7 +96,7 @@ class CustomMalla extends Malla {
                                 data[3].splice(data[3].indexOf(prer), 1)
                         })
                         this.malla[semester][sigla] = new this.subjectType(data[0], sigla, data[1], data[2], data[3],
-                            this.SUBJECTID++, this, data[4], true)
+                            this.SUBJECTID++, this, data[4], false, data[5])
                     }
                     totalCredits += this.malla[semester][sigla].getDisplayCredits()
                     this.addSubject(this.malla[semester][sigla])
@@ -117,6 +117,6 @@ class CustomMalla extends Malla {
         })
 
         this.isMallaSet = true;
-
+        console.log(this.ALLSUBJECTS)
     }
 }
