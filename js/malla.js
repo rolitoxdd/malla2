@@ -396,7 +396,8 @@ class Malla {
             if (cache) {
                 let loadedData = JSON.parse(cache)
                 loadedData.forEach(siglaRamo => {
-                    this.ALLSUBJECTS[siglaRamo].approveRamo()
+                    if (this.ALLSUBJECTS[siglaRamo] !== undefined)
+                        this.ALLSUBJECTS[siglaRamo].approveRamo()
                 })
                 this.verifyPrer()
             }
