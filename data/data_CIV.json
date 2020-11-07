@@ -73,7 +73,7 @@
 	"s11": [
 		["Ingeniería Sísmica","CIV-338",3,0,"ES",["CIV-235","CIV-336"],"I"],
 		["Ingeniería del Medio Ambiente","CIV-378",3,0,"AG",["CIV-377"],"I"],
-		["Evaluación de Proyectos","CIV-390",3,0,"GE",["CIV-381"],"I"],
+		["Evaluación de Proyectos","CIV-390",3,0,"GE",["CIV-381"],"A"],
 		["Taller de Titulación I","CIV-397",4,0,"OP",[],"A"],
 		["Optativo de Especialidad II","CIVOE-2",4,0,"OP",[],"A"]
 	],

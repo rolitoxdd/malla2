@@ -1,93 +1,93 @@
 {
 	"s1": [
-		["Matemáticas I","MAT-021",5,8,"MAT",[],""],
-		["Introducción a la Física","FIS-100",3,6,"FIS",[],""],
-		["Química y Sociedad","QUI-010",3,0,"QUI",[],""],
-		["Introducción a la Ingeniería","IWG-101",2,0,"IQA",[],""],
-		["Educación Física I","DEW-100",1,0,"HUM",[],""]
+		["Matemáticas I","MAT021",5,8,"MAT",[],""],
+		["Introducción a la Física","FIS100",3,6,"FIS",[],""],
+		["Química y Sociedad","QUI010",3,0,"QUI",[],""],
+		["Introducción a la Ingeniería","IWG101",2,0,"IQA",[],""],
+		["Educación Física I","DEW100",1,0,"HUM",[],""]
 	],
 	"s2": [
-		["Matemáticas II","MAT-022",5,7,"MAT",["MAT-021"],""],
-		["Física General I","FIS-110",5,8,"FIS",["MAT-021","FIS-100"],""],
-		["Programación","IWI-131",3,0,"INF",[],""],
-		["Educación Física II","DEW-101",1,0,"HUM",["DEW-100"],""],
-		["Humanístico I","HRW-1",2,0,"HUM",[],""],
-		["Inglés I","HCW-100",2,0,"HUM",[],""]
+		["Matemáticas II","MAT022",5,7,"MAT",["MAT021"],""],
+		["Física General I","FIS110",5,8,"FIS",["MAT021","FIS100"],""],
+		["Programación","IWI131",3,0,"INF",[],""],
+		["Educación Física II","DEW101",1,0,"HUM",["DEW100"],""],
+		["Humanístico I","HRW1",2,0,"HUM",[],""],
+		["Inglés I","HCW100",2,0,"HUM",[],""]
 	],
 	"s3": [
-		["Matemáticas III","MAT-023",4,7,"MAT",["MAT-022"],""],
-		["Física General II","FIS-120",4,8,"FIS",["MAT-022","FIS-110"],""],
-		["Ecosistemas y Biodiversidad","IQA-101",2,0,"IQA",["QUI-010"],""],
-		["Química Básica","QUI-026",4,0,"QUI",["QUI-010"],""],
-		["Taller de Ing. Ambiental I","IQA-321",1,0,"IQA",["IWG-101"],""],
-		["Inglés II","HCW-101",2,0,"HUM",["HCW-100"],""]
+		["Matemáticas III","MAT023",4,7,"MAT",["MAT022"],""],
+		["Física General II","FIS120",4,8,"FIS",["MAT022","FIS110"],""],
+		["Ecosistemas y Biodiversidad","IQA101",2,0,"IQA",["QUI010"],""],
+		["Química Básica","QUI026",4,0,"QUI",["QUI010"],""],
+		["Taller de Ing. Ambiental I","IQA321",1,0,"IQA",["IWG101"],""],
+		["Inglés II","HCW101",2,0,"HUM",["HCW100"],""]
 	],
 	"s4": [
-		["Optativo Ciencias","IQA-110",4,0,"IQA",[],""],
-		["Física General III","FIS-130",4,8,"FIS",["MAT-022","FIS-110"],""],
-		["Balance de Materia","IQA-126",4,0,"IQA",["MAT-021","QUI-026"],""],
-		["Química Orgánica para Ing. Ambiental","QUI-029",4,0,"QUI",["QUI-026"],""],
-		["Inglés III","HCW-102",2,0,"HUM",["HCW-101"],""]
+		["Optativo Ciencias","IQA110",4,0,"IQA",[],""],
+		["Física General III","FIS130",4,8,"FIS",["MAT022","FIS110"],""],
+		["Balance de Materia","IQA126",4,0,"IQA",["MAT021","QUI026"],""],
+		["Química Orgánica para Ing. Ambiental","QUI029",4,0,"QUI",["QUI026"],""],
+		["Inglés III","HCW102",2,0,"HUM",["HCW101"],""]
 	],
 	"s5": [
-		["Mecánica de Sistemas Fluidos","IQA-221",4,0,"IQA",["FIS-110"],""],
-		["Microbiología Ambiental","IQA-102",4,0,"IQA",["IQA-101"],""],
-		["Termodinámica de Procesos","IQA-211",4,0,"IQA",["IQA-126"],""],
-		["Dibujo de Ing. de Procesos","MEC-144",3,0,"MEC",[],""],
-		["Deportes","DEW-0",1,0,"HUM",["DEW-101"],""],
-		["Inglés IV","HCW-200",2,0,"HUM",["HCW-102"],""]
+		["Mecánica de Sistemas Fluidos","IQA221",4,0,"IQA",["FIS110"],""],
+		["Microbiología Ambiental","IQA102",4,0,"IQA",["IQA101"],""],
+		["Termodinámica de Procesos","IQA211",4,0,"IQA",["IQA126"],""],
+		["Dibujo de Ing. de Procesos","MEC144",3,0,"MEC",[],""],
+		["Deportes","DEW0",1,0,"HUM",["DEW101"],""],
+		["Inglés IV","HCW200",2,0,"HUM",["HCW102"],""]
 	],
 	"s6": [
-		["Transferencia de Calor","IQA-222",4,0,"IQA",["IQA-221","IQA-211"],""],
-		["Análisis y Diseño de Exp. Industriales","IQA-214",3,0,"IQA",["IQA-126"],""],
-		["Termodinámica para Ingeniería Ambiental","IMQ-212",5,0,"IQA",["IQA-211"],""],
-		["Legislación Ambiental","IMQ-340",3,0,"IQA",["IQA-321"],""],
-		["Taller de Ing. Ambiental II","IQA-322",1,0,"IQA",["IQA-321","IQA-101"],""],
-		["Inglés V","HCW-201",2,0,"HUM",["HCW-200"],""]
+		["Transferencia de Calor","IQA222",4,0,"IQA",["IQA221","IQA211"],""],
+		["Análisis y Diseño de Exp. Industriales","IQA214",3,0,"IQA",["IQA126"],""],
+		["Termodinámica para Ingeniería Ambiental","IMQ212","5",0,"IQA",["IQA211"],""],
+		["Legislación Ambiental","IMQ340","3",0,"IQA",["IQA321"],""],
+		["Taller de Ing. Ambiental II","IQA322","1",0,"IQA",["IQA321","IQA101"],""],
+		["Inglés V","HCW201",2,0,"HUM",["HCW200"],""]
 	],
 	"s7": [
-		["Transferencia de Materia","IQA-224",4,0,"IQA",["IQA-222","IMQ-212"],""],
-		["Fenómenos de Transportes","IQA-230",4,0,"IQA",["IQA-126","MAT-023"],""],
-		["Maquinaria Industrial Auxiliar","IQA-270",3,0,"IQA",[],""],
-		["Gestión Ambiental","IMQ-350",3,0,"IQA",["IMQ-340"],""],
-		["Inglés Ambiental","HCW-207",2,0,"HUM",["HCW-201"],""],
-		["Humanístico II","HRW-2",2,0,"HUM",[],""]
+		["Transferencia de Materia","IQA224",4,0,"IQA",["IQA222","IMQ212"],""],
+		["Fenómenos de Transportes","IQA230",4,0,"IQA",["IQA126","MAT023"],""],
+		["Maquinaria Industrial Auxiliar","IQA270",3,0,"IQA",[],""],
+		["Gestión Ambiental","IMQ350","3",0,"IQA",["IMQ340"],""],
+		["Inglés Ambiental","HCW207",2,0,"HUM",["HCW201"],""],
+		["Humanístico II","HRW2",2,0,"HUM",[],""]
 	],
 	"s8": [
-		["Tratamiento de Residuos Sólidos (inglés)","IMQ-320",4,0,"IQA",["HCW-207","IQA-230"],""],
-		["Fundamento de Control Industrial","IQA-350",4,0,"IQA",["IQA-224"],""],
-		["Ingeniería de Reactores","IQA-261",4,0,"IQA",["IQA-224"],""],
-		["Energía y Sustentabilidad (inglés)","IQA-360",3,0,"IQA",["IQA-222","HCW-207"],""],
-		["Taller de Ing. Ambiental III","IQA-323",1,0,"IQA",["IQA-322"],""],
-		["Humanístico III","HRW-3",2,0,"HUM",[],""]
+		["Tratamiento de Residuos Sólidos (inglés)","IMQ320","4",0,"IQA",["HCW207","IQA230"],""],
+		["Fundamento de Control Industrial","IQA350",4,0,"IQA",["IQA224"],""],
+		["Ingeniería de Reactores","IQA261",4,0,"IQA",["IQA224"],""],
+		["Energía y Sustentabilidad (inglés)","IQA360",3,0,"IQA",["IQA222","HCW207"],""],
+		["Taller de Ing. Ambiental III","IQA323",1,0,"IQA",["IQA322"],""],
+		["Humanístico III","HRW3",2,0,"HUM",[],""]
 	],
 	"s9": [
-		["Tratamiento de Gases (inglés)","IMQ-310",4,0,"IQA",["HCW-207","IQA-230"],""],
-		["Remediación de Suelos y Aguas (inglés)","IQA-361",3,0,"IQA",["HCW-207","IQA-224","IMQ-320"],""],
-		["Economía I-A","IWN-170",3,0,"IND",[],""],
-		["Seguridad Industrial, Salud Ocupacional y Ambiente","IQA-343",2,0,"IQA",["IMQ-350"],""],
-		["Análisis Instrumental","QUI-320",4,0,"QUI",["QUI-029"],""],
-		["Introducción a las Ciencias de la Tierra","IMQ-217",3,0,"IQA",["IQA-101"],""]
+		["Tratamiento de Gases (inglés)","IMQ310","4",0,"IQA",["HCW207","IQA230"],""],
+		["Remediación de Suelos y Aguas (inglés)","IQA361",3,0,"IQA",["HCW207","IQA224","IMQ320"],""],
+		["Economía I-A","IWN170","3",0,"IND",[],""],
+		["Seguridad Industrial, Salud Ocupacional y Ambiente","IQA343",2,0,"IQA",["IMQ350"],""],
+		["Análisis Instrumental","QUI320","4",0,"QUI",["QUI029"],""],
+		["Introducción a las Ciencias de la Tierra","IMQ217","3",0,"IQA",["IQA101"],""]
 	],
 	"s10": [
-		["Tratamiento de Riles (inglés)","IMQ-311",4,0,"IQA",["HCW-207","IQA-230","IQA-261"],""],
-		["Modelación Ambiental (inglés)","IMQ-300",3,0,"IQA",["IQA-230","HCW-207"],""],
-		["Economía Ambiental","IMQ-200",3,0,"IQA",["IWN-170"],""],
-		["Ingeniería Geográfica","IMQ-351",4,0,"IQA",["IMQ-217"],""],
-		["Electivo I","IQA-331",2,0,"IQA",[],""],
-		["Electivo II","IQA-332",2,0,"IQA",[],""]
+		["Tratamiento de Riles (inglés)","IMQ311","4",0,"IQA",["HCW207","IQA230","IQA261"],""],
+		["Modelación Ambiental (inglés)","IMQ300","3",0,"IQA",["IQA230","HCW207"],""],
+		["Economía Ambiental","IMQ200","3",0,"IQA",["IWN170"],""],
+		["Ingeniería Geográfica","IMQ351","4",0,"IQA",["IMQ217"],""],
+		["Electivo I","IQA331",2,0,"IQA",[],""],
+		["Electivo II","IQA332",2,0,"IQA",[],""]
 	],
 	"s11": [
-		["Evaluación de Impacto Ambiental","IMQ-382",4,0,"IQA",["IMQ-340","IMQ-310","IMQ-311","IMQ-320"],""],
-		["Proyecto de Título I Evaluación de Proyectos (inglés)","IMQ-381",4,0,"IQA",["IMQ-310","IMQ-311","IMQ-320","HCW-207"],""],
-		["Personas y Organización en la Industria de Procesos","IQA-342",3,0,"IQA",["IMQ-311"],""],
-		["Ética y Responsabilidad Social","IQA-344",2,0,"IQA",["IMQ-311"],""],
-		["Proyecto de Innovación de Ing. Ambiental I","IQA-383",3,0,"IQA",["IQA-323"],""],
-		["Electivo III","IQA-333",2,0,"IQA",[],""]
+		["Evaluación de Impacto Ambiental","IMQ382","4",0,"IQA",["IMQ340","IMQ310","IMQ311","IMQ320"],""],
+		["Proyecto de Título I Evaluación de Proyectos (inglés)","IMQ381","4",0,"IQA",["IMQ310","IMQ311","IMQ320","HCW207"],""],
+		["Personas y Organización en la Industria de Procesos","IQA342",3,0,"IQA",["IMQ311"],""],
+		["Ética y Responsabilidad Social","IQA344",2,0,"IQA",["IMQ311"],""],
+		["Proyecto de Innovación de Ing. Ambiental I","IQA383",3,0,"IQA",["IQA323"],""],
+		["Electivo III","IQA333",2,0,"IQA",[],""]
 	],
 	"s12": [
-		["Proyecto de Título II","IQA-393",6,0,"IQA",["IMQ-381"],""],
-		["Proyecto de Innovación de Ing. Ambiental II","IQA-384",3,0,"IQA",["IQA-383"],""],
-		["Electivo IV","IQA-334",2,0,"IQA",[],""]
+		["Proyecto de Título II","IQA393",6,0,"IQA",["IMQ381"],""],
+		["Proyecto de Innovación de Ing. Ambiental II","IQA384",3,0,"IQA",["IQA383"],""],
+		["Electivo IV","IQA334",2,0,"IQA",[],""]
 	]
 }
