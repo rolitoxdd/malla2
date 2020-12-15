@@ -111,9 +111,29 @@ Ejemplo:
 ```
 
 ## Probar malla
-Para probar la malla, existen tres métodos:
+Para probar la malla, existen los siguientes métodos:
 
-### Usando python (preferido)
+### Usando Docker
+Los únicos requisitos son el tener `docker`, `podman` o cualquier otro _container manager_.
+
+Primero debemos clonar el repo y buildear la imagen mediante:
+* `docker build -t malla-interactiva .`
+
+dentro del mismo directorio del repositorio.
+
+Para correr la imagen hacemos:
+
+* `docker run -d -p 8080:80 --name mallas malla-interactiva`
+
+Y luego podemos visitar nuestra malla en [http://localhost:8080/](http://localhost:8080/).
+
+Para detener la instancia del container y eliminarla a la vez podemos ejecutar:
+
+* `docker rm --force mallas`
+
+o `docker stop mallas` para solo detenerla.
+
+### Usando Python (preferido)
 Lo ideal sería probarlo usando python, ya que permite levantar un mini servidor http lo que facilita la carga
 para el navegador. Para esto, se tiene que abrir una terminal, ir al directorio principal de la malla (ramos/)
 y ejecutar lo siguiente:
@@ -123,18 +143,18 @@ y ejecutar lo siguiente:
 
 Independiente de la version, una vez ejecutado la línea, después se debe abrir un navegador
 e ir a la dirección http://localhost:8000 y ahí debería ver la malla.
-Dependiendo de la malla a probar, deberá navegar agregando al final de la url `?m=CARR`. Por ejemplo, 
+Dependiendo de la malla a probar, deberá navegar agregando al final de la url `?m=CARR`. Por ejemplo,
 para abrir `data_INF.json` debería quedar algo como `http://localhost:8000/index.html?m=INF`.
 
 ### Usando Firefox
 Se tiene que abrir el `index.html` con **Firefox** (debido a que los otros navegadores tienen
-desactivada la lectura de archivos locales por defecto), y al final de la URL agregar `?m=CARR`. Por ejemplo, 
+desactivada la lectura de archivos locales por defecto), y al final de la URL agregar `?m=CARR`. Por ejemplo,
 para abrir `data_INF.json` debería quedar algo como `index.html?m=INF`.
 
 Se aceptan Pull Requests para agregar carreras.
 
 ### Usando Browser-sync
-Con *NPM* instalado en el equipo, ejecute desde una terminal 
+Con *NPM* instalado en el equipo, ejecute desde una terminal
 `npm install -g browser-sync` si no lo tiene instalado.
  Completado el paso anterior, ejecute `browser-sync -w` desde
   la carpeta raíz del repositorio y tendrá en su explorador favorito una
