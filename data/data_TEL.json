@@ -36,57 +36,57 @@
 		["Fundamentos de Transmisión de Señales","TEL-222",3,0,"TELECO",["MAT-023","FIS-120"],""],
 		["Diseño y Program. Orientada a Objetos","ELO-329",3,0,"SW",["TEL-101"],""],
 		["Análisis y Diseño de Software","INF-236",3,0,"SW",["INF-239"],""],
-		["Laboratorio de Redes de Computadores","TEL-241",3,0,"REDES",["ELO-322"],""],
-		["Inglés 3","HCW-102",2,0,"ENG",["HCW-101"],""]
+		["Laboratorio de Redes de Computadores","TEL-241",3,0,"REDES",["ELO-322"],""]
 	],
 	"s6": [
 		["Matemáticas IV","MAT-024",4,6,"CSC",["MAT-023"],"A"],
 		["Sistemas de Telecomunicaciones","TEL-231",3,0,"TELECO",["TEL-222"],""],
 		["Laboratorio de Comunicaciones","ELO-241",3,0,"TELECO",["TEL-222","MAT-023"],""],
-		["Teoría de Sistemas Operativos","ELO-321",3,0,"SW",["TEL-102"],""],
 		["Ingeniería de Software","INF-225",3,0,"SW",["INF-236"],""],
-		["Inglés 4","HCW-200",2,0,"ENG",["HCW-102"],""]
+		["Disponibilidad y Rendimiento de Sistemas TIC","TEL-211",3,0,"REDES",["ELO-204","ELO-322"],""],
+		["Inglés 3","HCW-102",2,0,"ENG",["HCW-101"],""]
 	],
 	"s7": [
 		["Análisis Numérico","MAT-270",3,0,"CSC",["MAT-024"],""],
 		["Sistemas Digitales","ELO-211",3,0,"ELO",["TEL-131"],""],
 		["Laboratorio de Sistemas Digitales","ELO-212",3,0,"ELO",["TEL-131"],""],
-		["Disponibilidad y Rendimiento de Sistemas TIC","TEL-211",3,0,"REDES",["ELO-204","ELO-322"],""],
 		["Pensamiento de Diseño en Ingeniería","TEL-360",3,0,"FG",[],""],
-		["Inglés 5","HCW-201",2,0,"ENG",["HCW-200"],""]
+		["Teoría de Sistemas Operativos","ELO-321",3,0,"SW",["TEL-102"],""],
+		["Inglés 4","HCW-200",2,0,"ENG",["HCW-102"],""]
 	],
 	"s8": [
 		["Física General IV","FIS-140",4,8,"FIS",["FIS-130","FIS-120"],"A"],
 		["Teoría de Comunicaciones Digitales","ELO-341",3,0,"TELECO",["ELO-204","TEL-231"],""],
 		["Criptografía y Seguridad de la Información","TEL-252",3,0,"SW",["ELO-204","TEL-131","TEL-102"],""],
-		["Diseño de Aplicaciones Web y Móviles","TEL-335",3,0,"SW",["ELO-329","INF-239"],""],
-		["Administración de Servicios y Redes de Computadores","TEL-342",3,0,"REDES",["TEL-241"],""],
-		["Inglés 6","HCW-202",2,0,"ENG",["HCW-201"],""]
+		["Administración de Redes de Computadores","TEL-342","3",0,"REDES",["TEL-241"],""],
+		["Procesamiento Digital de Imágenes","ELO-328",3,0,"SW",["ELO-204","ELO-329"],""],
+		["Inglés 5","HCW-201",2,0,"ENG",["HCW-200"],""]
 	],
 	"s9": [
-		["Redes de Acceso y Comunicac. Ópticas","TEL-236",3,0,"TELECO",["ELO-204","TEL-222","TEL-231"],""],
-		["Gestión de Investig. de Operaciones","ILN-250",3,0,"IND",["ELO-204"],""],
+		["Diseño de Aplicaciones Web y Móviles","TEL-335",3,0,"SW",["ELO-329","INF-239"],""],
 		["Minería de Datos","TEL-354",3,0,"SW",["ELO-204","ELO-320","ELO-322","MAT-023"],""],
-		["Simulación de Redes","TEL-341",3,0,"REDES",["ELO-204","ELO-320","ELO-322"],""],
+		["Redes de Acceso y Comunicac. Ópticas","TEL-236",3,0,"TELECO",["ELO-204","TEL-222","TEL-231"],""],
+		["Redes Inalámbricas","TEL-315",3,0,"REDES",["ELO-204","ELO-322"],""],
 		["Seguridad en Redes de Computadores","TEL-312",3,0,"REDES",["TEL-342"],""],
-		["Redes Inalámbricas","TEL-315",3,0,"REDES",["ELO-204","ELO-322"],""]
+		["Simulación de Redes","TEL-341",3,0,"REDES",["ELO-204","ELO-320","ELO-322"],""]
 	],
 	"s10": [
-		["Economía IA","IWN-170",3,0,"IND",["MAT-023"],""],
-		["Planificación y Dimensionamiento de Redes","TEL-343",3,0,"REDES",["ELO-204"],""],
-		["Procesamiento Digital de Imágenes","ELO-328",3,0,"SW",["ELO-204","ELO-329"],""],
-		["Redes Ópticas WDM","TEL-317",3,0,"REDES",["ELO-204","ELO-322"],""],
 		["Redes de Sensores","TEL-329",3,0,"REDES",["TEL-241","TEL-315"],""],
-		["Complementario 1","TEL-011",3,0,"COMPL",[],""]
+		["Planificación y Dimensionamiento de Redes","TEL-343",3,0,"REDES",["ELO-204"],""],
+		["Redes Ópticas WDM","TEL-317",3,0,"REDES",["ELO-204","ELO-322"],""],
+		["Economía IA","IWN-170",3,0,"IND",["MAT-023"],""],
+		["Complementario 1","TEL-011",3,0,"COMPL",[],""],
+		["Inglés 6","HCW-202",2,0,"ENG",["HCW-201"],""]
 	],
 	"s11": [
-		["Administración General","IWN-261",3,0,"IND",[],""],
 		["Complementario 2","TEL-012",3,0,"COMPL",[],""],
+		["Gestión de Investig. de Operaciones","ILN-250",3,0,"IND",["ELO-204"],""],
 		["Mem. Multid.: Transversal 1","IWG-396",3,0,"COMPL",[],""],
 		["Mem. Multid.: Innovación","IWG-397",3,0,"COMPL",[],""],
 		["Taller Memoria Multidisciplinaria 1","IWG-394",5,0,"COMPL",[],""]
 	],
 	"s12": [
+		["Administración General","IWN-261",3,0,"IND",[],""],
 		["Electivo","TEL-021",3,0,"COMPL",[],""],
 		["Complementario 3","TEL-013",3,0,"COMPL",[],""],
 		["Mem. Multid.: Transversal 2","IWG-398",3,0,"COMPL",[],""],
