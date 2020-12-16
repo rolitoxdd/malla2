@@ -1,6 +1,6 @@
 FROM node:slim
 
-EXPOSE 80
+EXPOSE 8080
 
 # create and set working dir
 RUN mkdir -p /var/www/html
@@ -35,4 +35,4 @@ RUN find css/ -type f \
 RUN gzip js/*
 
 # start webserver on port 80
-ENTRYPOINT ["/usr/local/bin/http-server", "--no-dotfiles", "--gzip", "-p", "80"]
+ENTRYPOINT ["/usr/local/bin/http-server", "--no-dotfiles", "--gzip", "-p", "8080"]
