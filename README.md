@@ -123,7 +123,7 @@ dentro del mismo directorio del repositorio.
 
 Para correr la imagen hacemos:
 
-* `docker run -d -p 8080:80 --name mallas malla-interactiva`
+* `docker run -d -p 8080:8080 --name mallas malla-interactiva`
 
 Y luego podemos visitar nuestra malla en [http://localhost:8080/](http://localhost:8080/).
 
