@@ -4,12 +4,15 @@
   "description": "Proyecto Universitario en donde se mantiene una plataforma web que facilita información sobre las mallas en la Universidad.",
   "main": "index.html",
   "dependencies": {
-    "terser": "^5.5.1"
   },
   "devDependencies": {
-    "browsersync": "0.0.1-security"
+    "browsersync": "0.0.1-security",
+    "terser": "^5.5.1",
+    "uglifycss": "^0.0.29"
   },
   "scripts": {
+    "build": "./scripts/minify_code.sh",
+    "clean": "npm prune --production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
