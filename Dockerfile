@@ -13,8 +13,7 @@ WORKDIR /var/www/html
 COPY . /var/www/html/
 
 # install required packages
-RUN npm update \
-    && npm install -g http-server terser uglifycss
+RUN npm update && npm install -g http-server
 
 # add user and group, then change ownership to new user
 RUN groupadd -g "$USER_UID" mallas \
@@ -24,29 +23,12 @@ RUN groupadd -g "$USER_UID" mallas \
 # drop privs to user
 USER mallas
 
-# install packages from package.json
+# install deps from package.json
 RUN npm install
 
-# based on:
-# https://unix.stackexchange.com/questions/249701/how-to-minify-javascript-and-css-with-command-line-using-minify-tool
-# minification of js files
-RUN find js/ -type f \
-    -name "*.js" ! -name "*.min.*" ! -name "vfs_fonts*" \
-    -exec echo {} \; \
-    -exec terser -o {}.min {} \; \
-    -exec rm {} \; \
-    -exec mv -f {}.min {} \;
-
-# minification of css files
-RUN find css/ -type f \
-    -name "*.css" ! -name "*.min.*" \
-    -exec echo {} \; \
-    -exec uglifycss --output {}.min {} \; \
-    -exec rm {} \; \
-    -exec mv -f {}.min {} \;
-
-# compress js files even more with gzip
-RUN gzip js/*
+# minify code and then remove extra packages
+RUN npm run build && npm run clean
+RUN rm -rf scripts/
 
 # start webserver on port 80
 ENTRYPOINT ["/usr/local/bin/http-server", "--no-dotfiles", "--gzip", "-p", "8080"]
