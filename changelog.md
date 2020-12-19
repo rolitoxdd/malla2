@@ -1,6 +1,12 @@
 # Changelog
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
+# [1.5.0]
+
+- Ahora la malla podrá ser mostrada en mallas.labcomp.cl
+- Se actualizaron varias mallas
+- Se actualizó el readme  
+
 # [1.4.2]
 
 - En caso de cambios importantes en la malla, se avisa al usuario de las asignaturas no encontradas

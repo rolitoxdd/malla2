@@ -1,6 +1,12 @@
-# Ramos SVG
-Generador de la malla que permitirá
-visualizar los ramos aprobados.
+![Docker build status](https://img.shields.io/github/workflow/status/csarman/malla-interactiva/Docker%20Build)
+![Docker image size](https://img.shields.io/docker/image-size/booterman/malla-interactiva?label=docker%20image%20size)
+![Docker pull count](https://img.shields.io/docker/pulls/booterman/malla-interactiva)
+![Contribuidores](https://img.shields.io/github/contributors/csarman/malla-interactiva)
+![package version](https://img.shields.io/github/package-json/v/csarman/malla-interactiva)
+![license](https://img.shields.io/github/license/csarman/malla-interactiva)
+---
+# Malla interactiva
+Proyecto Universitario en donde se mantiene una plataforma web que facilita información sobre las mallas en la Universidad.
 
 # Índice
 1. [Novedades](#¡Novedades!)  
@@ -169,9 +175,11 @@ Se agradece especialmente a:
 
 * [Sebastián Aedo](https://github.com/etra0) como creador original de la malla interactiva. [Malla Original](https://github.com/etra0/ramos)
 * CEE de ELO por agregar su respectiva malla
-* [Manizuca](https://github.com/Manizuca) por agregar la malla de TEL
+* [Matías Zuñiga](https://github.com/Manizuca) por agregar la malla de TEL
 * Fernando Cardenas por agregar la malla de ICOM
 * Abel Morgenstern  por agregar la malla de CIV
 * Bernardo Recabarren por agregar la malla de MAT
 * Alois Bellenger Herrera por actualizar la malla de ICQ
 * Josué Venegas por agregar la malla de ICM
+* [Pablo Aravena](https://github.com/litneet64) por su ayuda en la integración del proyecto con Labcomp y en el build workflow.
+* [Carlos Ponce](https://github.com/capgadsx) por su ayuda en la integración del proyecto con labcomp.
