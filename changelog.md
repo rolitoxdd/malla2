@@ -1,6 +1,13 @@
 # Changelog
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
+# [1.5.1]
+
+- Se arregló un problema que impedía acceder a las instrucciones de la generadora
+- Se creó el script devBuild que permite el probar cambios a archivos javascript durante el desarrollo
+- Ahora el script build usa devBuild de manera interna
+
+
 # [1.5.0]
 
 - Ahora la malla podrá ser mostrada en mallas.labcomp.cl
