@@ -3,8 +3,7 @@
   "version": "1.5.0",
   "description": "Proyecto Universitario en donde se mantiene una plataforma web que facilita información sobre las mallas en la Universidad.",
   "main": "index.html",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "browsersync": "0.0.1-security",
     "terser": "^5.5.1",

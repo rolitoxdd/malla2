@@ -6,7 +6,7 @@
 ![license](https://img.shields.io/github/license/csarman/malla-interactiva)
 ---
 # Malla interactiva
-Proyecto Universitario en donde se mantiene una plataforma web que facilita información sobre las mallas en la Universidad.
+Proyecto Universitario open-source en donde se mantiene una plataforma web que facilita información sobre las mallas en la Universidad.
 
 # Índice
 1. [Novedades](#¡Novedades!)  
@@ -30,9 +30,9 @@ se desbloquean.
 ![Gif demo de la malla personalidada](https://media.giphy.com/media/QK448lB7juUF0ftL7g/giphy.gif)  
 
 - Agregar ramos que no se encuentren en la malla oficial pero que hayas cursado.
+- *Dark mode* basado en la configuración del SO o explorador
 
 # TODO
-* [ ] **Comentar código, limpiarlo.** (Ahora hay más comentarios, pero falta aún)
 * [ ] Fix bugs
 * [X] Hacer página más usable en moviles
     * [X] Prioridad
@@ -40,6 +40,12 @@ se desbloquean.
 	* [X] Malla interactiva
 * [X] Facilitar creación y modificación de mallas oficiales
 * [X] **Refactorizar código**
+* [ ] Hacer un mejor uso de las características de github
+    * [ ] Definir Miletones importantes
+    * [ ] Crear pruebas y automatizarlas con github actions
+    * [ ] Hacer uso de tags (tal vez)
+    
+    
 
 ## Agregar o cambiar una malla
 
@@ -111,65 +117,93 @@ Ejemplo:
 
 ```json
 {
-	"PC": ["#00838F", "Plan Común"],
-	...
+	"PC": ["#00838F", "Plan Común"]
 }
 ```
 
 ## Probar malla
 Para probar la malla, existen los siguientes métodos:
 
-### Usando Docker
-Los únicos requisitos son el tener `docker`, `podman` o cualquier otro _container manager_.
-
-Primero debemos clonar el repo y buildear la imagen mediante:
-* `docker build -t malla-interactiva .`
-
-dentro del mismo directorio del repositorio.
-
-Para correr la imagen hacemos:
-
-* `docker run -d -p 8080:8080 --name mallas malla-interactiva`
-
-Y luego podemos visitar nuestra malla en [http://localhost:8080/](http://localhost:8080/).
-
-Para detener la instancia del container y eliminarla a la vez podemos ejecutar:
-
-* `docker rm --force mallas`
-
-o `docker stop mallas` para solo detenerla.
-
 ### Usando Python (preferido)
 Lo ideal sería probarlo usando python, ya que permite levantar un mini servidor http lo que facilita la carga
 para el navegador. Para esto, se tiene que abrir una terminal, ir al directorio principal de la malla (ramos/)
 y ejecutar lo siguiente:
 
-* Si tiene Python 2 (el usado en la universidad hasta hace poco): `python -m SimpleHTTPServer`
-* Si tiene Python 3 (el actual): `python -m http.server`
+* Si tiene Python 2 (el usado en la universidad hasta hace poco): 
+    ```
+    python -m SimpleHTTPServer
+    ```
+* Si tiene Python 3 (el actual): 
+    ```
+    python -m http.server
+    ```
 
 Independiente de la version, una vez ejecutado la línea, después se debe abrir un navegador
 e ir a la dirección http://localhost:8000 y ahí debería ver la malla.
 Dependiendo de la malla a probar, deberá navegar agregando al final de la url `?m=CARR`. Por ejemplo,
 para abrir `data_INF.json` debería quedar algo como `http://localhost:8000/index.html?m=INF`.
 
+En caso de editar archivos .js, para que estos se reflejen, ejecute de una terminal en la carpeta raíz `npm build`
+
+
+### Usando Docker
+Los únicos requisitos son el tener `docker`, `podman` o cualquier otro _container manager_.
+
+Primero debemos clonar el repo y buildear la imagen mediante:
+```
+docker build -t malla-interactiva .
+```
+
+dentro del mismo directorio del repositorio.
+
+Para correr la imagen hacemos:
+```
+docker run -d -p 8080:8080 --name mallas malla-interactiva
+```
+
+Y luego podemos visitar nuestra malla en [http://localhost:8080/](http://localhost:8080/).
+
+Para detener la instancia del container y eliminarla a la vez podemos ejecutar:
+
+```
+docker rm --force mallas
+```
+o
+```
+docker stop mallas
+```
+para solo detenerla.
+
+
 ### Usando Firefox
 Se tiene que abrir el `index.html` con **Firefox** (debido a que los otros navegadores tienen
 desactivada la lectura de archivos locales por defecto), y al final de la URL agregar `?m=CARR`. Por ejemplo,
 para abrir `data_INF.json` debería quedar algo como `index.html?m=INF`.
 
-Se aceptan Pull Requests para agregar carreras.
+En caso de editar archivos .js, para que estos se reflejen, ejecute de una terminal en la carpeta raíz   
+```
+npm build
+```
 
 ### Usando Browser-sync
-Con *NPM* instalado en el equipo, ejecute desde una terminal
-`npm install -g browser-sync` si no lo tiene instalado.
- Completado el paso anterior, ejecute `browser-sync -w` desde
-  la carpeta raíz del repositorio y tendrá en su explorador favorito una
+Con *NPM* instalado en el equipo, ejecute desde una terminal en la carpeta raíz de la repo
+```
+npm install
+npx browsersync -w
+```
+o simplemente (hay una diferencia entre ambos)
+```
+npx browsersync -w
+```
+Ejecutado lo anterior, se tendrá en su explorador favorito una
    versión local de la página. La dirección por defecto es `http://localhost:3000`
 
-Con esto la página se actualizará cada vez que guarde un archivo. Si su explorador tiene problemas, abra *Firefox* y copie y pegue la dirección de la página.
+Si su explorador tiene problemas, abra *Firefox* y copie y pegue la dirección de la página.
+
+En caso de editar archivos .js, para que estos se reflejen, ejecute de una terminal en la carpeta raíz `npm build`
 
 ---
-# Gracias
+# Agradecimientos
 
 Se agradece especialmente a:
 
@@ -182,4 +216,4 @@ Se agradece especialmente a:
 * Alois Bellenger Herrera por actualizar la malla de ICQ
 * Josué Venegas por agregar la malla de ICM
 * [Pablo Aravena](https://github.com/litneet64) por su ayuda en la integración del proyecto con Labcomp y en el build workflow.
-* [Carlos Ponce](https://github.com/capgadsx) por su ayuda en la integración del proyecto con labcomp.
+* [Carlos Ponce](https://github.com/capgadsx) por su ayuda en la integración del proyecto con Labcomp.
