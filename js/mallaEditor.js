@@ -535,9 +535,10 @@ class MallaEditor {
                 this.updateState(subject)
             }
         })
-        if (Object.keys(prersNotFound).length !== 0){
+        if (Object.keys(prersNotFound).length !== 0) {
             let toast = $('.toast')
             toast.toast('show')
+            toast.css("zIndex","3")
             let list = d3.select('#deletedSubjects').append('ul')
             Object.keys(prersNotFound).forEach(prer => {
                 let nestedList = list.append('li').text(`Ramos que tenían a ${prer} como prerrequisito`).append('ul')
@@ -597,9 +598,10 @@ class MallaEditor {
                     }
                 }
                 delete localStorage["Custom-" + this.semesterManager.malla.currentMalla + "_CUSTOM"]
-                if (Object.keys(prersNotFound).length !== 0){
+                if (Object.keys(prersNotFound).length !== 0) {
                     let toast = $('.toast')
                     toast.toast('show')
+                    toast.css("zIndex","3")
                     let list = d3.select('#deletedSubjects').append('ul')
                     Object.keys(prersNotFound).forEach(prer => {
                         let nestedList = list.append('li').text(`Ramos que tenían a ${prer} como prerrequisito`).append('ul')

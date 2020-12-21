@@ -89,6 +89,10 @@ header {
 .sem {
     transition: 0.3s;
 }
+
+.toast {
+    z-index: -1;
+}
 @media(hover: hover) {
 
     g.sem:hover rect {
