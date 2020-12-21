@@ -6,6 +6,7 @@ Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 - Se arregló un problema que impedía acceder a las instrucciones de la generadora
 - Se creó el script devBuild que permite el probar cambios a archivos javascript durante el desarrollo
 - Ahora el script build usa devBuild de manera interna
+- Los archivos min# han sido eliminados
 
 
 # [1.5.0]
