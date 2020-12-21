@@ -113,8 +113,8 @@ Por último, usar la malla generada en una pull request
 Para probar la malla, existen los siguientes métodos:
 
 **NOTA:** Independientemente de la forma en que se prueba la malla, en caso de editar archivos `.js`, para que estos se reflejen, ejecute desde una terminal en la carpeta raíz
-```
-npm build
+```shell
+npm run devBuild
 ```
 
 ### Usando Python (preferido)
@@ -122,11 +122,11 @@ Lo ideal sería probarlo usando python, ya que permite levantar un mini servidor
 para el navegador. Para esto, se tiene que **abrir una terminal, ir al directorio principal de la malla** y ejecutar lo siguiente:
 
 * Si tiene **Python 2** (el usado en la universidad hasta hace poco):
-    ```
+    ```shell
     python -m SimpleHTTPServer
     ```
 * Si tiene **Python 3** (el actual):
-    ```
+    ```shell
     python -m http.server
     ```
 
@@ -141,25 +141,25 @@ para abrir `data_INF.json` debería quedar algo como `http://localhost:8000/inde
 Los únicos requisitos son el tener `docker`, `podman` o cualquier otro _container manager_.
 
 Primero clone el repo y construya la imagen mediante:
-```
+```shell
 docker build -t malla-interactiva .
 ```
 
 dentro del mismo directorio del repositorio.
 
 * **Para correr la imagen** ejecute:
-    ```
+    ```shell
     docker run -d -p 8080:8080 --name mallas malla-interactiva
     ```
     Y listo! Con esto podrá visitar la malla utilizando la dirección [http://localhost:8080/](http://localhost:8080/).
 
 * **Para detener y eliminarla** la instancia del container al mismo tiempo ejecute:
 
-    ```
+    ```shell
     docker rm --force mallas
     ```
 * **Para solo detener** la instancia
-    ```
+    ```shell
     docker stop mallas
     ```
 
@@ -174,12 +174,12 @@ para abrir `data_INF.json` debería quedar algo como `index.html?m=INF`.
 
 ### Usando Browser-sync
 Con *NPM* instalado en el equipo, ejecute desde una terminal en la carpeta raíz de el repo
-```
+```shell
 npm install
 npx browsersync -w
 ```
 o simplemente (hay una diferencia entre ambos)
-```
+```shell
 npx browsersync -w
 ```
 Ejecutado lo anterior, se tendrá en su explorador favorito una
