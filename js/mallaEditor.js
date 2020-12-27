@@ -720,7 +720,7 @@ class MallaEditor {
         delete this.categoryList[categorySN]
         delete this.categories[categorySN]
         Object.values(this.semesterManager.malla.ALLSUBJECTS).forEach(subject => {
-            if (subject.sector === categorySN) {
+            if (subject.category === categorySN) {
                 subject.category = "Custom"
                 subject.beenEdited = true
                 this.subjectList.push(subject)
