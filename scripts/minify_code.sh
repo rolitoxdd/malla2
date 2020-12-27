@@ -5,8 +5,8 @@
 # minification of js files
 
 ./scripts/minify_dev.sh
-
-find js/ -regex '.*[^min[0-9]+.js' \
+npx terser js/init.js -c -m -o js/init.js
+find js/ -regex '.*[^(?:min[0-9+)|(init)]\.js' \
   -delete
 
 # minification of css files

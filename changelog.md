@@ -14,7 +14,8 @@ Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
 - Ahora la malla podrá ser mostrada en mallas.labcomp.cl
 - Se actualizaron varias mallas
-- Se actualizó el readme  
+- Se actualizó el readme
+- Se removió el sitio de donaciones debido a que este daba una impresión equivocada.
 
 # [1.4.2]
 

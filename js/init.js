@@ -37,7 +37,6 @@ let prioridad = document.URL.includes('prioridad')
 let personalizar = document.URL.includes('personalizar')
 let mallaPersonal = document.URL.includes("malla.")
 let contact = document.URL.includes("contact")
-let aportes = document.URL.includes("aportes")
 let fullCareerName = ""
 let texts = "Malla"
 if (mallaPersonal)
@@ -47,7 +46,7 @@ else if (prioridad)
 else if (personalizar)
     texts = "Generadora"
 
-if (texts !== "Malla" || contact || aportes) {
+if (texts !== "Malla" || contact) {
     relaPath = '../'
 }
 // Disabled due to safari bug
@@ -98,7 +97,6 @@ if (params.get('SCT') === "true")
         let calculator = document.getElementById("goToCalculator")
         let generator = document.getElementById("goToGenerator")
         let goToContact = document.getElementById("contact")
-        let goToAportes = document.getElementById("goToAportes")
         if (!mallaPersonal) {
             if (!prioridad)
                 calculator.setAttribute("href", relaPath + 'prioridad/?m=' + carr)
@@ -114,9 +112,6 @@ if (params.get('SCT') === "true")
             generator.setAttribute("href", relaPath + 'personalizar/?m=' + carr)
         if (contact)
             goToContact.classList.add("active")
-        else if (aportes)
-            goToAportes.classList.add("active")
-        goToAportes.setAttribute("href", relaPath + "aportes/")
         goToContact.setAttribute("href", relaPath + "contact/")
         home.setAttribute("href", relaPath + '?m=' + carr)
         return fetch(relaPath + '/data/carreras.json')
@@ -124,7 +119,7 @@ if (params.get('SCT') === "true")
         //if (!mallaPersonal) {
             let tabTpl1 = document.querySelector('script[data-template="tab-template1"]').text.split(/\${(.+?)}/g);
             let tabTpl2 = document.querySelector('script[data-template="tab-template2"]').text.split(/\${(.+?)}/g);
-            if (contact || aportes) {
+            if (contact) {
                 document.querySelectorAll(".carrers").forEach(element => element.remove())
             }
 
@@ -168,7 +163,7 @@ function removePopUp() {
 }
 
   $(function () {
-      if (contact || aportes)
+      if (contact)
           return
 
       if (sct) {
