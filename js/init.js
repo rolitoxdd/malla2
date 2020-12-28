@@ -90,6 +90,16 @@ if (params.get('SCT') === "true")
     })
     let fileURL = relaPath + "data/welcomeTexts.json"
     promises.push(fetch(fileURL).then(response => response.json()))
+    Promise.all(promises)
+        .then( () => {
+            return fetch(new Request(relaPath + "date.txt"))
+        }).then(response => {
+            console.log(response)
+            let lastModified = response.headers.get("last-modified")
+            let date = new Date(lastModified)
+            console.log(date)
+            document.getElementById("lastUpdate").textContent = date.toLocaleString()
+        })
     Promise.all(promises).then((datas) => {
         welcomeTexts = datas.pop()[texts]
 

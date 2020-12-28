@@ -16,3 +16,6 @@ find css/ -type f \
     -exec npx uglifycss --output {}.min {} \; \
     -exec rm {} \; \
     -exec mv -f {}.min {} \;
+
+# Create file representing last update date
+$ date +"%s000" | tee date.txt
