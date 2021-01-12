@@ -36,8 +36,8 @@
 		["Humanístico IV","HXW-004",2,0,"HUM",[],"A"]
 	],
 	"s6": [
-		["Fundamentos de Análisis Estructural","CIV-233",3,0,"ES",["CIV-202","CIV-133"],"P"],
-		["Mecánica de Fluidos","CIV-244",4,0,"AG",["CIV-202"],"P"],
+		["Fundamentos de Análisis Estructural","CIV-233",3,0,"ES",["CIV-202","CIV-133"],"A"],
+		["Mecánica de Fluidos","CIV-244",4,0,"AG",["CIV-202"],"A"],
 		["Probabilidad y Estadística Para Ingeniería Civil","MAT-044",4,0,"FT",["MAT-023"],"P"],
 		["Fundamentos de Ing. de Construcción y Administración","CIV-222",4,0,"GE",["CIV-251"],"P"],
 		["Humanístico V","HXW-005",2,0,"HUM",[],"A"]
