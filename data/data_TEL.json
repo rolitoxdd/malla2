@@ -58,7 +58,7 @@
 		["Física General IV","FIS-140",4,8,"FIS",["FIS-130","FIS-120"],"A"],
 		["Teoría de Comunicaciones Digitales","ELO-341",3,0,"TELECO",["ELO-204","TEL-231"],""],
 		["Criptografía y Seguridad de la Información","TEL-252",3,0,"SW",["ELO-204","TEL-131","TEL-102"],""],
-		["Administración de Redes de Computadores","TEL-342","3",0,"REDES",["TEL-241"],""],
+		["Administración de Redes de Computadores","TEL-342",3,4,"REDES",["TEL-241"],""],
 		["Procesamiento Digital de Imágenes","ELO-328",3,0,"SW",["ELO-204","ELO-329"],""],
 		["Inglés 5","HCW-201",2,0,"ENG",["HCW-200"],""]
 	],
