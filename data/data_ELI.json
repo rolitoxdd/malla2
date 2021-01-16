@@ -19,71 +19,71 @@
 		["Matemáticas III","MAT023",4,7,"MAT",["MAT022"],"A"],
 		["Deportes","DEW0",1,0,"HUM",["DEW101"],""],
 		["Inglés I","HCW100",2,0,"HUM",[],""],
-		["Materiales para la ingeniería","IWC203",3,0,"MEC",["FIS110","QUI010"],""]
+		["Materiales para la ingeniería","IWC203",3,0,"MEC",["FIS110","QUI010"],"A"]
 	],
 	"s4": [
-		["Introducción a la electrotécnia","ELI110",4,0,"ELI",["MAT022","FIS120"],""],
+		["Introducción a la electrotécnia","ELI110",4,0,"ELI",["MAT022","FIS120"],"A"],
 		["Matemáticas IV","MAT024",4,6,"MAT",["MAT023"],"A"],
 		["Física General III","FIS130",4,8,"FI",["MAT022","FIS110"],"A"],
-		["Mecánica General","IWM151",4,0,"MEC",["FIS110"],""],
-		["Visión Estética","HWR103",2,0,"HUM",[],""],
-		["Crecimiento y Desarrollo","HWR104",2,0,"HUM",[],""]
+		["Mecánica General","IWM151",4,0,"MEC",["FIS110"],"A"],
+		["Visión Estética","HWR103",2,0,"HUM",[],"A"],
+		["Crecimiento y Desarrollo","HWR104",2,0,"HUM",[],"A"]
 	],
 	"s5": [
-		["Redes Eléctricas I","ELI211",4,0,"ELI",["ELI110"],""],
-		["Análisis Numérico","MAT270",4,0,"MAT",["MAT024"],""],
-		["Formación y Liderazgo Empresarial","HWR131",2,0,"HUM",[],""],
-		["Resistencia de Materiales Generales","IWM255",4,0,"MEC",["IWM151"],""],
+		["Redes Eléctricas I","ELI211",4,0,"ELI",["ELI110"],"A"],
+		["Análisis Numérico","MAT270",4,0,"MAT",["MAT024"],"A"],
+		["Formación y Liderazgo Empresarial","HWR131",2,0,"HUM",[],"A"],
+		["Resistencia de Materiales Generales","IWM255",4,0,"MEC",["IWM151"],"A"],
 		["Inglés II","HCW101",2,0,"HUM",["HCW100"],""],
-		["Estadística","MAT031",3,0,"MAT",["MAT023"],""]
+		["Estadística","MAT031",3,0,"MAT",["MAT023"],"A"]
 	],
 	"s6": [
-		["Campos Electromagnéticos","ELI215",4,0,"ELI",["FIS120","ELI211"],""],
-		["Redes Eléctricas II","ELI212",4,0,"ELI",["ELI211"],""],
-		["Electrónica General I","ELI216",4,0,"ELI",["MAT024","ELI211"],""],
-		["Metrología Eléctrica","ELI214",4,0,"ELI",["FIS120","ELI211"],""],
+		["Campos Electromagnéticos","ELI215",4,0,"ELI",["FIS120","ELI211"],"P"],
+		["Redes Eléctricas II","ELI212",4,0,"ELI",["ELI211"],"A"],
+		["Electrónica General I","ELI216",4,0,"ELI",["MAT024","ELI211"],"P"],
+		["Metrología Eléctrica","ELI214",4,0,"ELI",["FIS120","ELI211"],"A"],
 		["Humanístico VI","HW6",2,0,"HUM",[],""]
 	],
 	"s7": [
-		["Control Automático I","ELO270",3,0,"ELO",["ELI212"],""],
+		["Control Automático I","ELO270",3,0,"ELO",["ELI212"],"I"],
 		["Conversión Electromecánica de Energía","ELI220",4,0,"ELI",["ELI212"],""],
-		["Termodinámica General y Laboratorio","IWM210",4,0,"MEC",["FIS130","MAT023"],""],
+		["Termodinámica General y Laboratorio","IWM210",4,0,"MEC",["FIS130","MAT023"],"A"],
 		["Humanístico VII","HW7",2,0,"HUM",[],""],
-		["Electrónica General II","ELI217",4,0,"ELI",["ELI216"],""]
+		["Electrónica General II","ELI217",4,0,"ELI",["ELI216"],"I"]
 	],
 	"s8": [
 		["Física General IV","FIS140",4,8,"FI",["FIS130","FIS120"],"A"],
 		["Economía I","ILN270",3,0,"IND",["MAT023"],""],
-		["Lab. Conversión Electromecánica de Energía","ELI221",3,0,"ELI",["ELI214","ELI212"],""],
+		["Lab. Conversión Electromecánica de Energía","ELI221",3,0,"ELI",["ELI214","ELI212"],"P"],
 		["Mecánica de Fluidos General","IWM220",4,0,"MEC",["MAT024","IWM210"],""],
-		["Análisis de Sistemas Eléctricos de Potencia I","ELI246",4,0,"ELI",["ELI220"],""]
+		["Análisis de Sistemas Eléctricos de Potencia I","ELI246",4,0,"ELI",["ELI220"],"A"]
 	],
 	"s9": [
-		["Análisis de Sistemas Eléctricos de Potencia II","ELI347",4,0,"ELI",["ELI246"],""],
+		["Análisis de Sistemas Eléctricos de Potencia II","ELI347",4,0,"ELI",["ELI246"],"A"],
 		["Economía II","ILN271",3,0,"IND",["ILN270"],""],
-		["Máquinas Eléctricas I","ELI326",4,0,"ELI",["ELI220"],""],
-		["Electrónica de Potencia","ELI319",4,0,"ELI",["ELI216"],""],
-		["Técnicas de Alta Tensión I","ELI360",3,0,"ELI",["ELI212","ELI246"],""]
+		["Máquinas Eléctricas I","ELI326",4,0,"ELI",["ELI220"],"A"],
+		["Electrónica de Potencia","ELI319",4,0,"ELI",["ELI216"],"I"],
+		["Técnicas de Alta Tensión I","ELI360",3,0,"ELI",["ELI212","ELI246"],"I"]
 	],
 	"s10": [
-		["Análisis de Sistemas Eléctricos de Potencia III","ELI348",4,0,"ELI",["ELI347"],""],
-		["Laboratorio de Maquinas Eléctricas","ELI327",4,0,"ELI",["ELI326"],""],
-		["Accionamientos Eléctricos","ELI328",4,0,"ELI",["ELO270","ELI326","ELI319"],""],
-		["Laboratorio de Alta Tensión","ELI361",3,0,"ELI",["ELI360"],""],
+		["Análisis de Sistemas Eléctricos de Potencia III","ELI348",4,0,"ELI",["ELI347"],"A"],
+		["Laboratorio de Maquinas Eléctricas","ELI327",4,0,"ELI",["ELI326"],"P"],
+		["Accionamientos Eléctricos","ELI328",4,0,"ELI",["ELO270","ELI326","ELI319"],"P"],
+		["Laboratorio de Alta Tensión","ELI361",3,0,"ELI",["ELI360"],"P"],
 		["Información y Control Financiero","IWN270",3,0,"IND",["ILN270"],""]
 	],
 	"s11": [
 		["Administración General","IWN261",3,0,"IND",[],""],
-		["Lab. Accionamientos Eléctricos","ELI329",3,0,"ELI",["ELI328"],""],
+		["Lab. Accionamientos Eléctricos","ELI329",3,0,"ELI",["ELI328"],"I"],
 		["Evaluación de Proyectos","ICN366",3,0,"IND",["IWN270"],""],
-		["Operación de Sistemas Eléctricos de Potencia","ELI349",3,0,"ELI",["ELI347"],""],
+		["Operación de Sistemas Eléctricos de Potencia","ELI349",3,0,"ELI",["ELI347"],"A"],
 		["Fundamentos de Investigación y Operaciones","INF281",3,0,"ELO",["MAT031"],""],
-		["Seminario de Titulación","ELI376",2,0,"ELI",[],""]
+		["Seminario de Titulación","ELI376",2,0,"ELI",[],"I"]
 	],
 	"s12": [
-		["Planificación Eléctrica","ELI350",3,0,"ELI",["ICN366","ELI349"],""],
+		["Planificación Eléctrica","ELI350",3,0,"ELI",["ICN366","ELI349"],"P"],
 		["Memoria de Titulación","ELI390",8,0,"ELI",["ELI376"],""],
 		["Recursos Humanos","ICN323",3,0,"IND",["IWN261"],""],
-		["Proyectos Eléctricos","ELI378",4,0,"ELI",["ICN366","ELI349"],""]
+		["Proyectos Eléctricos","ELI378",4,0,"ELI",["ICN366","ELI349"],"P"]
 	]
 }
