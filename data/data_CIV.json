@@ -25,7 +25,7 @@
 		["Matemáticas IV","MAT-024",4,6,"PC",["MAT-023"],"A"],
 		["Física General III","FIS-130",4,8,"PC",["MAT-022","FIS-110"],"A"],
 		["Mecánica De Materiales","CIV-133",4,0,"ES",["CIV-131","MAT-023"],"A"],
-		["Topografía","CIV-206",4,0,"FI",["CIV-103"],"P"],
+		["Topografía","CIV-206",4,8,"FI",["CIV-103"],"P"],
 		["Humanístico III","HXW-003",2,0,"HUM",[],"A"]
 	],
 	"s5": [

@@ -18,7 +18,7 @@
 		["Estática","MEC151",3,0,"VER",["MAT022","FIS110"],""],
 		["Matemáticas III","MAT023",4,7,"CEL",["MAT022"],"A"],
 		["Física General II","FIS120",4,8,"FI",["MAT022","FIS110"],"A"],
-		["Gráfica de Sistemas Mecánicos","MEC142",4,0,"VER",["MEC141"],""],
+		["Gráfica de Sistemas Mecánicos","MEC142",4,6,"VER",["MEC141"],""],
 		["Inglés II","HCW101",2,0,"ING",["HCW100"],""],
 		["Materiales Para Ingeniería","MET203",3,0,"ROS",["QUI010"],""]
 	],

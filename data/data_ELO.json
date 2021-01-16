@@ -25,7 +25,7 @@
 		["Teoría de Redes Eléctricas II","ELO103",3,5,"VER",["ELO102"],""],
 		["Análisis de Sistemas Lineales","ELO104",4,5,"VER",["MAT023","ELO102"],""],
 		["Física General III","FIS130",4,8,"FI",["MAT022","FIS110"],"A"],
-		["Electronica A","ELO106",4,6,"VER",["ELO102"],""],
+		["Electronica A","ELO106",4,6,"VER",["ELO102"],"P"],
 		["Laboratorio Electronica A","ELO107",3,5,"RO",["ELO102"],""]
 	],
 	"s5": [
