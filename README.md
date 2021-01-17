@@ -194,12 +194,10 @@ Si su explorador tiene problemas, abra *Firefox* y copie y pegue la dirección d
 Se agradece especialmente a:
 
 * [Sebastián Aedo](https://github.com/etra0) como creador original de la malla interactiva. [Malla Original](https://github.com/etra0/ramos)
-* CEE de ELO por agregar su respectiva malla
-* [Matías Zuñiga](https://github.com/Manizuca) por agregar la malla de TEL
-* Fernando Cardenas por agregar la malla de ICOM
-* Abel Morgenstern  por agregar la malla de CIV
-* Bernardo Recabarren por agregar la malla de MAT
-* Alois Bellenger Herrera por actualizar la malla de ICQ
-* Josué Venegas por agregar la malla de ICM
 * [Pablo Aravena](https://github.com/litneet64) por su ayuda en la integración del proyecto con Labcomp y en el build workflow.
 * [Carlos Ponce](https://github.com/capgadsx) por su ayuda en la integración del proyecto con Labcomp.
+
+Al mismo tiempo se agradece a todos quienes hayan realizado un aporte al proyecto
+<a href="https://github.com/csarman/malla-interactiva/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=csarman/malla-interactiva" />
+</a>
