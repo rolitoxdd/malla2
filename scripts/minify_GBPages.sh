@@ -18,4 +18,4 @@ find css/ -type f \
     -exec mv -f {}.min {} \;
 
 # Create file representing last update date
-$ date +"%s000" | tee date.txt
+date +"%s000" | tee date.txt
