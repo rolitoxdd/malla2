@@ -1,6 +1,12 @@
 # Changelog
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
+
+# [1.5.2]
+
+- Se agregó un link a las discusiones del repo
+- Se arregló un typo en el nombre del paquete browser-sync
+
 # [1.5.1]
 
 - Ahora prioridad/index.html usa nuevamente los archivos minificados.
@@ -45,7 +51,7 @@ Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 - Pulsar el indicador de semestre o año selecciona todos los ramos de dicho semestre o año
 
 - La calculadora de prioridad ahora calcula la prioridad usando créditos USM y créditos SCT al mismo tiempo.
-- Se corrigió un problema donde al volver al semestre pasado, la prioridad calculada era erronea
+- Se corrigió un problema donde al volver al semestre pasado, la prioridad calculada era errónea
 - Se redujeron faltas ortográficas en general.
 - Spamear clicks en los ramos ya no genera ramos duplicados en la calculadora
 - Existe una nueva "Pantalla de bienvenida" que cubre la ventana completa
@@ -86,7 +92,7 @@ Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
 - Se agrega una opción a la malla generada para hacer más fácil 
 la edición de Mallas
-- se separaron los headers y footers de las páginas para reducir duplicación de codigo
+- se separaron los headers y footers de las páginas para reducir duplicación de código
 
 # [1.2.1]
 
@@ -96,7 +102,7 @@ la edición de Mallas
 # [1.2.0]
 
 - La generadora puede cambiar pre requisitos, categorías,
- créditos nombre de ramos ya existentes
+ créditos y nombres de ramos ya existentes
 - Actualización a Bootstrap V4 de toda la página
 - etra0 dejó de mantener el proyecto, CsarMan toma su lugar
 - Ramos, SelectableRamo y CustomRamo ahora heredan métodos 

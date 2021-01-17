@@ -1,11 +1,11 @@
 {
   "name": "malla-interactiva",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Proyecto Universitario en donde se mantiene una plataforma web que facilita información sobre las mallas en la Universidad.",
   "main": "index.html",
   "dependencies": {},
   "devDependencies": {
-    "browsersync": "0.0.1-security",
+    "browser-sync": "^2.26.13",
     "terser": "^5.5.1",
     "uglifycss": "^0.0.29"
   },
