@@ -63,7 +63,7 @@ la información de cada ramo y sus características agrupados por semestre. Se s
     ["Humanístico II","HRW-133",2,3,"HUM",[],"A"],
     ["Educación Física II","DEW-101",1,0,"HUM",["DEW-100"],"A"]
   ],
-  ...
+//  ...
 }
 ```
 En donde  
@@ -83,7 +83,8 @@ El segundo archivo corresponde a `colors_CARR.json`. Este contiene las categorí
 
 ```json5
 {
-  "Abreviación": ["Color", "Categoría"]
+  "Abreviación": ["Color", "Categoría"],
+//  ...
 }
 ```
 Para elegir un buen color, puedes buscar Color Picker en [Google](https://www.google.com/search?client=safari&rls=en&q=Color+Picker&ie=UTF-8&oe=UTF-8)  
@@ -176,11 +177,11 @@ para abrir `data_INF.json` debería quedar algo como `index.html?m=INF`.
 Con *NPM* instalado en el equipo, ejecute desde una terminal en la carpeta raíz de el repo
 ```shell
 npm install
-npx browsersync -w
+npx browser-sync -w
 ```
 o simplemente (hay una diferencia entre ambos)
 ```shell
-npx browsersync -w
+npx browser-sync -w
 ```
 Ejecutado lo anterior, se tendrá en su explorador favorito una
 versión local de la página. La dirección por defecto es `http://localhost:3000`
