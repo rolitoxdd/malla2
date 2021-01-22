@@ -16,7 +16,7 @@ class MallaEditor {
             let showModalButton = document.querySelector("#showCatModal")
             showModalButton.addEventListener("click", this.setUpCategoryModal.bind(this, false, null))
             let categoryModalId = showModalButton.getAttribute("data-target")
-            this.createCatEventListener = this.createCategory.bind(this)
+            this.createCatEventListener = this.createCategory.bind(this, null)
             this.editCatEventListener = null
             this.deleteCatEventListener = null
             this.categoryModal = $(categoryModalId)
