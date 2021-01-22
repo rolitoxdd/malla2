@@ -397,7 +397,7 @@ class MallaEditor {
     editSubject(subject) {
         let modal = this.createAdvancedSubjectModal.get(0)
         subject.name = modal.querySelector("#custom-namea").value
-        subject.sector = modal.querySelector("#sectorChooser").value
+        subject.category = modal.querySelector("#sectorChooser").value
         subject.prer = new Set(this.subjectModalPrer)
         subject.dictatesIn = modal.querySelector('#dictatesIn').value;
 
@@ -442,7 +442,7 @@ class MallaEditor {
                 if (rawSubject[1] === subject.sigla) {
                     subject.name = rawSubject[0]
                     subject.updateCredits(rawSubject[2], rawSubject[3])
-                    subject.sector = rawSubject[4]
+                    subject.category = rawSubject[4]
                     subject.prer = new Set(rawSubject[5])
                     subject.dictatesIn = rawSubject[6]
 
@@ -528,7 +528,7 @@ class MallaEditor {
                 let subject = this.semesterManager.malla.ALLSUBJECTS[sigla]
                 subject.name = data[0]
                 subject.updateCredits(data[1], data[4])
-                subject.sector = data[2]
+                subject.category = data[2]
                 subject.prer = new Set(data[3])
                 subject.beenEdited = true
                 this.subjectList.push(subject)
@@ -591,7 +591,7 @@ class MallaEditor {
                         let subject = this.semesterManager.malla.ALLSUBJECTS[sigla]
                         subject.name = data[0]
                         subject.updateCredits(data[2])
-                        subject.sector = data[3]
+                        subject.category = data[3]
                         subject.prer = prer
                         subject.beenEdited = true
                         this.updateState(subject)
@@ -830,12 +830,7 @@ class MallaEditor {
         if (cache) {
             cache = JSON.parse(cache)
             //console.log(this.categoryManager.children)
-            Object.keys(this.categories).forEach(category => {
-                if (cache[category] === undefined)
-                    delete this.categories[category]
-                else
-                    this.categories[category] = cache[category]
-            })
+            this.categories = cache
         } else {
             this.loadOldCategories()
         }
