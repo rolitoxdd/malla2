@@ -1,6 +1,10 @@
 # Changelog
 Changelog del proyecto. No es la gran cosa pero *podría* ser útil a futuro
 
+# [1.5.3]
+
+- Se arregló un problema que impedía crear nuevas categorías - issue #24
+- Se arregló un problema que evitaba registrar cambios en las categorías de los ramos - issue #25
 
 # [1.5.2]
 
