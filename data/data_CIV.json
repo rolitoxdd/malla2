@@ -29,7 +29,7 @@
 		["Humanístico III","HXW-003",2,0,"HUM",[],"A"]
 	],
 	"s5": [
-		["Mecánica Racional","CIV-202",4,0,"FI",["MAT-024","CIV-131","CIV-133"],""],
+		["Mecánica Racional","CIV-202",4,0,"FI",["MAT-024","CIV-131"],""],
 		["Análisis Numérico","MAT-270",4,0,"FT",["MAT-024"],"A"],
 		["Tecnología de Materiales","CIV-251",4,0,"FI",["CIV-133","QUI-010"],"I"],
 		["Geología","CIV-205",3,0,"FI",["CIV-206"],"I"],
