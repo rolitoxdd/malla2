@@ -1,84 +1,88 @@
 {
-	"s1": [
-		["Programación","IWI131",3,0,"ROS",[],""],
-		["Matemáticas I","MAT021",5,8,"CEL",[],"A"],
-		["Introducción a la Física","FIS100",3,6,"FI",[],"A"],
-		["Educación Física I","DEW100",1,0,"HUM",[],""],
-		["Introducción a la Ingeniería Mecánica","MEC101",3,0,"VER",[],""]
-	],
-	"s2": [
-		["Química y Sociedad","QUI010",3,0,"ROS",[],""],
-		["Matemáticas II","MAT022",5,7,"CEL",["MAT021"],"A"],
-		["Física General I","FIS110",5,8,"FI",["MAT021","FIS100"],"A"],
-		["Inglés I","HCW100",2,0,"ING",[],""],
-		["Educación Física II","DEW101",1,0,"HUM",["DEW100"],""],
-		["Gráfica en Ingeniería Mecánica","MEC141",3,0,"VER",["FIS100"],""]
-	],
-	"s3": [
-		["Estática","MEC151",3,0,"VER",["MAT022","FIS110"],""],
-		["Matemáticas III","MAT023",4,7,"CEL",["MAT022"],"A"],
-		["Física General II","FIS120",4,8,"FI",["MAT022","FIS110"],"A"],
-		["Gráfica de Sistemas Mecánicos","MEC142",4,6,"VER",["MEC141"],""],
-		["Inglés II","HCW101",2,0,"ING",["HCW100"],""],
-		["Materiales Para Ingeniería","MET203",3,0,"ROS",["QUI010"],""]
-	],
-	"s4": [
-		["Dinámica","MEC252",4,0,"VER",["MAT023","MEC151"],""],
-		["Matemáticas IV","MAT024",4,6,"CEL",["MAT023"],"A"],
-		["Física General IV","FIS140",4,8,"FI",["FIS120"],"A"],
-		["Inglés III","HCW102",2,0,"ING",["HCW101"],""],
-		["Tecnología de Taller","MEC160",4,0,"VER",["MEC141","MET203","MEC151"],""]
-	],
-	"s5": [
-		["Análisis Numérico","MAT270",4,0,"CEL",["MAT024"],""],
-		["Mecánica de Materiales","MEC255",4,0,"VER",["MEC151","MET203"],""],
-		["Termodinámica","MEC110",4,0,"VER",["MAT023","FIS110"],""],
-		["Ingles IV","HCW200",2,0,"ING",["HCW102"],""],
-		["Humanístico I","HRW101",2,0,"HUM",[],""]
-	],
-	"s6": [
-		["Probabilidad y Estadística para Ingeniería","MAT035",4,0,"CEL",["MAT023"],""],
-		["Elementos de Máquinas","MEC258",3,0,"VER",["MEC255"],""],
-		["Fundamentos del Diseño","MEC245",3,0,"VER",[],""],
-		["Mecánica de Fluidos","MEC120",4,0,"VER",["MAT024","MEC110"],""],
-		["Humanístico II","HRW102",2,0,"HUM",[],""]
-	],
-	"s7": [
-		["Mecánica de Fluidos Avanzadas","MEC220",3,0,"VER",["MEC120"],""],
-		["Mecánica de Máquinas","MEC353",3,0,"VER",["MAT270","MEC252"],""],
-		["Procesos de Manufactura","MEC161",3,0,"VER",["MEC160"],""],
-		["Termodinámica Aplicada","MEC210",4,0,"VER",["MEC110"],""],
-		["Transferencia de Calor","MEC230",4,0,"VER",["MEC120"],""],
-		["Humanístico III","HRW103",2,0,"HUM",[],""]
-	],
-	"s8": [
-		["Ingeniería Térmica","MEC278",3,0,"VER",["MEC220","MEC230"],""],
-		["Mediciones Mecánicas","MEC260",3,0,"VER",["MEC160"],""],
-		["Regulación y Contaminación Ambiental","MEC346",3,0,"VER",["MEC120","MEC230"],""],
-		["Fundamentos de Electrotecnia","ELI270",4,0,"MO",["MAT022","FIS120"],""],
-		["Diseño mecánico", "ICM-381", 3, 5, "MO", [], ""],
-		["Electivo 1","MEC1",3,0,"AMA",[],""]
-	],
-	"s9": [
-		["Equipo y Máquinas Térmicas","MEC378",4,0,"VER",["MEC278"],""],
-		["Métodos Numéricos en Ing. Mecánica","MEC270",3,0,"VER",["MAT270","MEC255","MEC120"],""],
-		["Fundamentos de Calidad","MEC280",3,0,"VER",["MAT035"],""],
-		["Fundamentos de Electronica","ILD208",3,0,"RO",["FIS120"],""],
-		["Electivo 2","MEC2",3,0,"AMA",[],""]
-	],
-	"s10": [
-		["Automatización, Neumática y Oleohidráulica","MEC373",3,0,"VER",["MEC260","MEC120"],""],
-		["Tecnologías de Control Ambiental","MEC383",3,0,"VER",["MEC346"],""],
-		["Turbomáquinas","MEC374",4,0,"VER",["MEC120"],""],
-		["Electivo 3","MEC3",3,0,"AMA",[],""]
-	],
-	"s11": [
-		["Proyecto en Ingeniería Mecánica","MEC381",4,0,"NARA",[],""],
-		["Seminario de Titulación de Ing. Civil Mecánico","MEC397",3,0,"NARA",[],""],
-		["Electivo 4","MEC4",3,0,"AMA",[],""]
-	],
-	"s12": [
-		["Título De Ingeniería Civil Mecánica","MEC399",8,0,"NARA",[],""],
-		["Electivo 5","MEC5",3,0,"AMA",[],""]
-	]
+    "s1": [
+        ["Programación","IWI131",3,0,"ROS",[],""],
+        ["Matemáticas I","MAT021",5,8,"CEL",[],"A"],
+        ["Introducción a la Física","FIS100",3,6,"FI",[],"A"],
+        ["Educación Física I","DEW100",1,0,"HUM",[],""],
+        ["Introducción a la Ingeniería Mecánica","MEC101",3,0,"VER",[],""]
+    ],
+    "s2": [
+        ["Química y Sociedad","QUI010",3,0,"ROS",[],""],
+        ["Matemáticas II","MAT022",5,7,"CEL",["MAT021"],"A"],
+        ["Física General I","FIS110",5,8,"FI",["MAT021","FIS100"],"A"],
+        ["Inglés I","HCW100",2,3,"ING",[],""],
+        ["Educación Física II","DEW101",1,0,"HUM",["DEW100"],""],
+        ["Gráfica en Ingeniería Mecánica","MEC141",3,5,"VER",["FIS100"],"A"]
+    ],
+    "s3": [
+        ["Estática","MEC151",3,5,"VER",["MAT022","FIS110"],"A"],
+        ["Matemáticas III","MAT023",4,7,"CEL",["MAT022"],"A"],
+        ["Física General II","FIS120",4,8,"FI",["MAT022","FIS110"],"A"],
+        ["Gráfica de Sistemas Mecánicos","MEC142",4,6,"VER",["MEC141"],"A"],
+        ["Inglés II","HCW101",2,0,"ING",["HCW100"],""],
+        ["Materiales Para Ingeniería","MET203",3,5,"ROS",["QUI010"],"A"]
+    ],
+    "s4": [
+        ["Dinámica","MEC252",4,6,"VER",["MAT023","MEC151"],"A"],
+        ["Matemáticas IV","MAT024",4,6,"CEL",["MAT023"],"A"],
+        ["Física General IV","FIS140",4,8,"FI",["FIS120"],"A"],
+        ["Inglés III","HCW102",2,3,"ING",["HCW101"],""],
+        ["Tecnología de Taller","MEC160",4,7,"VER",["MEC141","MET203","MEC151"],"A"]
+    ],
+    "s5": [
+        ["Análisis Numérico","MAT270",4,7,"CEL",["MAT024"],"A"],
+        ["Mecánica de Materiales","MEC255",4,7,"VER",["MEC151","MET203"],"A"],
+        ["Termodinámica","MEC110",4,7,"VER",["MAT023","FIS110"],"A"],
+        ["Ingles IV","HCW200",2,3,"ING",["HCW102"],""],
+        ["Humanístico I","HRW101",2,3,"HUM",[],"A"]
+    ],
+    "s6": [
+        ["Probabilidad y Estadística para Ingeniería","MAT035",4,7,"CEL",["MAT023"],"A"],
+        ["Elementos de Máquinas","MEC258",3,5,"VER",["MEC255"],"A"],
+        ["Fundamentos del Diseño","MEC245",3,5,"VER",[],"A"],
+        ["Mecánica de Fluidos","MEC120",4,7,"VER",["MAT024","MEC110"],"A"],
+        ["Humanístico II","HRW102",2,3,"HUM",[],"A"]
+    ],
+    "s7": [
+        ["Mecánica de Fluidos Avanzadas","MEC220",3,5,"VER",["MEC120"],"A"],
+        ["Mecánica de Máquinas","MEC353",3,5,"VER",["MAT270","MEC252"],"I"],
+        ["Procesos de Manufactura","MEC161",3,5,"VER",["MEC160"],"I"],
+        ["Termodinámica Aplicada","MEC210",4,7,"VER",["MEC110"],"I"],
+        ["Transferencia de Calor","MEC230",4,7,"VER",["MEC120"],"A"],
+        ["Humanístico III","HRW103",2,3,"HUM",[],"A"]
+    ],
+    "s8": [
+        ["Ingeniería Térmica","MEC278",3,5,"VER",["MEC220","MEC230"],"P"],
+        ["Mediciones Mecánicas","MEC260",3,5,"VER",["MEC160"],"A"],
+        ["Fundamentos de Economía y Financiamiento","ICS761",3,5,"GRS",["MAT035"],"P"],
+        ["Fundamentos de Electrotecnia","ELI270",4,7,"MO",["MAT022","FIS120"],"A"],
+        ["Diseño mecánico","MEC388",3,6,"VER",["MEC258","MEC161"],"I"],
+        ["Electivo 1","MEC1",3,5,"AMA",[],""]
+    ],
+    "s9": [
+        ["Equipo y Máquinas Térmicas","MEC378",4,7,"VER",["MEC278"],"I"],
+        ["Métodos Numéricos en Ing. Mecánica","MEC270",3,5,"VER",["MAT270","MEC255","MEC120"],"I"],
+        ["Fundamentos de Calidad","MEC280",3,5,"VER",["MAT035"],"I"],
+        ["Fundamentos de Electronica","ILD208",3,5,"RO",["FIS120"],"A"],
+	["Fundamentos de Administración y Legislación","ICS762",3,5,"GRS",["ICS761"],"I"],
+        ["Electivo 2","MEC2",3,5,"AMA",[],""]
+    ],
+    "s10": [
+        ["Automatización, Neumática y Oleohidráulica","MEC373",3,5,"VER",["MEC260","MEC120"],"A"],
+        ["Formulación de Proyectos","MEC380",3,5,"VER",["ICS761"],"P"],
+        ["Turbomáquinas","MEC374",4,7,"VER",["MEC120"],"P"],
+	["Ingeniería Ambiental","MEC385",3,5,"VER",["MEC120"],"P"],
+        ["Electivo 3","MEC3",3,5,"AMA",[],""]
+    ],
+    "s11": [
+        ["Proyecto en Ingeniería Mecánica","MEC381",4,7,"NARA",[],"I"],
+        ["Seminario de Titulación de Ing. Civil Mecánico","MEC397",3,5,"NARA",[],"I"],
+	["Gestión de la Producción y Operaciones","MEC387",3,5,"VER",["MEC280","ICS761"],"I"],
+	["Ingeniería del Mantenimiento","MEC382",3,5,"VER",["MEC258","MEC161","MEC373"],"I"],
+        ["Electivo 4","MEC4",3,5,"AMA",[],""]
+    ],
+    "s12": [
+        ["Título De Ingeniería Civil Mecánica","MEC399",8,13,"NARA",[],"A"],
+        ["Electivo 5","MEC5",3,5,"AMA",[],""]
+    ]
 }
