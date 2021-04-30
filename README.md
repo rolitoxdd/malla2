@@ -10,6 +10,7 @@
 
 
 Proyecto Universitario open-source en donde se mantiene una plataforma web que facilita información sobre las mallas en la Universidad.
+Alojado en https://mallas.labcomp.cl/
 
 
 # Índice
