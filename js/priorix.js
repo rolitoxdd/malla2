@@ -406,7 +406,7 @@ class Priorix extends SemesterManager {
                 resultSCT = Math.round(resultSCT * 100) / 100.0
 
             }
-            this.card.select('.resUSM').text(resultUSM)
+            // this.card.select('.resUSM').text(resultUSM)
             this.card.select('.resSCT').text(resultSCT)
             // save results
             this.subjectGrades[this.semester] = semesterGrades

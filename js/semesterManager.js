@@ -35,7 +35,10 @@ class SemesterManager {
 
     // agrega la asignatura al semestre
     addSubject(subject) {
-        if (this.selectedPerSemester[this.semester] === undefined) {
+        console.log(this.selectedPerSemester[this.semester])
+        let undefinedSemester = this.selectedPerSemester[this.semester] === undefined
+        let semesterEmpty = this.selectedPerSemester[this.semester].length === 0
+        if (undefinedSemester || semesterEmpty) {
             this.noSubjectsText.classed("d-none", true)
             this.selectedPerSemester[this.semester] = []
         }

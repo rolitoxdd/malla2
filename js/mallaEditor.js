@@ -376,8 +376,18 @@ class MallaEditor {
         let modal = this.createAdvancedSubjectModal.get(0)
         let name = modal.querySelector("#custom-namea").value
         let sigla = modal.querySelector("#custom-siglaa").value
-        let creditsUSM = parseInt(modal.querySelector("#custom-creditsa-USM").value)
-        let creditsSCT = parseInt(modal.querySelector("#custom-creditsa-SCT").value)
+        let creditsUSM = modal.querySelector("#custom-creditsa-USM").value
+        let creditsSCT = modal.querySelector("#custom-creditsa-SCT").value
+        if (isNaN(parseInt(creditsUSM))) {
+            creditsUSM = 1
+        } else
+            creditsSCT = parseInt(creditsUSM)
+        if (isNaN(parseInt(creditsSCT)))
+            creditsSCT = 2
+        else
+            creditsSCT = parseInt(creditsSCT)
+
+        console.log(creditsSCT, creditsUSM, modal.querySelector("#custom-creditsa-USM").value)
         let sectorName = modal.querySelector('#sectorChooser').value;
         let dictatesIn = modal.querySelector('#dictatesIn').value;
         let prer = []
