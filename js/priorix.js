@@ -101,13 +101,16 @@ class Priorix extends SemesterManager {
             .attr('for', 'nota-' + subject.sigla)
             .text(subject.name);
         let isOdd = Boolean(this.semester % 2)
+
+        subjectInfo.append("small")
+            .classed("form-text bg-light rounded text-center mt-0 d-block mb-1 text-danger infmessage", true)
         if (isOdd && subject.dictatesIn === "P")
-            subjectInfo.append("small")
-                .classed("form-text bg-light rounded text-center mt-0 mb-1 text-danger", true)
+            subjectInfo.select(".infmessage")
+                .classed("d-block", false)
                 .text("Esta asignatura normalmente solo se dicta en semestres pares");
-        else if (!isOdd && subject.dictatesIn === "I")
-            subjectInfo.append("small")
-                .classed("form-text bg-light rounded text-center mt-0 mb-1 text-danger", true)
+    else if (!isOdd && subject.dictatesIn === "I")
+            subjectInfo.select("infmessage")
+                .classed("d-block", false)
                 .text("Esta asignatura normalmente solo se dicta en semestres Impares");
         let subjectGrade = subjectInfo.append('div');
         subjectGrade.attr('class','input-group');
@@ -164,7 +167,11 @@ class Priorix extends SemesterManager {
             if (this.displayedSubjects[subject.sigla][1].property("value") > 54) {
                 subject.selectRamo()
                 subject.approveRamo()
-            } else if (!this.selectedPerSemester[this.semester+1]){
+            } else if (!this.selectedPerSemester[this.semester+1]) {
+                this.displayedSubjects[subject.sigla][1].property("value", "")
+                this.displayedSubjects[subject.sigla][0].select(".infmessage")
+                    .classed("d-block", false)
+                    .text("Asignatura reprobada el semestre anterior")
                 subject.showWarning("yellow")
             } else {
                 subject.selectRamo()
