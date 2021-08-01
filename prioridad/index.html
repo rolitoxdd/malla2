@@ -163,7 +163,7 @@
         <svg><use href="#subjectExample" style="cursor: default"></use> </svg>
         </div>
         <p>Selecciona una asignatura de la malla y anota la nota que obtuviste en el asignatura para obtener tu prioridad. Puedes pulsar el semestre en la malla para agregar todos los ramos de dicho semestre a la calculadora</p>
-        <p>Usa las flechas <span class="btn-card btn btn-secondary disabled"><i class="fas fa-arrow-left"></i></span> <span class="btn-card btn btn-secondary disabled"><i class="fas fa-arrow-right"></i></span>
+        <p>Usa las flechas <span class="btn-card btn btn-primary disabled"><i class="fas fa-arrow-left"></i></span> <span class="btn-card btn btn-primary disabled"><i class="fas fa-arrow-right"></i></span>
           para cambiar de semestre. Cada vez que cambies una nota, el cambio quedará guardado en cache para la próxima vez que ingreses</p>
         <p>El <strong>FAE</strong> o <strong>Factor de Actividades Extracurriculares</strong> corresponde a un número que bonifica
           tu prioridad de acuerdo a tus actividades extra académicas que la Universidad vea como positivas. El valor por defecto es 1</p>
@@ -182,7 +182,7 @@
           Durante el segundo semestre de 2019 y principios del primero de 2020, la universidad empezó a trabajar con los créditos SCT
            y con ello se modificó la formula, pues esta está pensada para créditos USM. Esto se sabe puesto que hasta el día de hoy,
           la plataforma SIGA muestra una prioridad que difiere de la calculada por la formula del reglamento,
-          <strong>linkeado en la mismísima página de inicio de sesión del SIGA</strong> La formula de abajo corresponde a una suposición propia.
+          <strong>referenciado en la mismísima página de inicio de sesión del SIGA</strong> La formula de abajo corresponde a una suposición propia.
         </p>
         <p style="overflow: auto">
           $$\text{Prioridad Nueva} = 100\cdot\frac{\sum{\text{Nota Asignatura} \cdot \text{Créditos SCT Asignatura}}}{14 \cdot \frac{5}{3} \cdot \text{semestre}^{1.06}} \cdot \frac{\text{Créditos SCT Aprobados}}{\text{Créditos SCT Tomados Totales}} \cdot \text{FAE}$$
@@ -209,12 +209,12 @@
             <use href="#subjectExample"></use>
           </svg>
           <div class="pb-3">
-            <button type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
+            <div class="btn-card btn btn-primary disabled" style="pointer-events: none" disabled="disabled">
               <i class="fas fa-arrow-left"></i>
-            </button>
-            <button type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
+            </div>
+            <div class="btn-card btn btn-primary disabled" style="pointer-events: none" disabled="disabled">
               <i class="fas fa-arrow-right"></i>
-            </button>
+            </div>
           </div>
           <h5 style="max-width: 500px" class="mx-auto">Si alcanzas a leer este texto, seguramente la malla aún esta cargando u ocurrió un problema y tienes que refrescar la página...</h5>
         </div>
@@ -305,16 +305,18 @@
             </div>
             <hr class="w-100 mt-auto mb-0">
             <div class="text-muted mb-0 text-center py-1 px-3 px-xl-1 w-100">
-              <small class="mb-0">
-                ¿La asignatura que quieres no esta en la malla? ¡Crealo en la <a data-scroll href="#unoficialSubjects">tabla de abajo</a>!
+              <small >
+                ¿La asignatura que quieres no esta en la malla? ¡Usa la <a data-scroll href="#unoficialSubjects">tabla de abajo</a>!
               </small>
+              <br>
+              <small class="mb-0">Usa las flechas de abajo para cambiar de semestre</small>
             </div>
           </div>
           <div class="card-footer  px-3">
             <!-- Botones para cambiar semestre y calcular prioridad -->
             <div class="row no-gutters align-items-center justify-content-between">
               <div class="col-2 text-left">
-                <button id="back" type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
+                <button id="back" type="button" class="btn-card btn btn-primary disabled" disabled="disabled">
                   <i class="fas fa-arrow-left"></i>
                 </button>
               </div>
@@ -333,7 +335,7 @@
                 </div>
               </div>
               <div class="col-2 text-right">
-                <button id="forward" type="button" class="btn btn-secondary btn-card">
+                <button id="forward" type="button" class="btn btn-primary btn-card">
                   <i class="fas fa-arrow-right"></i>
                 </button>
               </div>

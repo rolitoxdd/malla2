@@ -261,7 +261,7 @@
             <svg><use href="#subjectExample" style="cursor: default"></use> </svg>
           </div>
           <p>Selecciona una asignatura de la malla para que quede registrada en el semestre indicado. Puedes pulsar el semestre en la malla para agregar todos los ramos de dicho semestre a la calculadora</p>
-          <p>Usa las flechas <span class="btn-card btn btn-secondary disabled"><i class="fas fa-arrow-left"></i></span> <span class="btn-card btn btn-secondary disabled"><i class="fas fa-arrow-right"></i></span>
+          <p>Usa las flechas <span class="btn-card btn btn-primary disabled"><i class="fas fa-arrow-left"></i></span> <span class="btn-card btn btn-primary disabled"><i class="fas fa-arrow-right"></i></span>
             para cambiar de semestre. Una vez que termines de configurar la malla, usa <span class="btn-card btn btn-primary disabled">Generar</span> para poder ver la malla resultante</p>
           <p> Con el botón <span class="btn-card btn btn-secondary disabled">Editar</span> puedes cambiar información sobre la asignatura en cuestión.
             Tome nota que si decide cambiar los créditos de la asignatura, al editar los créditos USM, se cambiaran también los SCT a menos que
@@ -347,14 +347,14 @@
             <svg  class="py-3 pt-md-5 pb-md-2" style="min-height: 100px" >
               <use href="#subjectExample"></use>
             </svg>
-            <div class="pb-3">
-              <button type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
-                <i class="fas fa-arrow-left"></i>
-              </button>
-              <button type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
-                <i class="fas fa-arrow-right"></i>
-              </button>
 
+            <div class="pb-3">
+              <div class="btn-card btn btn-primary disabled" style="pointer-events: none" disabled="disabled">
+                <i class="fas fa-arrow-left"></i>
+              </div>
+              <div class="btn-card btn btn-primary disabled" style="pointer-events: none" disabled="disabled">
+                <i class="fas fa-arrow-right"></i>
+              </div>
             </div>
             <h5 style="max-width: 500px" class="mx-auto">Si alcanzas a leer este texto, seguramente la malla aún esta cargando u ocurrió un problema y tienes que refrescar la página...</h5>
           </div>
@@ -421,9 +421,10 @@
             <hr class="w-100 mt-auto mb-0">
             <div class="text-muted mb-0 text-center py-1 px-3 px-xl-1 w-100">
               <small class="mb-0">
-                ¿La asignatura que quieres no esta en la malla? ¡Crealo en la <a data-scroll href="#unoficialSubjects">tabla de abajo</a>!
+                ¿La asignatura que quieres no esta en la malla? ¡Usa la <a data-scroll href="#unoficialSubjects">tabla de abajo</a>!
               </small>
-              <small class="mb-0"> ¿Te faltan categorías? ¡Creala <a data-scroll href="#categories">abajo</a>!</small>
+              <small class="mb-0"> ¿Te faltan categorías? ¡Creala <a data-scroll href="#categories">abajo</a>!</small><br>
+              <small class="mb-0">Usa las flechas para cambiar de semestre</small>
             </div>
 
             </div>
@@ -432,7 +433,7 @@
             <!-- Botones para cambiar semestre y calcular prioridad -->
             <div class="row no-gutters align-items-center justify-content-between">
               <div class="col-2 text-left">
-                <button id="back" type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
+                <button id="back" type="button" class="btn-card btn btn-primary disabled" disabled="disabled">
                   <i class="fas fa-arrow-left"></i>
                 </button>
               </div>
@@ -457,7 +458,7 @@
                 </div>
               </div>
               <div class="col-2 text-right">
-                <button id="forward" type="button" class="btn btn-secondary btn-card">
+                <button id="forward" type="button" class="btn btn-primary btn-card">
                   <i class="fas fa-arrow-right"></i>
                 </button>
               </div>
