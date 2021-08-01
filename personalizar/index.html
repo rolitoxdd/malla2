@@ -124,7 +124,7 @@
               <div class="col">
                 <div class="form-group">
                   <label for="custom-creditsa-USM">Créditos USM</label>
-                  <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-creditsa-USM" required pattern="[1-9]+" placeholder="1">
+                  <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-creditsa-USM" required pattern="[1-9]+" placeholder="Ingrese un valor">
                   <small id="custom-creditsa-USM-help" class="form-text text-muted">
                     Obligatorio
                   </small>
@@ -133,9 +133,9 @@
               <div class="col">
                 <div class="form-group">
                   <label for="custom-creditsa-SCT">Créditos SCT</label>
-                  <input type="number" inputmode="numerical" autocomplete="off" placeholder="0" class="form-control" id="custom-creditsa-SCT" pattern="[1-9]+">
+                  <input type="number" inputmode="numerical" autocomplete="off" placeholder="Ingrese un valor" class="form-control" id="custom-creditsa-SCT" pattern="[1-9]+">
                   <small id="custom-creditsa-SCT-help" class="form-text text-muted">
-                    Si esta entrada no se llena, los créditos se calcularan en base a los USM
+                    Si esta entrada no se llena, los créditos se calcularan con relación a los créditos USM
                   </small>
                 </div>
 
@@ -169,6 +169,9 @@
                 <option value="0" selected>Elige los prerrequisitos</option>
               </select>
             </div>
+            <small id="prerChooser-Help" class="form-text text-muted">
+              Solo usar en caso de que la asignatura tenga prerrequisitos
+            </small>
             <ul id="prerList" class="disabled list-group pt-1 mb-3">
               <!-- <li class="list-group-item d-flex align-items-center pr-0 py-0">
                 <div class="flex-grow-1 "> SIG-101 | Placeholder  </div> 
@@ -220,16 +223,16 @@
           </div>
           <div class="form-group">
             <label for="custom-credits-USM">Créditos USM</label>
-            <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-USM" required pattern="[1-9]+" placeholder="1">
+            <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-USM" required pattern="[1-9]+" placeholder="Ingrese un valor">
             <small id="custom-credits-USM-help" class="form-text text-muted">
               Obligatorio
             </small>
           </div>
           <div class="form-group">
             <label for="custom-credits-SCT">Créditos SCT</label>
-            <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-SCT" pattern="[1-9]+" placeholder="2">
+            <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-SCT" pattern="[1-9]+" placeholder="Ingrese un valor">
             <small id="custom-credits-SCT-help" class="form-text text-muted">
-              Si esta entrada no se llena, los créditos se calcularan en base a los USM
+              Si esta entrada no se llena, los créditos se calcularan con relación a los créditos USM
             </small>
           </div>
         </div>
@@ -260,17 +263,17 @@
           <p>Selecciona una asignatura de la malla para que quede registrada en el semestre indicado. Puedes pulsar el semestre en la malla para agregar todos los ramos de dicho semestre a la calculadora</p>
           <p>Usa las flechas <span class="btn-card btn btn-secondary disabled"><i class="fas fa-arrow-left"></i></span> <span class="btn-card btn btn-secondary disabled"><i class="fas fa-arrow-right"></i></span>
             para cambiar de semestre. Una vez que termines de configurar la malla, usa <span class="btn-card btn btn-primary disabled">Generar</span> para poder ver la malla resultante</p>
-          <p>Con el botón <span class="btn-card btn btn-secondary disabled">Editar</span> puedes cambiar información sobre la asignatura en cuestión.
+          <p> Con el botón <span class="btn-card btn btn-secondary disabled">Editar</span> puedes cambiar información sobre la asignatura en cuestión.
             Tome nota que si decide cambiar los créditos de la asignatura, al editar los créditos USM, se cambiaran también los SCT a menos que
-            estos tengan un valor individual. Esto no sucede en sentido contrario. La información nueva se mostrara en la generadora y en la tabla de Asignaturas,
-          pero no en la malla.</p>
+            estos tengan un valor individual. Esto no sucede en sentido contrario. La información nueva se mostrará en la generadora y en la tabla de Asignaturas,
+          pero no en la malla. </p>
           <p>Las asignaturas que han sido editadas o no pertenecen a la malla se encuentran en la tabla de "Asignaturas fuera de la malla oficial / editados".
           Ahí podrás seleccionarlos, editarlos, eliminarlos/restaurarlos y ver información de estos. Al crear un ramo, existen dos opciones,
             <span class="btn-card btn btn-secondary disabled">Agregar Asignatura</span> y <span class="btn-card btn btn-secondary disabled">Agregar asignatura avanzada</span>.
-          usa la opción simple para crear asignaturas de manera rápida, llenando solamente el nombre, sigla y créditos. La opción avanzada te permite
-          ademas seleccionar su categoría y los prerrequisitos. Estas mismas opciones, a excepción de la sigla, se pueden modificar con el botón <span class="btn-card btn btn-secondary disabled">Editar</span>.
-          La opción de eliminar asignaturas solo esta disponible para los ramos no oficiales, para los oficiales esta la opción de restaurar. Esta opción permite
-            devolver la asignatura a su estado original, reagregando su categoría si esta se elimino en algún momento.</p>
+          Usa la opción simple para crear asignaturas de manera rápida, llenando solamente el nombre, sigla y créditos. La opción avanzada te permite
+          además seleccionar su categoría y los prerrequisitos. Estas mismas opciones, a excepción de la sigla, se pueden modificar con el botón <span class="btn-card btn btn-secondary disabled">Editar</span>.
+          La opción de eliminar asignaturas solo está disponible para los ramos no oficiales, para los oficiales esta la opción de restaurar. Esta opción permite
+            devolver la asignatura a su estado original, reagregando su categoría si esta se eliminó en algún momento.</p>
           <p>Por último, la tabla de categorías te permite agregar, quitar y cambiar categorías según se necesite. Para ello, solo se necesita pulsar en
           <span class="list-group-item list-group-item-action">¡Agrega una categoría!</span> y llenar el nombre, abreviatura y seleccionar el color, para editar y quitar
           la categoría, basta con hacer click en la misma categoría y cambiar los datos o pulsar el botón <span class="btn-card btn btn-danger disabled">Eliminar</span>.
@@ -341,9 +344,18 @@
         <div class="row justify-content-center  align-items-center">
           <div class="col col-md-8 col-xl-6 text-center">
             <h1>¡Bienvenido!</h1>
-            <svg  class="py-3 py-md-5" style="min-height: 100px" >
+            <svg  class="py-3 pt-md-5 pb-md-2" style="min-height: 100px" >
               <use href="#subjectExample"></use>
             </svg>
+            <div class="pb-3">
+              <button type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
+                <i class="fas fa-arrow-left"></i>
+              </button>
+              <button type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
+                <i class="fas fa-arrow-right"></i>
+              </button>
+
+            </div>
             <h5 style="max-width: 500px" class="mx-auto">Si alcanzas a leer este texto, seguramente la malla aún esta cargando u ocurrió un problema y tienes que refrescar la página...</h5>
           </div>
         </div>
@@ -387,7 +399,7 @@
             <div class="card-sticky-top">
               <div class="row no-gutters justify-content-center">
                 <div class="col-12 py-2 justify-content-center text-center">
-                  <div class="badge badge-info text-left">
+                  <div class="badge badge-info text-left" style="font-size: small">
                     Asignaturas del semestre Nº <span id="semester"></span>
                   </div>
                 </div>

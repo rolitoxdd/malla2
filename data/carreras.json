@@ -1,6 +1,6 @@
 [
   {
-    "Nombre": "Ambiental",
+    "Nombre": "Ing. Civil Ambiental",
     "Link": "ICA"
   },
   {
@@ -8,18 +8,18 @@
     "Link": "ARQ"
   },
   {
-    "Nombre": "Civil",
+    "Nombre": "Ing. Civil",
     "Link": "CIV"
   },
-  { "Nombre": "Civil en Minas",
+  { "Nombre": "Ing. Civil de Minas",
     "Link": "ICM"
   },
   {
-    "Nombre": "Comercial",
+    "Nombre": "Ing. Comercial",
     "Link": "ICOM"
   },
   {
-    "Nombre": "Construcción",
+    "Nombre": "Construcción Civil",
     "Link": "CONSTRU"
   },
   {
@@ -27,11 +27,11 @@
     "Link": "IDP"
   },
   {
-    "Nombre": "Eléctrica",
+    "Nombre": "Ing. Civil Eléctrica",
     "Link": "ELI"
   },
   {
-    "Nombre": "Electrónica",
+    "Nombre": "Ing. Civil Electrónica",
     "Link": "ELO"
   },
   {
@@ -43,7 +43,7 @@
     "Link": "AFI"
   },
   {
-    "Nombre": "Informática",
+    "Nombre": "Ing. Civil Informática",
     "Link": "INF"
   },
   {
@@ -51,27 +51,27 @@
     "Link": "IAC"
   },
   {
-    "Nombre": "Industrial",
+    "Nombre": "Ing. Civil Industrial",
     "Link": "ICI"
   },
   {
-    "Nombre": "Matemática",
+    "Nombre": "Ing. Civil Matemática",
     "Link": "MAT"
   },
   {
-    "Nombre": "Mecánica",
+    "Nombre": "Ing. Civil Mecánica",
     "Link": "MEC"
   },
   {
-    "Nombre": "Metalúrgica",
+    "Nombre": "Ing. Civil Metalúrgica",
     "Link": "MET"
   },
   {
-    "Nombre": "Química",
+    "Nombre": "Ing. Civil Química",
     "Link": "ICQ"
   },
   {
-    "Nombre": "Telemática",
+    "Nombre": "Ing. Civil Telemática",
     "Link": "TEL"
   }
 ]

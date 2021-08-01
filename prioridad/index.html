@@ -125,16 +125,16 @@
         </div>
         <div class="form-group">
           <label for="custom-credits-USM">Créditos USM</label>
-          <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-USM" required pattern="[1-9]+" placeholder="1">
+          <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-USM" required pattern="[1-9]+" placeholder="Ingrese un valor">
           <small id="custom-credits-USM-help" class="form-text text-muted">
             Obligatorio
           </small>
         </div>
         <div class="form-group">
           <label for="custom-credits-SCT">Créditos SCT</label>
-          <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-SCT" pattern="[1-9]+" placeholder="2">
+          <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-SCT" pattern="[1-9]+" placeholder="Ingrese un valor">
           <small id="custom-credits-SCT-help" class="form-text text-muted">
-            Si esta entrada no se llena, los créditos se calcularan en base a los USM
+            Si esta entrada no se llena, los créditos se calcularan con relación a los créditos USM
           </small>
         </div>
       </div>
@@ -205,9 +205,17 @@
       <div class="row justify-content-center  align-items-center">
         <div class="col col-md-8 col-xl-6 text-center">
           <h1>¡Bienvenido!</h1>
-          <svg  class="py-3 py-md-5" style="min-height: 100px" >
+          <svg  class="py-3 pt-md-5 pb-md-2" style="min-height: 100px" >
             <use href="#subjectExample"></use>
           </svg>
+          <div class="pb-3">
+            <button type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <button type="button" class="btn-card btn btn-secondary disabled" disabled="disabled">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
           <h5 style="max-width: 500px" class="mx-auto">Si alcanzas a leer este texto, seguramente la malla aún esta cargando u ocurrió un problema y tienes que refrescar la página...</h5>
         </div>
       </div>
@@ -221,7 +229,7 @@
 <header data-include="header"></header>
 <!-- Header END -->
 
-<div class=" alert alert-warning text-center alert-dismissible fade show" role="alert">
+<!--<div class=" alert alert-warning text-center alert-dismissible fade show" role="alert">
   <div class="container">
     El cálculo de la nueva prioridad basada en créditos <strong>SCT</strong> en estos momentos no es muy precisa. Para ayudar en la
     disminución del error, informen mediante este
@@ -231,7 +239,7 @@
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
-</div>
+</div>-->
 
 <!-- Main  -->
 <section class="container-fluid flex-grow-1">
@@ -261,7 +269,7 @@
             <div class="card-sticky-top">
               <div class="row no-gutters justify-content-between pt-2 mb-auto">
                 <div class="col-auto pl-3 align-items-center">
-                  <div class="badge badge-pill badge-info text-left">
+                  <div style="font-size: small" class="badge badge-pill badge-info text-left">
                     Semestre Nº <span id="semester"></span>
                   </div>
                 </div>
@@ -291,7 +299,7 @@
 
             <div class="mt-auto" style="position: -webkit-sticky; position: sticky; bottom: 0;z-index: 1">
               <div class="priorix-result text-center alert alert-info mb-0" role="alert">
-                Prioridad Vieja: <strong><span class="resUSM">0</span></strong> <span class="d-sm-inline d-none">|</span> <br class="d-sm-none"> Prioridad Nueva: <strong><span class="resSCT">0</span></strong>
+                <span class="d-sm-inline d-none"></span> <br class="d-sm-none"> Prioridad: <strong><span class="resSCT">0</span></strong>
               </div>
 
             </div>

@@ -189,17 +189,26 @@ function removePopUp() {
           malla = new Malla(sct, SelectableRamo, 0.804, 1)
           malla.enableCreditsSystem()
           document.getElementById("custom-credits-USM").addEventListener("input", function updateSCTPlaceholder() {
-              document.getElementById("custom-credits-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
+              if (this.value == "")
+                  document.getElementById("custom-credits-SCT").setAttribute("placeholder", "Ingrese un valor")
+              else
+                  document.getElementById("custom-credits-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
           })
 
       } else if (personalizar && !mallaPersonal) {
           malla = new Malla(sct, SelectableRamo, 0.804, 1)
           malla.enableCreditsSystem()
           document.getElementById("custom-credits-USM").addEventListener("input", function updateSCTPlaceholder() {
-              document.getElementById("custom-credits-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
+              if (this.value == "")
+                  document.getElementById("custom-credits-SCT").setAttribute("placeholder", "Ingrese un valor")
+              else
+                document.getElementById("custom-credits-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
           })
           document.getElementById("custom-creditsa-USM").addEventListener("input", function updateSCTPlaceholder() {
-              document.getElementById("custom-creditsa-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
+              if (this.value == "")
+                  document.getElementById("custom-creditsa-SCT").setAttribute("placeholder", "Ingrese un valor")
+              else
+                  document.getElementById("custom-creditsa-SCT").setAttribute("placeholder", Math.round(this.value * 5/3).toString())
           })
 
 

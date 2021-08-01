@@ -50,7 +50,7 @@ class MallaEditor {
             e.target.querySelector("#custom-sigla").value = ""
             e.target.querySelector("#custom-credits-USM").value = ""
             e.target.querySelector("#custom-credits-SCT").value = ""
-            e.target.querySelector("#custom-credits-SCT").placeholder = 2
+            e.target.querySelector("#custom-credits-SCT").placeholder = "Ingrese un valor"
         })
 
         this.createAdvancedSubjectModal = null
@@ -80,7 +80,7 @@ class MallaEditor {
                 sigla.removeAttribute("disabled")
                 e.target.querySelector("#custom-creditsa-USM").value = ""
                 e.target.querySelector("#custom-creditsa-SCT").value = ""
-                e.target.querySelector("#custom-creditsa-SCT").placeholder = 2
+                e.target.querySelector("#custom-creditsa-SCT").placeholder = "Ingrese un valor"
                 e.target.querySelector("#dictatesIn").value = ""
                 let sectorC = e.target.querySelector("#sectorChooser")
                 sectorC.textContent = ""
