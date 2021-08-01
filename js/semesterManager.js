@@ -37,8 +37,13 @@ class SemesterManager {
     addSubject(subject) {
         console.log(this.selectedPerSemester[this.semester])
         let undefinedSemester = this.selectedPerSemester[this.semester] === undefined
-        let semesterEmpty = this.selectedPerSemester[this.semester].length === 0
-        if (undefinedSemester || semesterEmpty) {
+        if (!undefinedSemester) {
+            let semesterEmpty = this.selectedPerSemester[this.semester].length === 0
+            if (semesterEmpty) {
+                this.noSubjectsText.classed("d-none", true)
+                this.selectedPerSemester[this.semester] = []
+            }
+        } else {
             this.noSubjectsText.classed("d-none", true)
             this.selectedPerSemester[this.semester] = []
         }
