@@ -1,13 +1,8 @@
 {
-	"CEL": ["#00838F", "Matemáticas"],
-	"FI": ["#2E58A7", "Físicas"],
-	"HUM": ["#B0B91D", "Humanistas y Deportes"],
-	"ROS": ["#C54B73", "Plan Común"],
-	"RO": ["#991B1E", "Electrónica"],
-	"ING": ["#6BA8D1", "Ingles"],
-	"AMA": ["#FDDE15", "Electivos"],
-	"MO": ["#6D57A5", "Electrica"],
-	 "VER": ["#00AD5D", "Mecánica"],
-	"GRS":["#DAF7A6","Comercial"],
-	 "NARA": ["#F78E1E", "Titulación"]
+	"CB": ["#FFFF54", "Ciencias Básicas"],
+	"FG": ["#9FCBDA", "Formación General"],
+	"CDI": ["#F5C242", "Ciencias de la Ingeniería"],
+	"IA": ["#4FAD5B", "Ingeniería Aplicada"],
+	"GA": ["#AEA1C4", "Gestión y Administración"],
+	"EFP": ["#D09996", "Electivos de Formación Profesional"]
 }
