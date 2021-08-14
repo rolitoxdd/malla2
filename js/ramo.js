@@ -104,7 +104,7 @@ class Ramo {
         this.ramo.append("title").text(
             "Ramo " + this.sigla+ ", " + this.name+ ". Este ramo tiene " + this.getUSMCredits() + " créditos USM y " +
             this.getSCTCredits() + " créditos SCT. Se dicta en " + dictatesIn[this.dictatesIn] + " y "
-            + (this.prer.size ? " tiene como prerrequisitos a " + prers : "no tiene prerrequisitos") + ".")
+            + (this.prer.size ? "tiene como prerrequisitos a " + prers : "no tiene prerrequisitos") + ".")
 
         this.ramo.append("rect")
             .attr("x", posX)
