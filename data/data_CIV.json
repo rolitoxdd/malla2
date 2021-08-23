@@ -53,7 +53,7 @@
 		["Dinámica de Estructuras","CIV-235",4,0,"ES",["CIV-234"],"P"],
 		["Hidrología","CIV-243",3,0,"AG",["CIV-242","MAT-044"],"P"],
 		["Mecánica de Suelos I","CIV-261",4,0,"SU",["CIV-242","CIV-133"],"P"],
-		["Ingeniería en Transporte","CIV-368",3,0,"VI",["ILI-281"],"P"],
+		["Ingeniería en Transporte","CIV-368",3,0,"VI",["ICS-733", "ILI-281"],"P"],
 		["Planificación y control de Proyectos","CIV-380",3,0,"GE",["CIV-222","ICS-733"],"P"]
 	],
 	"s9": [
