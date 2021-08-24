@@ -53,14 +53,14 @@
 		["Dinámica de Estructuras","CIV-235",4,0,"ES",["CIV-234"],"P"],
 		["Hidrología","CIV-243",3,0,"AG",["CIV-242","MAT-044"],"P"],
 		["Mecánica de Suelos I","CIV-261",4,0,"SU",["CIV-242","CIV-133"],"P"],
-		["Ingeniería en Transporte","CIV-368",3,0,"VI",["ICS-733", "ILI-281"],"P"],
+		["Ingeniería en Transporte","CIV-386",3,0,"VI",["ICS-733", "ILI-281"],"P"],
 		["Planificación y control de Proyectos","CIV-380",3,0,"GE",["CIV-222","ICS-733"],"P"]
 	],
 	"s9": [
 		["Hormigón Armado","CIV-331",5,0,"ES",["CIV-234","CIV-251"],"I"],
 		["Hidráulica Aplicada","CIV-346",3,0,"AG",["CIV-243"],"I"],
 		["Mecánica de Suelos II","CIV-366",4,0,"SU",["CIV-261"],"I"],
-		["Diseño Geométrico y Capacidad Vial","CIV-370",3,0,"VI",["CIV-368","CIV-261"],"I"],
+		["Diseño Geométrico y Capacidad Vial","CIV-370",3,0,"VI",["CIV-386","CIV-261"],"I"],
 		["Gest. de la Calidad Total en la Cadena de Suministros","CIV-381",3,0,"GE",["CIV-380"],"I"]
 	],
 	"s10": [
