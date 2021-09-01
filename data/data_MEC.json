@@ -47,7 +47,7 @@
         ["Mecánica de Fluidos Avanzadas","MEC220",3,5,"CDI",["MEC120"],"A"],
         ["Mecánica de Máquinas","MEC353",3,6,"CDI",["MAT270","MEC252"],"I"],
         ["Transferencia de Calor","MEC230",4,6,"CDI",["MEC120"],"A"],
-        ["Fundamentos del Diseño","MEC245",3,5,"CDI",[],"A"],
+        ["Fundamentos del Diseño","MEC245",3,5,"CDI",["MEC161"],"A"],
         ["Termodinámica Aplicada","MEC210",4,5,"IA",["MEC110"],"I"],
         ["Visión Estética del QueHacer Humano","HRW103",2,3,"FG",[],"A"]
     ],
