@@ -69,7 +69,7 @@
 		["Laboratorio de Maquinas Eléctricas","ELI327",4,0,"ELI",["ELI326"],"P"],
 		["Análisis de Sistemas Eléctricos de Potencia III","ELI348",4,0,"ELI",["ELI347"],"A"],
 		["Accionamientos Eléctricos","ELI328",4,0,"ELI",["ELO270","ELI326","ELI319"],"P"],
-		["Laboratorio de Maquinas Eléctricas","ELI327",4,0,"ELI",["ELI326"],"P"],
+		["Laboratorio de Alta Tensión","ELI361",3,0,"ELI",["ELI360"],"P"],
 		["Información y Control Financiero","IWN270",3,0,"IND",["ILN270"],""]
 	],
 	"s11": [
