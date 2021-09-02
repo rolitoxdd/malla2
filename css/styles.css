@@ -167,7 +167,7 @@ sector:hover .text-white {
 }
 @supports not ((backdrop-filter: none) or (-webkit-backdrop-filter: none) ){
     .overlay, .card-sticky-top, .card-sticky-bottom {
-        background: #ffffffdd;
+        background: rgba(255, 255, 255, 0.95);
     }
     .overlay-content h3, .overlay-content h5 {
         opacity: initial;
@@ -216,7 +216,7 @@ sector:hover .text-white {
 
     @supports not ((backdrop-filter: none) or (-webkit-backdrop-filter: none) ) {
         .overlay, .card-sticky-top, .card-sticky-bottom {
-            background: #272727dd;
+            background: rgba(14, 14, 14, 0.95);
         }
         .overlay-content h3, .overlay-content h5 {
             opacity: initial;
