@@ -13,7 +13,7 @@ find js/ -regex '.*[^(?:min[0-9+)|(init)]\.js' \
 find css/ -type f \
     -name "*.css" ! -name "*.min.*" \
     -exec echo {} \; \
-    -exec npx uglifycss --output {}.min {} \; \
+    -exec npx csso --input {} --output {}.min \; \
     -exec rm {} \; \
     -exec mv -f {}.min {} \;
 
