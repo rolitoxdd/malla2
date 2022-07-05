@@ -10,7 +10,7 @@
 
 
 Proyecto Universitario open-source en donde se mantiene una plataforma web que facilita información sobre las mallas en la Universidad.
-Alojado en https://mallas.labcomp.cl/
+Alojado en https://mallas.labcomp.cl/ (actualmente caída, usar https://booterman98.github.io/malla-interactiva mientras)
 
 
 # Índice
