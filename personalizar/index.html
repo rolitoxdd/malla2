@@ -1,36 +1,38 @@
 <!DOCTYPE HTML>
 <html lang="es-CL">
+
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140369062-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'UA-140369062-1');
     gtag('config', 'G-5DNPHG462W')
   </script>
   <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-M5LWCHD');</script>
+  <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+          'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-M5LWCHD');</script>
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
   <!-- Primary Meta Tags -->
   <title>Malla interactiva | Generadora de mallas</title>
   <meta name="title" content="Malla interactiva | Generadora de mallas">
-  <meta name="description" content="Visualiza y planifica tu carrera a tu medida en la USM">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://csarman.github.io/malla-interactiva/personalizar/">
   <meta property="og:title" content="Malla interactiva | Generadora de mallas">
-  <meta property="og:description" content="Visualiza y planifica tu carrera a tu medida en la USM">
   <meta property="og:image" content="https://csarman.github.io/malla-interactiva/social-image.png">
 
   <!-- Twitter -->
@@ -40,15 +42,12 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/darkMode.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="../css/styles.css">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-  <script 
-    defer
-    src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
-    integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" 
-    crossorigin="anonymous">
-  </script>
+  <script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
+    integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous">
+    </script>
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -63,22 +62,24 @@
 
   <!--  Preload-->
   <link rel="preload" href="../js/min3.js" as="script">
-<!--  <link rel="preload" href="../data/carreras.json" as="fetch">-->
+  <!--  <link rel="preload" href="../data/carreras.json" as="fetch">-->
   <link rel="preload" href="../views/header.html" as="document">
   <link rel="preload" href="../views/footer.html" as="document">
   <link rel="preconnect" href="https://kit-free.fontawesome.com/">
 
 </head>
+
 <body class="d-flex flex-column">
   <!-- En verdad, lamento la cantidad horrorosa de divs -->
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5LWCHD"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5LWCHD" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe>
   </noscript>
   <!-- End Google Tag Manager (noscript) -->
 
 
-  <div role="alert" style="position: fixed; top: 20px; right: 20px;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+  <div role="alert" style="position: fixed; top: 20px; right: 20px;" aria-live="assertive" aria-atomic="true"
+    class="toast" data-autohide="false">
     <div class="toast-header">
       <strong class="mr-auto">Algunos ramos ya no existen en la malla</strong>
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -86,18 +87,15 @@
       </button>
     </div>
     <div class="toast-body">
-      Debido a un cambio reciente en la malla, algunos ramos no se pudieron encontrar... Se ha creado una lista con los ramos sin encontrar al final de la página
+      Debido a un cambio reciente en la malla, algunos ramos no se pudieron encontrar... Se ha creado una lista con los
+      ramos sin encontrar al final de la página
     </div>
   </div>
 
 
 
   <!-- Agregar ramo Avanzado -->
-  <div class="modal fade"
-    id="modalAdvancedSubject"
-    tabindex="-1" 
-    role="dialog" 
-    aria-labelledby="modalAdvancedSubject"
+  <div class="modal fade" id="modalAdvancedSubject" tabindex="-1" role="dialog" aria-labelledby="modalAdvancedSubject"
     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
@@ -111,7 +109,7 @@
           <div class="col-md">
             <div class="form-group">
               <label for="custom-namea">Nombre asignatura</label>
-                <input type="text" class="form-control" id="custom-namea" placeholder="Malla interactiva avanzada">
+              <input type="text" class="form-control" id="custom-namea" placeholder="Malla interactiva avanzada">
             </div>
             <div class="form-group">
               <label for="custom-siglaa">Sigla asignatura</label>
@@ -123,9 +121,9 @@
             <div class="row">
               <div class="col">
                 <div class="form-group">
-                  <label for="custom-creditsa-USM">Créditos USM</label>
-                  <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-creditsa-USM" required pattern="[1-9]+" placeholder="Ingrese un valor">
-                  <small id="custom-creditsa-USM-help" class="form-text text-muted">
+                  <input type="number" inputmode="numerical" autocomplete="off" class="form-control"
+                    id="custom-creditsa-UDP" required pattern="[1-9]+" placeholder="Ingrese un valor">
+                  <small id="custom-creditsa-UDP-help" class="form-text text-muted">
                     Obligatorio
                   </small>
                 </div>
@@ -133,9 +131,10 @@
               <div class="col">
                 <div class="form-group">
                   <label for="custom-creditsa-SCT">Créditos SCT</label>
-                  <input type="number" inputmode="numerical" autocomplete="off" placeholder="Ingrese un valor" class="form-control" id="custom-creditsa-SCT" pattern="[1-9]+">
+                  <input type="number" inputmode="numerical" autocomplete="off" placeholder="Ingrese un valor"
+                    class="form-control" id="custom-creditsa-SCT" pattern="[1-9]+">
                   <small id="custom-creditsa-SCT-help" class="form-text text-muted">
-                    Si esta entrada no se llena, los créditos se calcularan con relación a los créditos USM
+                    Si esta entrada no se llena, los créditos se calcularan con relación a los créditos UDP
                   </small>
                 </div>
 
@@ -187,14 +186,10 @@
       </div>
     </div>
   </div>
-<!-- fin ramo Avanzado -->
+  <!-- fin ramo Avanzado -->
 
   <!-- Agregar ramo personalizado -->
-  <div class="modal fade"
-    id="modalCreateSubject" 
-    tabindex="-1" 
-    role="dialog" 
-    aria-labelledby="CreateSubject"
+  <div class="modal fade" id="modalCreateSubject" tabindex="-1" role="dialog" aria-labelledby="CreateSubject"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -207,12 +202,8 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="custom-name">Nombre asignatura</label>
-              <input type="text"
-                class="form-control" 
-                id="custom-name"
-                     autocomplete="off"
-                placeholder="Introducción a la malla interactiva"
-                required>
+            <input type="text" class="form-control" id="custom-name" autocomplete="off"
+              placeholder="Introducción a la malla interactiva" required>
           </div>
           <div class="form-group">
             <label for="custom-sigla">Sigla asignatura</label>
@@ -222,30 +213,33 @@
             </small>
           </div>
           <div class="form-group">
-            <label for="custom-credits-USM">Créditos USM</label>
-            <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-USM" required pattern="[1-9]+" placeholder="Ingrese un valor">
-            <small id="custom-credits-USM-help" class="form-text text-muted">
+            <label for="custom-credits-UDP">Créditos UDP</label>
+            <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-UDP"
+              required pattern="[1-9]+" placeholder="Ingrese un valor">
+            <small id="custom-credits-UDP-help" class="form-text text-muted">
               Obligatorio
             </small>
           </div>
           <div class="form-group">
             <label for="custom-credits-SCT">Créditos SCT</label>
-            <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-SCT" pattern="[1-9]+" placeholder="Ingrese un valor">
+            <input type="number" inputmode="numerical" autocomplete="off" class="form-control" id="custom-credits-SCT"
+              pattern="[1-9]+" placeholder="Ingrese un valor">
             <small id="custom-credits-SCT-help" class="form-text text-muted">
-              Si esta entrada no se llena, los créditos se calcularan con relación a los créditos USM
+              Si esta entrada no se llena, los créditos se calcularan con relación a los créditos UDP
             </small>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" id="createSubject" data-dismiss="modal" class="btn btn-primary button-create-subject">Agregar</button>
+          <button type="button" id="createSubject" data-dismiss="modal"
+            class="btn btn-primary button-create-subject">Agregar</button>
         </div>
       </div>
     </div>
   </div>
-<!-- fin ramo personalizado -->
+  <!-- fin ramo personalizado -->
 
-<!-- Instrucciones de uso -->
+  <!-- Instrucciones de uso -->
   <div class="modal fade" id="instructions" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
@@ -258,28 +252,50 @@
         <div class="modal-body ">
           <h3>Como Usar la Generadora</h3>
           <div class="text-center">
-            <svg><use href="#subjectExample" style="cursor: default"></use> </svg>
+            <svg>
+              <use href="#subjectExample" style="cursor: default"></use>
+            </svg>
           </div>
-          <p>Selecciona una asignatura de la malla para que quede registrada en el semestre indicado. Puedes pulsar el semestre en la malla para agregar todos los ramos de dicho semestre a la calculadora</p>
-          <p>Usa las flechas <span class="btn-card btn btn-primary disabled"><i class="fas fa-arrow-left"></i></span> <span class="btn-card btn btn-primary disabled"><i class="fas fa-arrow-right"></i></span>
-            para cambiar de semestre. Una vez que termines de configurar la malla, usa <span class="btn-card btn btn-primary disabled">Generar</span> para poder ver la malla resultante</p>
-          <p> Con el botón <span class="btn-card btn btn-secondary disabled">Editar</span> puedes cambiar información sobre la asignatura en cuestión.
-            Tome nota que si decide cambiar los créditos de la asignatura, al editar los créditos USM, se cambiaran también los SCT a menos que
-            estos tengan un valor individual. Esto no sucede en sentido contrario. La información nueva se mostrará en la generadora y en la tabla de Asignaturas,
-          pero no en la malla. </p>
-          <p>Las asignaturas que han sido editadas o no pertenecen a la malla se encuentran en la tabla de "Asignaturas fuera de la malla oficial / editados".
-          Ahí podrás seleccionarlos, editarlos, eliminarlos/restaurarlos y ver información de estos. Al crear un ramo, existen dos opciones,
-            <span class="btn-card btn btn-secondary disabled">Agregar Asignatura</span> y <span class="btn-card btn btn-secondary disabled">Agregar asignatura avanzada</span>.
-          Usa la opción simple para crear asignaturas de manera rápida, llenando solamente el nombre, sigla y créditos. La opción avanzada te permite
-          además seleccionar su categoría y los prerrequisitos. Estas mismas opciones, a excepción de la sigla, se pueden modificar con el botón <span class="btn-card btn btn-secondary disabled">Editar</span>.
-          La opción de eliminar asignaturas solo está disponible para los ramos no oficiales, para los oficiales esta la opción de restaurar. Esta opción permite
-            devolver la asignatura a su estado original, reagregando su categoría si esta se eliminó en algún momento.</p>
-          <p>Por último, la tabla de categorías te permite agregar, quitar y cambiar categorías según se necesite. Para ello, solo se necesita pulsar en
-          <span class="list-group-item list-group-item-action">¡Agrega una categoría!</span> y llenar el nombre, abreviatura y seleccionar el color, para editar y quitar
-          la categoría, basta con hacer click en la misma categoría y cambiar los datos o pulsar el botón <span class="btn-card btn btn-danger disabled">Eliminar</span>.
-          Toma en cuenta que al eliminar una categoría, todas las asignaturas asociadas a esa categoría se les asignara la categoría "Fuera de la malla | editado" se mostraran
-          en la tabla de asignaturas</p>
-          <p class="text-muted">Mini truco: Su pulsas generar sin haber seleccionado ningún ramo o después de pulsar "Restablecer Malla", la malla generada es la malla oficial</p>
+          <p>Selecciona una asignatura de la malla para que quede registrada en el semestre indicado. Puedes pulsar el
+            semestre en la malla para agregar todos los ramos de dicho semestre a la calculadora</p>
+          <p>Usa las flechas <span class="btn-card btn btn-primary disabled"><i class="fas fa-arrow-left"></i></span>
+            <span class="btn-card btn btn-primary disabled"><i class="fas fa-arrow-right"></i></span>
+            para cambiar de semestre. Una vez que termines de configurar la malla, usa <span
+              class="btn-card btn btn-primary disabled">Generar</span> para poder ver la malla resultante
+          </p>
+          <p> Con el botón <span class="btn-card btn btn-secondary disabled">Editar</span> puedes cambiar información
+            sobre la asignatura en cuestión.
+            Tome nota que si decide cambiar los créditos de la asignatura, al editar los créditos UDP, se cambiaran
+            también los SCT a menos que
+            estos tengan un valor individual. Esto no sucede en sentido contrario. La información nueva se mostrará en
+            la generadora y en la tabla de Asignaturas,
+            pero no en la malla. </p>
+          <p>Las asignaturas que han sido editadas o no pertenecen a la malla se encuentran en la tabla de "Asignaturas
+            fuera de la malla oficial / editados".
+            Ahí podrás seleccionarlos, editarlos, eliminarlos/restaurarlos y ver información de estos. Al crear un ramo,
+            existen dos opciones,
+            <span class="btn-card btn btn-secondary disabled">Agregar Asignatura</span> y <span
+              class="btn-card btn btn-secondary disabled">Agregar asignatura avanzada</span>.
+            Usa la opción simple para crear asignaturas de manera rápida, llenando solamente el nombre, sigla y
+            créditos. La opción avanzada te permite
+            además seleccionar su categoría y los prerrequisitos. Estas mismas opciones, a excepción de la sigla, se
+            pueden modificar con el botón <span class="btn-card btn btn-secondary disabled">Editar</span>.
+            La opción de eliminar asignaturas solo está disponible para los ramos no oficiales, para los oficiales esta
+            la opción de restaurar. Esta opción permite
+            devolver la asignatura a su estado original, reagregando su categoría si esta se eliminó en algún momento.
+          </p>
+          <p>Por último, la tabla de categorías te permite agregar, quitar y cambiar categorías según se necesite. Para
+            ello, solo se necesita pulsar en
+            <span class="list-group-item list-group-item-action">¡Agrega una categoría!</span> y llenar el nombre,
+            abreviatura y seleccionar el color, para editar y quitar
+            la categoría, basta con hacer click en la misma categoría y cambiar los datos o pulsar el botón <span
+              class="btn-card btn btn-danger disabled">Eliminar</span>.
+            Toma en cuenta que al eliminar una categoría, todas las asignaturas asociadas a esa categoría se les
+            asignara la categoría "Fuera de la malla | editado" se mostraran
+            en la tabla de asignaturas
+          </p>
+          <p class="text-muted">Mini truco: Su pulsas generar sin haber seleccionado ningún ramo o después de pulsar
+            "Restablecer Malla", la malla generada es la malla oficial</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -290,50 +306,43 @@
   <!-- fin instrucciones -->
 
   <!-- Sector Modal -->
-  <div class="modal fade"
-  id="createSectorModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="createSectorModal"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="sectorTitle"> <span id="catTitle">Añadir</span> categoría</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="cat-name">Nombre categoría</label>
-            <input type="text"
-              class="form-control"
-              id="cat-name"
-              placeholder="Ingeniería de mallas interactivas">
+  <div class="modal fade" id="createSectorModal" tabindex="-1" role="dialog" aria-labelledby="createSectorModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="sectorTitle"> <span id="catTitle">Añadir</span> categoría</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="form-group">
-          <label for="small-cat-name">Abreviatura de la categoría</label>
-          <input type="text" class="form-control" id="small-cat-name" placeholder="IMI">
-          <small class="form-text text-muted">
-            Tiene que ser unico y sin espacios. Nunca lo veras en la malla, pero para la página es útil
-          </small>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="cat-name">Nombre categoría</label>
+            <input type="text" class="form-control" id="cat-name" placeholder="Ingeniería de mallas interactivas">
+          </div>
+          <div class="form-group">
+            <label for="small-cat-name">Abreviatura de la categoría</label>
+            <input type="text" class="form-control" id="small-cat-name" placeholder="IMI">
+            <small class="form-text text-muted">
+              Tiene que ser unico y sin espacios. Nunca lo veras en la malla, pero para la página es útil
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="cat-color">Color de categoría</label>
+            <input type="color" class="form-control" id="cat-color" placeholder="#888">
+            <small class="form-text text-muted">
+              Selecciona el color que quieres para esta categoría
+            </small>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="cat-color">Color de categoría</label>
-          <input type="color" class="form-control" id="cat-color" placeholder="#888">
-          <small class="form-text text-muted">
-            Selecciona el color que quieres para esta categoría
-          </small>
+        <div class="modal-footer">
+          <button type="button" id="sectorDeleteButton" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+          <button type="button" id="sectorCancelButton" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" id="sectorDoneButton" class="btn btn-primary" data-dismiss="modal">Agregar</button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="sectorDeleteButton" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
-        <button type="button" id="sectorCancelButton" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" id="sectorDoneButton" class="btn btn-primary" data-dismiss="modal">Agregar</button>
       </div>
     </div>
-  </div>
   </div>
   <!-- Sector Modal END -->
 
@@ -344,7 +353,7 @@
         <div class="row justify-content-center  align-items-center">
           <div class="col col-md-8 col-xl-6 text-center">
             <h1>¡Bienvenido!</h1>
-            <svg  class="py-3 pt-md-5 pb-md-2" style="min-height: 100px" >
+            <svg class="py-3 pt-md-5 pb-md-2" style="min-height: 100px">
               <use href="#subjectExample"></use>
             </svg>
 
@@ -356,7 +365,8 @@
                 <i class="fas fa-arrow-right"></i>
               </div>
             </div>
-            <h5 style="max-width: 500px" class="mx-auto">Si alcanzas a leer este texto, seguramente la malla aún esta cargando u ocurrió un problema y tienes que refrescar la página...</h5>
+            <h5 style="max-width: 500px" class="mx-auto">Si alcanzas a leer este texto, seguramente la malla aún esta
+              cargando u ocurrió un problema y tienes que refrescar la página...</h5>
           </div>
         </div>
       </div>
@@ -367,7 +377,7 @@
   <!-- Header -->
   <header data-include="header"></header>
   <!-- Header END -->
-    
+
 
 
 
@@ -382,104 +392,103 @@
       <!-- Calculadora -->
       <div class="col-sm-auto order-xl-2 order-4">
         <form id="priorix" class="d-flex flex-column">
-        <div class="card flex-fill">
-          <div class="card-header">
-            <div class="row no-gutters">
-              <div class="col align-self-center">
-                <h4 class="text-center align-middle mb-0">
-                  Generadora de mallas
-                </h4>
-              </div>
-              <div class="col-auto">
-                <button  class="btn btn-secondary" data-toggle="modal" data-target="#instructions" type="button"><i class="fas fa-question"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="card-body p-0">
-            <div class="card-sticky-top">
-              <div class="row no-gutters justify-content-center">
-                <div class="col-12 py-2 justify-content-center text-center">
-                  <div class="badge badge-info text-left" style="font-size: small">
-                    Asignaturas del semestre Nº <span id="semester"></span>
-                  </div>
+          <div class="card flex-fill">
+            <div class="card-header">
+              <div class="row no-gutters">
+                <div class="col align-self-center">
+                  <h4 class="text-center align-middle mb-0">
+                    Generadora de mallas
+                  </h4>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-secondary" data-toggle="modal" data-target="#instructions" type="button"><i
+                      class="fas fa-question"></i></button>
                 </div>
               </div>
             </div>
-            <!-- Aqui van los ramos seleccionados -->
-            <div class="subjectContainer d-flex flex-column">
-              <ul class="subjects p-3"></ul>
+            <div class="card-body p-0">
+              <div class="card-sticky-top">
+                <div class="row no-gutters justify-content-center">
+                  <div class="col-12 py-2 justify-content-center text-center">
+                    <div class="badge badge-info text-left" style="font-size: small">
+                      Asignaturas del semestre Nº <span id="semester"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Aqui van los ramos seleccionados -->
+              <div class="subjectContainer d-flex flex-column">
+                <ul class="subjects p-3"></ul>
 
-              <div class="card-text flex-fill d-flex flex-column text-center text-muted">
-                <p class="no-subjects my-auto">
-                  No hay ninguna asignatura seleccionada
-                </p>
+                <div class="card-text flex-fill d-flex flex-column text-center text-muted">
+                  <p class="no-subjects my-auto">
+                    No hay ninguna asignatura seleccionada
+                  </p>
+                </div>
+
               </div>
 
-            </div>
+              <div class="mt-auto card-sticky-bottom">
+                <hr class="w-100 mt-auto mb-0">
+                <div class="text-muted mb-0 text-center py-1 px-3 px-xl-1 w-100">
+                  <small class="mb-0">
+                    ¿La asignatura que quieres no esta en la malla? ¡Usa la <a data-scroll
+                      href="#unoficialSubjects">tabla de abajo</a>!
+                  </small>
+                  <small class="mb-0"> ¿Te faltan categorías? ¡Creala <a data-scroll
+                      href="#categories">abajo</a>!</small><br>
+                  <small class="mb-0">Usa las flechas para cambiar de semestre</small>
+                </div>
 
-            <div class="mt-auto card-sticky-bottom">
-            <hr class="w-100 mt-auto mb-0">
-            <div class="text-muted mb-0 text-center py-1 px-3 px-xl-1 w-100">
-              <small class="mb-0">
-                ¿La asignatura que quieres no esta en la malla? ¡Usa la <a data-scroll href="#unoficialSubjects">tabla de abajo</a>!
-              </small>
-              <small class="mb-0"> ¿Te faltan categorías? ¡Creala <a data-scroll href="#categories">abajo</a>!</small><br>
-              <small class="mb-0">Usa las flechas para cambiar de semestre</small>
-            </div>
-
-            </div>
-          </div>
-          <div class="card-footer  px-3">
-            <!-- Botones para cambiar semestre y calcular prioridad -->
-            <div class="row no-gutters align-items-center justify-content-between">
-              <div class="col-2 text-left">
-                <button id="back" type="button" class="btn-card btn btn-primary disabled" disabled="disabled">
-                  <i class="fas fa-arrow-left"></i>
-                </button>
               </div>
-              <div class="col-5 col-sm-8">
-                <div class="row justify-content-center no-gutters">
-                  <div class="btn-group" role="group">
-                    <a
-                            id="generate"
-                            href="#"
-                            class="action btn btn-info btn-card">
-                      Generar
-                    </a>
-                    <button type="reset" id="reset" class="btn btn-danger btn-card">
-                      Limpiar Semestre
+            </div>
+            <div class="card-footer  px-3">
+              <!-- Botones para cambiar semestre y calcular prioridad -->
+              <div class="row no-gutters align-items-center justify-content-between">
+                <div class="col-2 text-left">
+                  <button id="back" type="button" class="btn-card btn btn-primary disabled" disabled="disabled">
+                    <i class="fas fa-arrow-left"></i>
+                  </button>
+                </div>
+                <div class="col-5 col-sm-8">
+                  <div class="row justify-content-center no-gutters">
+                    <div class="btn-group" role="group">
+                      <a id="generate" href="#" class="action btn btn-info btn-card">
+                        Generar
+                      </a>
+                      <button type="reset" id="reset" class="btn btn-danger btn-card">
+                        Limpiar Semestre
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <button id="resetc" type="button" class="btn btn-danger btn-card mt-1">
+                      Restablecer Malla
                     </button>
                   </div>
                 </div>
-                <div class="row justify-content-center">
-                  <button id="resetc" type="button" class="btn btn-danger btn-card mt-1">
-                    Restablecer Malla
+                <div class="col-2 text-right">
+                  <button id="forward" type="button" class="btn btn-primary btn-card">
+                    <i class="fas fa-arrow-right"></i>
                   </button>
                 </div>
               </div>
-              <div class="col-2 text-right">
-                <button id="forward" type="button" class="btn btn-primary btn-card">
-                  <i class="fas fa-arrow-right"></i>
-                </button>
-              </div>
             </div>
+            <!-- Fin botones -->
           </div>
-          <!-- Fin botones -->
-        </div>
-      </form>
+        </form>
       </div>
-        <!-- Fin calculadora -->
-        <div class='col-12 col-xl-10 order-2 order-xl-3 color-description'></div>
-        <div class="col-12 my-3 order-xl-4 order-3 text-center">
-          <h5>Mostrando créditos <span id="credits-system"></span></h5>
-          <button id="credit-system" type="button" onclick="changeCreditsSystem()" class="btn btn-secondary"> Cambiar sistema de créditos </button>
-        </div>
+      <!-- Fin calculadora -->
+      <div class='col-12 col-xl-10 order-2 order-xl-3 color-description'></div>
+      <div class="col-12 my-3 order-xl-4 order-3 text-center">
+        <h5><span id="credits-system"></span></h5>
       </div>
+    </div>
     <div id="unoficialSubjects" class="row justify-content-center mt-5">
       <!-- Inicio Tabla fuera de malla -->
       <div class="col-lg-auto">
         <div class="card">
-          <div  class="card-header">
+          <div class="card-header">
             <h3 class="card-title">Asignaturas fuera de la malla / editados</h3>
           </div>
           <div class="table-responsive">
@@ -500,24 +509,15 @@
             </table>
           </div>
           <div class="card-footer">
-            <button 
-              type="button" 
-              data-toggle="modal" 
-              data-target="#modalCreateSubject"  
+            <button type="button" data-toggle="modal" data-target="#modalCreateSubject"
               class="btn btn-primary btn-sm button-create-subject">
               Agregar asignatura
             </button>
-            <button 
-              type="button" 
-              data-toggle="modal" 
-              data-target="#modalAdvancedSubject"
+            <button type="button" data-toggle="modal" data-target="#modalAdvancedSubject"
               class="btn btn-primary btn-sm button-advanced-subject">
               Agregar asignatura avanzada
             </button>
-            <button
-              id="deleteSubjects"
-              type="button"
-              class="btn btn-danger btn-sm">
+            <button id="deleteSubjects" type="button" class="btn btn-danger btn-sm">
               Limpiar Tabla
             </button>
           </div>
@@ -534,17 +534,15 @@
           </div>
           <div class="card-body">
             <div id="sectors" class="list-group text-center">
-              <button type="button" id="showCatModal" data-toggle="modal" data-target="#createSectorModal" class="list-group-item list-group-item-action">¡Agrega una categoría!</button>
+              <button type="button" id="showCatModal" data-toggle="modal" data-target="#createSectorModal"
+                class="list-group-item list-group-item-action">¡Agrega una categoría!</button>
               <!-- Aqui van los sectores -->
             </div>
           </div>
           <div class="card-footer py-1">
 
             <div class="small text-muted">Has click en una de las categorías para editarla</div>
-            <button
-                    id="deleteCategories"
-                    type="button"
-                    class="btn align-self-center btn-danger my-2">
+            <button id="deleteCategories" type="button" class="btn align-self-center btn-danger my-2">
               Limpiar categorías
             </button>
 
@@ -555,12 +553,13 @@
     <div id="deletedCard" class="row justify-content-center mt-5 d-none">
       <div class="col-sm-5 col-lg-3">
         <div class="card">
-          <div  class="card-header">
+          <div class="card-header">
             <h3 class="card-title">Asignaturas Eliminadas</h3>
           </div>
           <div id="deletedSubjects" class="card-body">
             <small class="text-muted">
-              Nota: Guarda esta lista en otro lugar si quieres tener un respaldo, es posible que no puedas volver a ver esta lista o algunos de los contenidos
+              Nota: Guarda esta lista en otro lugar si quieres tener un respaldo, es posible que no puedas volver a ver
+              esta lista o algunos de los contenidos
             </small>
           </div>
         </div>
@@ -572,35 +571,86 @@
 
   <!-- Main END -->
   <!-- Footer -->
-  <footer data-include="footer" class="container-fluid text-center mt-3">        
+  <footer data-include="footer" class="container-fluid text-center mt-3">
   </footer>
   <!-- Footer END -->
 
   <!-- svg ramo -->
   <div class="d-none">
-    <svg id="subjectExample" xmlns="http://www.w3.org/2000/svg" width="300" height="100"   font-family="  -apple-system,   BlinkMacSystemFont,   &quot;Segoe UI&quot;,   &quot;Roboto&quot;,   &quot;Helvetica Neue&quot;, Arial, sans-serif,   &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;">
+    <svg id="subjectExample" xmlns="http://www.w3.org/2000/svg" width="300" height="100"
+      font-family="  -apple-system,   BlinkMacSystemFont,   &quot;Segoe UI&quot;,   &quot;Roboto&quot;,   &quot;Helvetica Neue&quot;, Arial, sans-serif,   &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;">
       <style type="text/css">
         .bars {
           fill: grey;
         }
+
         .text {
           fill: black;
         }
+
         .line {
           stroke: black;
         }
+
         @media(prefers-color-scheme: dark) {
           .bars {
             fill: #404040;
           }
+
           .text {
             fill: white;
           }
+
           .line {
             stroke: white;
           }
         }
-      </style><style><![CDATA[.D{dominant-baseline:middle}.E{font-size:12px}.F{text-anchor:middle}]]></style><path fill="#FDDE15" d="M100 0h100v100H100z"/><path d="M100 0h100v20H100zm0 80h100v20H100z" class="bars" fill="gray"/><circle cx="190" cy="10" r="8" fill="#fff" fill-rule="evenodd"/><circle cy="90" cx="115" r="9" fill="#2e58a7" stroke="#fff"/><path d="M178 80h20v20h-20z" fill="#fff"/><text xml:space="preserve" x="190" y="10" writing-mode="lr-tb" direction="ltr" class="D E F"><tspan x="190" y="10" class="D">3</tspan></text><text xml:space="preserve" x="188" y="90" class="D E F"><tspan id="creditsNumberExample" x="187.639" y="90" class="D">2</tspan></text><text xml:space="preserve" x="115" y="90" fill="#fff" class="D E F"><tspan x="114.979" y="90.391" class="D">1</tspan></text><text xml:space="preserve" x="105" y="10" font-weight="bold" letter-spacing="0" fill="#fff" class="D E"><tspan x="105" y="10" class="D">INF-103</tspan></text><text xml:space="preserve" x="150" y="40" fill="#000" class="E F"><tspan x="150" y="40" class="D">Análisis y</tspan><tspan x="150" y="53.2" class="D">Diseño</tspan><tspan x="150" y="66.4" class="D">de Mallas</tspan></text><text xml:space="preserve" x="92.465" y="11.742" text-anchor="end" class="E text"><tspan x="92.465" y="11.742">Sigla</tspan><tspan x="92.465" y="26.742">Asignatura</tspan></text><text xml:space="preserve" x="209.197" y="16.86" class="E text"><tspan x="209.197" y="16.86">Número</tspan><tspan x="209.197" y="31.86">asignatura</tspan></text><text xml:space="preserve" x="209.326" y="89.117" class="E text"><tspan id="creditsExample" x="209.326" y="89.117">Créditos USM</tspan></text><text xml:space="preserve" x="47.622" y="93.323" class="E F text"><tspan x="47.622" y="93.323">Prerrequisitos</tspan></text><path d="M94 9.4h9m91 2.6h14m-17 75h17m-100 3H92" class="line" stroke="#000"/></svg>
+      </style>
+      <style>
+        <![CDATA[
+        .D {
+          dominant-baseline: middle
+        }
+
+        .E {
+          font-size: 12px
+        }
+
+        .F {
+          text-anchor: middle
+        }
+        ]]>
+      </style>
+      <path fill="#FDDE15" d="M100 0h100v100H100z" />
+      <path d="M100 0h100v20H100zm0 80h100v20H100z" class="bars" fill="gray" />
+      <circle cx="190" cy="10" r="8" fill="#fff" fill-rule="evenodd" />
+      <circle cy="90" cx="115" r="9" fill="#2e58a7" stroke="#fff" />
+      <path d="M178 80h20v20h-20z" fill="#fff" /><text xml:space="preserve" x="190" y="10" writing-mode="lr-tb"
+        direction="ltr" class="D E F">
+        <tspan x="190" y="10" class="D">3</tspan>
+      </text><text xml:space="preserve" x="188" y="90" class="D E F">
+        <tspan id="creditsNumberExample" x="187.639" y="90" class="D">2</tspan>
+      </text><text xml:space="preserve" x="115" y="90" fill="#fff" class="D E F">
+        <tspan x="114.979" y="90.391" class="D">1</tspan>
+      </text><text xml:space="preserve" x="105" y="10" font-weight="bold" letter-spacing="0" fill="#fff" class="D E">
+        <tspan x="105" y="10" class="D">INF-103</tspan>
+      </text><text xml:space="preserve" x="150" y="40" fill="#000" class="E F">
+        <tspan x="150" y="40" class="D">Análisis y</tspan>
+        <tspan x="150" y="53.2" class="D">Diseño</tspan>
+        <tspan x="150" y="66.4" class="D">de Mallas</tspan>
+      </text><text xml:space="preserve" x="92.465" y="11.742" text-anchor="end" class="E text">
+        <tspan x="92.465" y="11.742">Sigla</tspan>
+        <tspan x="92.465" y="26.742">Asignatura</tspan>
+      </text><text xml:space="preserve" x="209.197" y="16.86" class="E text">
+        <tspan x="209.197" y="16.86">Número</tspan>
+        <tspan x="209.197" y="31.86">asignatura</tspan>
+      </text><text xml:space="preserve" x="209.326" y="89.117" class="E text">
+        <tspan id="creditsExample" x="209.326" y="89.117">Créditos UDP</tspan>
+      </text><text xml:space="preserve" x="47.622" y="93.323" class="E F text">
+        <tspan x="47.622" y="93.323">Prerrequisitos</tspan>
+      </text>
+      <path d="M94 9.4h9m91 2.6h14m-17 75h17m-100 3H92" class="line" stroke="#000" />
+    </svg>
   </div>
   <!-- fin svg ramo -->
 
@@ -608,7 +658,7 @@
   <script src='https://d3js.org/d3.v5.min.js'></script>
   <script defer src='../js/min3.js'></script>
 
-  <!-- Smooth scroll --> 
+  <!-- Smooth scroll -->
   <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
   <script type="text/template" data-template="tab-template1">
     <li>
@@ -629,11 +679,11 @@
         .classed('btn-group-sm', true)
       // .classed('btn-group-vertical', true)
     }
-      d3.select('#resetc').classed('btn-sm', true)
-      // .classed('btn-group', false);
+    d3.select('#resetc').classed('btn-sm', true)
+    // .classed('btn-group', false);
     function handleOrientationChange(mql) {
-        d3.select('.btn-group')
-          .classed('btn-group-sm', true)
+      d3.select('.btn-group')
+        .classed('btn-group-sm', true)
       if (mql.matches) {
         // .classed('btn-group-vertical', true)
         // .classed('btn-group', false);
@@ -661,4 +711,5 @@
     }
   </script>
 </body>
+
 </html>

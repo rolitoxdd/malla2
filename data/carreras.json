@@ -2,5 +2,9 @@
   {
     "Nombre": "Ing. Civil Informática",
     "Link": "INF"
+  },
+  {
+    "Nombre": "Ing. Civil Industrial",
+    "Link": "IND"
   }
 ]

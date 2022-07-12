@@ -22,7 +22,7 @@ Alojado en https://mallas.labcomp.cl/ (actualmente caída, usar https://booterma
 6. [Agradecimientos](#Agradecimientos)
 
 # Características de la malla
-- Visualiza los créditos de las asignaturas según el sistema **USM** o **SCT** 
+- Visualiza los créditos de las asignaturas según el sistema **UDP** o **SCT** 
 - Selecciona asignaturas para aprobarlas, a medida que vayas aprobando más ramos, podrás ver que ramos
   se desbloquean.
 - Calcula tu prioridad. Puedes calcularla basado en ambos sistemas de créditos.  
@@ -71,9 +71,9 @@ En donde
 `s2` Corresponde al semestre, en este caso, Semestre II. `s2` contiene una lista de ramos, donde cada ramo tiene 7 items en el siguiente orden:
 1. ***Ramo***: El nombre completo del ramo.
 2. ***Sigla***: Sigla del ramo. **Única** para cada ramo, no se puede repetir y no puede contener espacios. Se pide seguir el formato `sigla-número`
-3. ***Créditos USM***: Entero, la cantidad de créditos USM.
+3. ***Créditos UDP***: Entero, la cantidad de créditos UDP.
 4. ***Créditos SCT***: Entero, la cantidad de créditos SCT. Si su valor es `0`, se calcula
-   basándose en los créditos USM
+   basándose en los créditos UDP
 5. ***Categoría***: Categoría del ramo al que pertenece (por ejemplo, *PC*: Plan Común), se deben agregar ó editar en el json `colors_CARR.json`.
 6. ***Prerrequisitos***: Una lista de strings que contiene las siglas de los prerrequisitos del ramo. **Es importante
    que la sigla ya exista en semestres anteriores**, de lo contrario podría fallar. Esta lista es opcional.
