@@ -1,0 +1,30 @@
+{
+	"PC": [
+		"#7CEEEE",
+		"Ciencias Basicas"
+	],
+	"FI": [
+		"#BDBDBD",
+		"Informática"
+	],
+	"TIN": [
+		"#EEB17C",
+		"Transversal"
+	],
+	"SD": [
+		"#7CEEA8",
+		"Ciencias de la Ingenieria"
+	],
+	"TIC": [
+		"#C7A0D4",
+		"Telecomunicaciones"
+	],
+	"AN": [
+		"#FF6961",
+		"Proyectos e Integracion"
+	],
+	"ELEC": [
+		"#F6A7C1",
+		"Titulacion"
+	]
+}
