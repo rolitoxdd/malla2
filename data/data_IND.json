@@ -40,7 +40,7 @@
     ["Inferencia Estadística", "CII-2751", 6, "SD", ["CBE-2000"]],
     ["Mecanica de Fluidos", "CII-2401", 6, "SD", ["CII-2250", "CBF-1002"]],
     ["Optimizacion", "CII-2750", 6, "SD", ["CBM-1002", "CBM-1006"]],
-    ["Teoría Organizacional", "CII-1001", 6, ["FIC-1000"]],
+    ["Teoría Organizacional", "CII-1001", 6, "SD",["FIC-1000"]],
     ["CFG", "CFG-4", 5, "TIN"],
     ["Ingles III", "CIG-1014", 5, "TIN", ["CIG-1013"]]
   ],
