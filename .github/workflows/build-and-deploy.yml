@@ -15,10 +15,10 @@ jobs:
         run: npm install
       - name: build
         run: npm run devBuild
-      - name: Deploy to malla2.surge.sh
+      - name: Deploy to malla-fic.surge.sh
         uses: dswistowski/surge-sh-action@v1
         with:
-          domain: 'malla2.surge.sh'
+          domain: 'malla-fic.surge.sh'
           project: '.'
           login: ${{ secrets.SURGE_LOGIN }}
           token: ${{ secrets.SURGE_TOKEN }}
