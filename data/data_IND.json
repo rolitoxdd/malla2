@@ -49,7 +49,7 @@
     ["Termodinamica", "CII-2402", 6, "SD", ["CII-2401", "CBF-1001"]],
     ["Modelos Estocásticos", "CII-2755", 6, "SD", ["CBE-2000", "CII-2750"]],
     ["Microeconomia", "CII-2101", 6, "SD", ["CII-2100", "CII-2750"]],
-    ["Ingenieria Economica", "CII-2002", 6, "AN", ["CII1000"]]
+    ["Ingenieria Economica", "CII-2002", 6, "AN", ["CII-1000"]]
   ],
   "s7": [
     ["Econometria", "CII-2656", 6, "AN", ["CII-2751", "CII-2101"]],
