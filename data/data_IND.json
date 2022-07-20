@@ -74,7 +74,7 @@
       "Liderazgo y Emprendimiento",
       "CII-3101",
       6,
-      "FI",
+      "AN",
       ["CII-2103", "CII-2004"]
     ],
     ["Practica Profesional II", "ICI-5022", 7, "ELEC", ["ICI-5011"]]
@@ -84,6 +84,6 @@
     ["Electivo Profesional", "CII-34XY", 6, "AN"],
     ["Electivo Profesional", "CII-35XY", 6, "AN"],
     ["Electivo Profesional", "CII-36XY", 6, "AN"],
-    ["Taller de Ing. Industrial", "CII-3102", 7, "FI", ["CII-2004"]]
+    ["Taller de Ing. Industrial", "CII-3102", 7, "AN", ["CII-2004"]]
   ]
 }
